@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="compact_style"
+version="1.2.0"
+displayName="Compact Style"
+description='''
+Combat styles for Epic Fight: Classic (overpowered fist) and Muay Thai gloves.
+'''
+
+[[dependencies.compact_style]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.compact_style]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.compact_style]]
+modId="epicfight"
+mandatory=true
+versionRange="[20.14.17,)"
+ordering="AFTER"
+side="BOTH"
