@@ -1,5 +1,8 @@
 name: Build jar
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [main]
@@ -23,3 +26,10 @@ jobs:
         with:
           name: compact_style-jar
           path: build/libs/*.jar
+      - name: Publish jar to Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest-jar --yes --cleanup-tag || true
+          JAR=$(ls build/libs/*.jar | grep -v -- '-sources' | head -1)
+          gh release create latest-jar "$JAR" --title "Compact Style jar" --notes "Built automatically from main."
