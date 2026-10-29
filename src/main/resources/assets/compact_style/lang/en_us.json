@@ -3,5 +3,12 @@
   "item.compact_style.classic": "Classic",
   "item.compact_style.muaythai_gloves": "Muay Thai Gloves",
   "item.compact_style.chinese_style": "Chinese Style",
-  "item.compact_style.taekwondo_style": "Taekwondo Style"
+  "item.compact_style.taekwondo_style": "Taekwondo Style",
+  "item.compact_style.capoeira_style": "Capoeira Style",
+  "item.compact_style.judo_style": "Judo Style",
+  "item.compact_style.bjj_style": "Brazilian Jiu-Jitsu Style",
+  "item.compact_style.kickboxing_style": "Kickboxing Style",
+  "item.compact_style.jkd_style": "Jeet Kune Do Style",
+  "item.compact_style.sanda_style": "Sanda Style",
+  "item.compact_style.kyokushin_style": "Kyokushin Karate Style"
 }

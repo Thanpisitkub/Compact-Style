@@ -3,5 +3,12 @@
   "item.compact_style.classic": "คลาสสิค",
   "item.compact_style.muaythai_gloves": "ถุงมือมวยไทย",
   "item.compact_style.chinese_style": "สไตล์จีน",
-  "item.compact_style.taekwondo_style": "สไตล์เทควันโด"
+  "item.compact_style.taekwondo_style": "สไตล์เทควันโด",
+  "item.compact_style.capoeira_style": "สไตล์คาโปเอร่า",
+  "item.compact_style.judo_style": "สไตล์ยูโด",
+  "item.compact_style.bjj_style": "สไตล์บราซิลเลียนยิวยิตสู",
+  "item.compact_style.kickboxing_style": "สไตล์คิกบ็อกซิ่ง",
+  "item.compact_style.jkd_style": "สไตล์ Jeet Kune Do",
+  "item.compact_style.sanda_style": "สไตล์ซานดา",
+  "item.compact_style.kyokushin_style": "สไตล์เคียวคุชินคาราเต้"
 }

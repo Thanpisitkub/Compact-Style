@@ -35,6 +35,27 @@ public class CompactStyle {
     public static final RegistryObject<Item> TAEKWONDO_STYLE = ITEMS.register("taekwondo_style",
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 4.0, 2.15));
 
+    public static final RegistryObject<Item> CAPOEIRA_STYLE = ITEMS.register("capoeira_style",
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2.5, 2.35));
+
+    public static final RegistryObject<Item> JUDO_STYLE = ITEMS.register("judo_style",
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 4.5, 1.9));
+
+    public static final RegistryObject<Item> BJJ_STYLE = ITEMS.register("bjj_style",
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.5, 2.0));
+
+    public static final RegistryObject<Item> KICKBOXING_STYLE = ITEMS.register("kickboxing_style",
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.5, 2.25));
+
+    public static final RegistryObject<Item> JKD_STYLE = ITEMS.register("jkd_style",
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2.5, 2.5));
+
+    public static final RegistryObject<Item> SANDA_STYLE = ITEMS.register("sanda_style",
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.5, 2.2));
+
+    public static final RegistryObject<Item> KYOKUSHIN_STYLE = ITEMS.register("kyokushin_style",
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5.5, 1.85));
+
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("compact_style",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.compact_style"))
@@ -44,6 +65,14 @@ public class CompactStyle {
                         output.accept(MUAYTHAI_GLOVES.get());
                         output.accept(CHINESE_STYLE.get());
                         output.accept(TAEKWONDO_STYLE.get());
+                        output.accept(CAPOEIRA_STYLE.get());
+                        output.accept(JUDO_STYLE.get());
+                        output.accept(BJJ_STYLE.get());
+                        output.accept(KICKBOXING_STYLE.get());
+                        output.accept(JKD_STYLE.get());
+                        output.accept(SANDA_STYLE.get());
+                        output.accept(KYOKUSHIN_STYLE.get());
+
                     })
                     .build());
 

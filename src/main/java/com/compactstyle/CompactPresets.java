@@ -11,11 +11,16 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
 import reascer.wom.gameasset.WOMSkills;
 import reascer.wom.gameasset.animations.weapons.AnimsAgony;
+import reascer.wom.gameasset.animations.weapons.AnimsBlackstar;
 import reascer.wom.gameasset.animations.weapons.AnimsEnderblaster;
+import reascer.wom.gameasset.animations.weapons.AnimsHerrscher;
 import reascer.wom.gameasset.animations.weapons.AnimsMoonless;
+import reascer.wom.gameasset.animations.weapons.AnimsNapoleon;
 import reascer.wom.gameasset.animations.weapons.AnimsNova;
 import reascer.wom.gameasset.animations.weapons.AnimsOrbit;
+import reascer.wom.gameasset.animations.weapons.AnimsRuine;
 import reascer.wom.gameasset.animations.weapons.AnimsSatsujin;
+import reascer.wom.gameasset.animations.weapons.AnimsSolar;
 import reascer.wom.gameasset.colliders.WOMWeaponColliders;
 import yesman.epicfight.api.animation.AnimationManager;
 import yesman.epicfight.api.animation.LivingMotions;
@@ -53,6 +58,13 @@ public final class CompactPresets {
         types.put(id("muaythai"), CompactPresets::muaythai);
         types.put(id("chinese"), CompactPresets::chinese);
         types.put(id("taekwondo"), CompactPresets::taekwondo);
+        types.put(id("capoeira"), CompactPresets::capoeira);
+        types.put(id("judo"), CompactPresets::judo);
+        types.put(id("bjj"), CompactPresets::bjj);
+        types.put(id("kickboxing"), CompactPresets::kickboxing);
+        types.put(id("jkd"), CompactPresets::jkd);
+        types.put(id("sanda"), CompactPresets::sanda);
+        types.put(id("kyokushin"), CompactPresets::kyokushin);
     }
 
     private static ResourceLocation id(String path) {
@@ -103,6 +115,77 @@ public final class CompactPresets {
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_4,
                 AnimsNova.NOVA_ATTACK_DASH,
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW);
+    }
+
+
+    private static CapabilityItem.Builder capoeira(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsMoonless.MOONLESS_AUTO_1_VERSO,
+                AnimsMoonless.MOONLESS_AUTO_2_VERSO,
+                AnimsMoonless.MOONLESS_AUTO_3_VERSO,
+                AnimsOrbit.ORBIT_ATTACK_3,
+                AnimsMoonless.MOONLESS_BYPASS,
+                AnimsAgony.AGONY_AIR_ATTACK_2);
+    }
+
+    private static CapabilityItem.Builder judo(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsHerrscher.HERRSCHER_AUTO_1,
+                AnimsHerrscher.HERRSCHER_AUTO_2,
+                AnimsHerrscher.HERRSCHER_AUTO_3,
+                AnimsHerrscher.GESETZ_AUTO_1,
+                AnimsHerrscher.GESETZ_KRUMMEN,
+                AnimsAgony.AGONY_AIR_ATTACK_3);
+    }
+
+    private static CapabilityItem.Builder bjj(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsRuine.RUINE_AUTO_1,
+                AnimsRuine.RUINE_AUTO_2,
+                AnimsRuine.RUINE_AUTO_3,
+                AnimsRuine.RUINE_AUTO_4,
+                AnimsRuine.RUINE_PUNITION,
+                AnimsAgony.AGONY_AIR_ATTACK_1);
+    }
+
+    private static CapabilityItem.Builder kickboxing(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsBlackstar.BLACKSTAR_ATTACK_1,
+                AnimsBlackstar.BLACKSTAR_ATTACK_2,
+                AnimsBlackstar.BLACKSTAR_ATTACK_3,
+                AnimsBlackstar.BLACKSTAR_ATTACK_4,
+                AnimsOrbit.ORBIT_ATTACK_4,
+                AnimsAgony.AGONY_AIR_ATTACK_4);
+    }
+
+    private static CapabilityItem.Builder jkd(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsNova.NOVA_ATTACK_1,
+                AnimsNova.NOVA_ATTACK_2,
+                AnimsNova.NOVA_ATTACK_3,
+                AnimsNova.NOVA_ATTACK_4,
+                AnimsOrbit.ORBIT_ATTACK_1,
+                AnimsNova.NOVA_ATTACK_AIRSLASH);
+    }
+
+    private static CapabilityItem.Builder sanda(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsSolar.SOLAR_AUTO_1,
+                AnimsSolar.SOLAR_AUTO_2,
+                AnimsSolar.SOLAR_AUTO_3,
+                AnimsSolar.SOLAR_AUTO_4,
+                AnimsSolar.SOLAR_HORNO,
+                AnimsAgony.AGONY_AIR_ATTACK_1);
+    }
+
+    private static CapabilityItem.Builder kyokushin(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsNapoleon.NAPOLEON_AUTO_1,
+                AnimsNapoleon.NAPOLEON_AUTO_2,
+                AnimsNapoleon.NAPOLEON_AUTO_3,
+                AnimsNapoleon.NAPOLEON_AUTO_4,
+                AnimsHerrscher.GESETZ_AUTO_3,
+                AnimsAgony.AGONY_AIR_ATTACK_3);
     }
 
     /** Shared part: fist category, Agony's stance animations, Agony collider. */
