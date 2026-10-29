@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
 import reascer.wom.gameasset.WOMSkills;
 import reascer.wom.gameasset.animations.weapons.AnimsAgony;
@@ -24,6 +25,7 @@ import yesman.epicfight.api.forgeevent.WeaponCapabilityPresetRegistryEvent;
 import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.gameasset.EpicFightSounds;
 import yesman.epicfight.skill.Skill;
+import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 import yesman.epicfight.world.capabilities.item.WeaponCapability;
 
@@ -133,7 +135,7 @@ public final class CompactPresets {
      * Jabberwocky has attack speed 3.75 and the Taekwondo item has 2.15, so with the same
      * animation it plays slower. This multiplier (3.75 / 2.15) gives it the same speed.
      */
-    private static final float TAEKWONDO_JUMPKICK_SPEED = 3.75F / 2.15F;
+    private static final float TAEKWONDO_JUMPKICK_TARGET_ATTACK_SPEED = 3.75F;
 
     private static boolean speedTweaksApplied = false;
 
@@ -150,7 +152,41 @@ public final class CompactPresets {
         speedTweaksApplied = true;
         scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_JUMPKICK, CompactStyle.MUAYTHAI_GLOVES::get, MUAYTHAI_JUMPKICK_SPEED);
         scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_DASH, CompactStyle.MUAYTHAI_GLOVES::get, MUAYTHAI_JUMPSPIN_SPEED);
-        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, CompactStyle.TAEKWONDO_STYLE::get, TAEKWONDO_JUMPKICK_SPEED);
+        matchAttackSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, CompactStyle.TAEKWONDO_STYLE::get,
+                TAEKWONDO_JUMPKICK_TARGET_ATTACK_SPEED);
+    }
+
+    /**
+     * Makes the animation play as if the player had {@code targetAttackSpeed}. Epic Fight plays
+     * an attack at 1 + (x - 1) * ATTACK_SPEED_FACTOR where x grows with the attack speed, so the
+     * change is applied to x and not to the final speed.
+     */
+    private static void matchAttackSpeed(AnimationManager.AnimationAccessor<? extends StaticAnimation> accessor,
+                                         Supplier<Item> heldItem, float targetAttackSpeed) {
+        StaticAnimation animation = accessor.get();
+        AnimationProperty.PlaybackSpeedModifier previous = animation
+                .getProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER)
+                .orElse(null);
+        animation.addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                (self, entitypatch, speed, prevElapsedTime, elapsedTime) -> {
+                    float base = previous == null
+                            ? speed
+                            : previous.modify(self, entitypatch, speed, prevElapsedTime, elapsedTime);
+                    Entity entity = entitypatch.getOriginal();
+                    if (base > 0.5F && entity instanceof LivingEntity living
+                            && living.getMainHandItem().is(heldItem.get())
+                            && entitypatch instanceof PlayerPatch<?> player) {
+                        float current = player.getAttackSpeed(InteractionHand.MAIN_HAND);
+                        float factor = self instanceof StaticAnimation sa
+                                ? sa.getProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR).orElse(1.0F)
+                                : 1.0F;
+                        if (current > 0.0F && factor > 0.0F) {
+                            float x = (base - 1.0F) / factor + 1.0F;
+                            return 1.0F + (x * targetAttackSpeed / current - 1.0F) * factor;
+                        }
+                    }
+                    return base;
+                });
     }
 
     private static void scaleSpeed(AnimationManager.AnimationAccessor<? extends StaticAnimation> accessor,
