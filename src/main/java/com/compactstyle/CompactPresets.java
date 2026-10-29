@@ -130,10 +130,10 @@ public final class CompactPresets {
 
     /**
      * Taekwondo's jump kick is the same animation the Clawed Gauntle (Jabberwocky) uses.
-     * Jabberwocky has attack speed 3.75 and the Taekwondo item has 1.4, so with the same
-     * animation it plays slower. This multiplier (3.75 / 1.4) gives it the same speed.
+     * Jabberwocky has attack speed 3.75 and the Taekwondo item has 2.15, so with the same
+     * animation it plays slower. This multiplier (3.75 / 2.15) gives it the same speed.
      */
-    private static final float TAEKWONDO_JUMPKICK_SPEED = 3.75F / 1.4F;
+    private static final float TAEKWONDO_JUMPKICK_SPEED = 3.75F / 2.15F;
 
     private static boolean speedTweaksApplied = false;
 
