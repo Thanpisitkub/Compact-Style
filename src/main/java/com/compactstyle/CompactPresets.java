@@ -13,10 +13,14 @@ import reascer.wom.gameasset.animations.weapons.AnimsNova;
 import reascer.wom.gameasset.animations.weapons.AnimsOrbit;
 import reascer.wom.gameasset.animations.weapons.AnimsSatsujin;
 import reascer.wom.gameasset.colliders.WOMWeaponColliders;
+import yesman.epicfight.api.animation.AnimationManager;
 import yesman.epicfight.api.animation.LivingMotions;
+import yesman.epicfight.api.animation.property.AnimationProperty;
+import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.api.forgeevent.WeaponCapabilityPresetRegistryEvent;
 import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.gameasset.EpicFightSounds;
+import yesman.epicfight.skill.Skill;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 import yesman.epicfight.world.capabilities.item.WeaponCapability;
 
@@ -52,7 +56,7 @@ public final class CompactPresets {
 
     /** Classic: Agony's own full combo. */
     private static CapabilityItem.Builder classic(Item item) {
-        return base().newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 AnimsAgony.AGONY_AUTO_1,
                 AnimsAgony.AGONY_AUTO_2,
                 AnimsAgony.AGONY_AUTO_3,
@@ -63,7 +67,8 @@ public final class CompactPresets {
 
     /** Muay Thai: Ender Blaster one-hand set (punches, knee, kick) with its jump kick. */
     private static CapabilityItem.Builder muaythai(Item item) {
-        return base().newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+        applySpeedTweaks();
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_1,
                 AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_2,
                 AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_3,
@@ -74,7 +79,7 @@ public final class CompactPresets {
 
     /** Chinese: flowing mix of Satsujin, Orbit and Moonless strikes. */
     private static CapabilityItem.Builder chinese(Item item) {
-        return base().newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 AnimsSatsujin.SATSUJIN_AUTO_1,
                 AnimsOrbit.ORBIT_ATTACK_2,
                 AnimsSatsujin.SATSUJIN_AUTO_3,
@@ -85,7 +90,8 @@ public final class CompactPresets {
 
     /** Taekwondo: Ender Blaster two-hand set with Nova's dash attack. */
     private static CapabilityItem.Builder taekwondo(Item item) {
-        return base().newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+        applySpeedTweaks();
+        return base(CompactPresets::scytheSkill).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_1,
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_2,
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_3,
@@ -95,19 +101,76 @@ public final class CompactPresets {
     }
 
     /** Shared part: fist category, Agony's stance animations, Agony collider. */
-    private static WeaponCapability.Builder base() {
+    private static WeaponCapability.Builder base(java.util.function.Supplier<Skill> innateSkill) {
         return WeaponCapability.builder()
                 .category(CapabilityItem.WeaponCategories.FIST)
                 .styleProvider(entitypatch -> CapabilityItem.Styles.TWO_HAND)
                 .collider(WOMWeaponColliders.AGONY)
                 .hitSound(EpicFightSounds.BLUNT_HIT.get())
                 .canBePlacedOffhand(false)
-                .innateSkill(CapabilityItem.Styles.TWO_HAND, itemstack -> WOMSkills.AGONY_PLUNGE)
+                .innateSkill(CapabilityItem.Styles.TWO_HAND, itemstack -> innateSkill.get())
                 .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.IDLE, AnimsAgony.AGONY_IDLE)
                 .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.WALK, AnimsAgony.AGONY_WALK)
                 .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.CHASE, AnimsAgony.AGONY_RUN)
                 .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.RUN, AnimsAgony.AGONY_RUN)
                 .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.SWIM, Animations.BIPED_HOLD_SPEAR)
                 .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.BLOCK, AnimsAgony.AGONY_GUARD);
+    }
+
+    // ---------------------------------------------------------------------
+    // Tweaks
+    // ---------------------------------------------------------------------
+
+    /** How much faster the tweaked animations play (1.15 = 15% faster). */
+    private static final float MUAYTHAI_JUMPKICK_SPEED = 1.15F;
+    private static final float MUAYTHAI_JUMPSPIN_SPEED = 1.15F;
+    private static final float TAEKWONDO_JUMPKICK_SPEED = 1.2F;
+
+    private static boolean speedTweaksApplied = false;
+
+    /**
+     * Speeds up some WoM animations. These animation objects are shared with
+     * Weapons of Miracles, so the Ender Blaster weapon plays them faster too.
+     * Runs once, after the animations have been registered.
+     */
+    private static synchronized void applySpeedTweaks() {
+        if (speedTweaksApplied) {
+            return;
+        }
+        speedTweaksApplied = true;
+        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_JUMPKICK, MUAYTHAI_JUMPKICK_SPEED);
+        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_DASH, MUAYTHAI_JUMPSPIN_SPEED);
+        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, TAEKWONDO_JUMPKICK_SPEED);
+    }
+
+    private static void scaleSpeed(AnimationManager.AnimationAccessor<? extends StaticAnimation> accessor, float factor) {
+        StaticAnimation animation = accessor.get();
+        AnimationProperty.PlaybackSpeedModifier previous = animation
+                .getProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER)
+                .orElse(null);
+        animation.addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                (self, entitypatch, speed, prevElapsedTime, elapsedTime) -> {
+                    float base = previous == null
+                            ? speed
+                            : previous.modify(self, entitypatch, speed, prevElapsedTime, elapsedTime);
+                    return base * factor;
+                });
+    }
+
+    /**
+     * The scythe's hold-attack skill from Epic Fight Extra. Looked up by name
+     * so this mod still loads without Epic Fight Extra (falls back to Agony's skill).
+     */
+    private static Skill scytheSkill() {
+        try {
+            Object skill = Class.forName("com.asanginxst.epicfightx.gameassets.ExtraSkills")
+                    .getField("SCYTHE_SKILL").get(null);
+            if (skill instanceof Skill) {
+                return (Skill) skill;
+            }
+        } catch (ReflectiveOperationException | LinkageError ignored) {
+            // Epic Fight Extra is not installed
+        }
+        return WOMSkills.AGONY_PLUNGE;
     }
 }
