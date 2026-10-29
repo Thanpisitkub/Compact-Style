@@ -82,5 +82,7 @@ public class CompactStyle {
         TABS.register(bus);
         // Registers the compact_style:* weapon types (needs Epic Fight and WoM)
         bus.addListener(CompactPresets::register);
+        // Black Bone skills (Flow, Zone, Black Bone) are part of this jar
+        com.blackbone.BlackBoneMod.init(bus);
     }
 }

@@ -1,0 +1,30 @@
+{
+  "skill.blackbone.black_bone": "Black Bone",
+  "skill.blackbone.black_bone.tooltip": "Always active. Take 20%% less damage. Unarmed melee hits from enemies reflect 10%% of the damage back to the attacker.",
+  "skill.blackbone.flow": "Flow",
+  "skill.blackbone.flow.tooltip": "Every successful hit on an enemy builds 10%% Flow. At 100%% activate Flow (key G) to consume all stacks and gain Haste I and Strength I for 60 seconds, with glowing red eyes. Cannot be active together with Zone.",
+  "skill.blackbone.zone": "Zone",
+  "skill.blackbone.zone.tooltip": "Every successful hit on an enemy builds 10%% Zone. At 100%% activate Zone (key H) to consume all stacks and gain Strength I and Resistance I for 60 seconds, with glowing electric blue eyes. Cannot be active together with Flow.",
+
+  "epicfight.skill_slot.blackbone_identity_2": "Identity 2",
+  "epicfight.skill_slot.blackbone_identity_3": "Identity 3",
+
+  "key.blackbone.flow": "Activate Flow",
+  "key.blackbone.zone": "Activate Zone",
+  "key.categories.blackbone": "Black Bone",
+
+  "death.attack.blackbone_reflect": "%1$s was hurt by their own strike",
+  "death.attack.blackbone_reflect.player": "%1$s was destroyed by %2$s's Black Bone",
+
+  "message.blackbone.stacks": "%1$s: %2$s%%",
+  "message.blackbone.ready": "%1$s is ready (100%%)",
+  "message.blackbone.activated": "%1$s activated!",
+  "message.blackbone.ended": "%1$s ended",
+  "message.blackbone.not_enough": "%1$s needs 100%% stacks (now %2$s%%)",
+  "message.blackbone.already_active": "%1$s is already active",
+  "message.blackbone.other_active": "Flow and Zone cannot be active at the same time",
+  "message.blackbone.not_equipped": "%1$s is not equipped",
+
+  "hud.blackbone.stacks": "%1$s %2$s%%",
+  "hud.blackbone.active": "%1$s  %2$ss"
+}
