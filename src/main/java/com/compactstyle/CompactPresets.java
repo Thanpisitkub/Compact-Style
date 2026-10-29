@@ -2,8 +2,11 @@ package com.compactstyle;
 
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import reascer.wom.gameasset.WOMSkills;
 import reascer.wom.gameasset.animations.weapons.AnimsAgony;
@@ -101,7 +104,7 @@ public final class CompactPresets {
     }
 
     /** Shared part: fist category, Agony's stance animations, Agony collider. */
-    private static WeaponCapability.Builder base(java.util.function.Supplier<Skill> innateSkill) {
+    private static WeaponCapability.Builder base(Supplier<Skill> innateSkill) {
         return WeaponCapability.builder()
                 .category(CapabilityItem.WeaponCategories.FIST)
                 .styleProvider(entitypatch -> CapabilityItem.Styles.TWO_HAND)
@@ -124,13 +127,20 @@ public final class CompactPresets {
     /** How much faster the tweaked animations play (1.15 = 15% faster). */
     private static final float MUAYTHAI_JUMPKICK_SPEED = 1.15F;
     private static final float MUAYTHAI_JUMPSPIN_SPEED = 1.15F;
-    private static final float TAEKWONDO_JUMPKICK_SPEED = 1.2F;
+
+    /**
+     * Taekwondo's jump kick is the same animation the Clawed Gauntle (Jabberwocky) uses.
+     * Jabberwocky has attack speed 3.75 and the Taekwondo item has 1.4, so with the same
+     * animation it plays slower. This multiplier (3.75 / 1.4) gives it the same speed.
+     */
+    private static final float TAEKWONDO_JUMPKICK_SPEED = 3.75F / 1.4F;
 
     private static boolean speedTweaksApplied = false;
 
     /**
-     * Speeds up some WoM animations. These animation objects are shared with
-     * Weapons of Miracles, so the Ender Blaster weapon plays them faster too.
+     * Speeds up some WoM animations, but only while one of our items is in the
+     * main hand. The animations are shared with Weapons of Miracles (for example the
+     * Ender Blaster and Jabberwocky), and those weapons are left unchanged.
      * Runs once, after the animations have been registered.
      */
     private static synchronized void applySpeedTweaks() {
@@ -138,12 +148,13 @@ public final class CompactPresets {
             return;
         }
         speedTweaksApplied = true;
-        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_JUMPKICK, MUAYTHAI_JUMPKICK_SPEED);
-        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_DASH, MUAYTHAI_JUMPSPIN_SPEED);
-        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, TAEKWONDO_JUMPKICK_SPEED);
+        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_JUMPKICK, CompactStyle.MUAYTHAI_GLOVES::get, MUAYTHAI_JUMPKICK_SPEED);
+        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_DASH, CompactStyle.MUAYTHAI_GLOVES::get, MUAYTHAI_JUMPSPIN_SPEED);
+        scaleSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, CompactStyle.TAEKWONDO_STYLE::get, TAEKWONDO_JUMPKICK_SPEED);
     }
 
-    private static void scaleSpeed(AnimationManager.AnimationAccessor<? extends StaticAnimation> accessor, float factor) {
+    private static void scaleSpeed(AnimationManager.AnimationAccessor<? extends StaticAnimation> accessor,
+                                   Supplier<Item> heldItem, float factor) {
         StaticAnimation animation = accessor.get();
         AnimationProperty.PlaybackSpeedModifier previous = animation
                 .getProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER)
@@ -153,7 +164,11 @@ public final class CompactPresets {
                     float base = previous == null
                             ? speed
                             : previous.modify(self, entitypatch, speed, prevElapsedTime, elapsedTime);
-                    return base * factor;
+                    Entity entity = entitypatch.getOriginal();
+                    if (entity instanceof LivingEntity living && living.getMainHandItem().is(heldItem.get())) {
+                        return base * factor;
+                    }
+                    return base;
                 });
     }
 
