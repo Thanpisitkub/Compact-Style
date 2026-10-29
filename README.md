@@ -1,6 +1,6 @@
 # Compact Style
 
-Mod สไตล์การต่อสู้สำหรับ Epic Fight (Minecraft 1.20.1, Forge) เวอร์ชัน 2.0.0
+Mod สไตล์การต่อสู้สำหรับ Epic Fight (Minecraft 1.20.1, Forge) เวอร์ชัน 2.0.1
 อยู่ในแท็บ Creative ชื่อ **Compact Style**
 
 ต้องติดตั้งคู่กัน: Epic Fight 20.14.17 และ Weapons of Miracles 2.0.171

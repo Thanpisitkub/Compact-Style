@@ -24,16 +24,16 @@ public class CompactStyle {
 
     // Plain Items (not BlockItems), so none of them can place a block.
     public static final RegistryObject<Item> CLASSIC = ITEMS.register("classic",
-            () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 7.0, 1.6));
 
     public static final RegistryObject<Item> MUAYTHAI_GLOVES = ITEMS.register("muaythai_gloves",
-            () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.0, 1.8));
 
     public static final RegistryObject<Item> CHINESE_STYLE = ITEMS.register("chinese_style",
-            () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.0, 1.6));
 
     public static final RegistryObject<Item> TAEKWONDO_STYLE = ITEMS.register("taekwondo_style",
-            () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 4.0, 1.4));
 
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("compact_style",
             () -> CreativeModeTab.builder()
