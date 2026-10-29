@@ -3,12 +3,9 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
 }
 
+version = '2.0.0'
 group = 'com.compactstyle'
-version = '1.2.0'
-
-base {
-    archivesName = 'compact_style'
-}
+base { archivesName = 'Compact_Style' }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -16,12 +13,22 @@ minecraft {
     mappings channel: 'official', version: '1.20.1'
 }
 
+repositories {
+    // jars of Epic Fight and Weapons of Miracles are placed in libs/ (see README)
+    flatDir { dir 'libs' }
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.3.0'
+
+    compileOnly fg.deobf('local:epicfight:20.14.17')
+    compileOnly fg.deobf('local:wom:2.0.171')
+}
+
+tasks.named('jar').configure {
+    finalizedBy 'reobfJar'
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
-
-jar.finalizedBy('reobfJar')

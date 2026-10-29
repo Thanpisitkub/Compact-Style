@@ -1,27 +1,26 @@
-# Compact Style (Forge 1.20.1)
+# Compact Style
 
-ซอร์สของ mod Compact Style: ไอเท็มสไตล์การต่อสู้ทั้งหมดอยู่ในแท็บ Creative ของตัวเอง
-ไอเท็มเป็น Item ธรรมดา วางบล็อกไม่ได้ และผูกกับท่าของ Epic Fight ผ่านไฟล์ใน data/compact_style/capabilities/weapons/
+Mod สไตล์การต่อสู้สำหรับ Epic Fight (Minecraft 1.20.1, Forge) เวอร์ชัน 2.0.0
+อยู่ในแท็บ Creative ชื่อ **Compact Style**
 
-ยังไม่ได้ build หรือทดสอบ เป็นซอร์สที่เขียนโดยไม่ได้คอมไพล์
+ต้องติดตั้งคู่กัน: Epic Fight 20.14.17 และ Weapons of Miracles 2.0.171
 
-## วิธี build
-1. ดาวน์โหลด Forge MDK สำหรับ Minecraft 1.20.1 (Forge 47.x) แล้วแตก zip
-2. ใน gradle.properties ตั้งค่า
-   - mod_id=compact_style
-   - mod_name=Compact Style
-   - mod_group_id=com.compactstyle
-3. ลบโฟลเดอร์ src ของ MDK ทิ้ง แล้วคัดลอกโฟลเดอร์ src ของโปรเจกต์นี้ไปแทน
-4. วาง jar ของ Epic Fight 20.14.17 ใน run/mods ตอนทดสอบ ตัวโค้ดไม่ได้ import คลาสของ Epic Fight
-5. รัน `./gradlew build` ไฟล์ jar จะอยู่ที่ build/libs/
+## ไอเท็ม
+| ไอเท็ม | ท่า |
+|---|---|
+| คลาสสิค (`compact_style:classic`) | Agony เต็มชุด ค่าสถานะแรงมาก ตอนถือมองไม่เห็นในมือ |
+| ถุงมือมวยไทย (`compact_style:muaythai_gloves`) | Ender Blaster มือเดียว (หมัด เข่า เตะ) |
+| สไตล์จีน (`compact_style:chinese_style`) | ผสม Satsujin, Orbit, Moonless, Nova |
+| สไตล์เทควันโด (`compact_style:taekwondo_style`) | Ender Blaster สองมือ ผสม Nova |
 
-## ไอเท็มในแท็บ Compact Style
-- compact_style:classic หมัดโกง ไอคอนวงกลมมี X ตอนถือมองไม่เห็นในมือ
-- compact_style:muaythai_gloves ถุงมือมวยไทย
-- compact_style:chinese_style สไตล์จีน
-- compact_style:taekwondo_style สไตล์เทควันโด
+ทุกสไตล์ยืน/เดิน/วิ่ง/ป้องกันแบบ Agony ส่วนคอมโบโจมตีต่างกัน
+แก้ท่าได้ใน `src/main/java/com/compactstyle/CompactPresets.java`
 
-## สิ่งที่ยังเป็นของชั่วคราว
-chinese_style และ taekwondo_style ตอนนี้ใช้ท่าหมัดมาตรฐาน (`epicfight:fist`) เป็นตัวแทน
-เมื่อรู้ ID ของ weapon type จากมอด Fighting Styles ให้แก้ค่า `"type"` ในไฟล์
-data/compact_style/capabilities/weapons/chinese_style.json และ taekwondo_style.json
+## ดาวน์โหลด jar
+ดาวน์โหลดจากหน้า Releases (รุ่น latest-jar) หรือแท็บ Actions > Artifacts
+เมื่อ push ขึ้น main workflow จะ build ให้อัตโนมัติ หรือกดรันเองด้วย "Run workflow"
+
+## หมายเหตุ
+ซอร์สนี้ยังไม่เคย build หรือทดสอบในเกม ถ้า build ไม่ผ่านให้ดู log ในแท็บ Actions
+workflow ดาวน์โหลดไฟล์ jar ของ Epic Fight และ Weapons of Miracles จาก Modrinth
+ตอน build (ไม่เก็บไฟล์เหล่านั้นไว้ใน repo)

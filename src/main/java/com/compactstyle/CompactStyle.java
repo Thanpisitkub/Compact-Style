@@ -51,5 +51,7 @@ public class CompactStyle {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ITEMS.register(bus);
         TABS.register(bus);
+        // Registers the compact_style:* weapon types (needs Epic Fight and WoM)
+        bus.addListener(CompactPresets::register);
     }
 }

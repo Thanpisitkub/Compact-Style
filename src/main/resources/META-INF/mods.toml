@@ -4,10 +4,10 @@ license="MIT"
 
 [[mods]]
 modId="compact_style"
-version="1.2.0"
+version="2.0.0"
 displayName="Compact Style"
 description='''
-Combat styles for Epic Fight: Classic (overpowered fist) and Muay Thai gloves.
+Combat styles for Epic Fight using Weapons of Miracles movesets.
 '''
 
 [[dependencies.compact_style]]
@@ -28,5 +28,12 @@ side="BOTH"
 modId="epicfight"
 mandatory=true
 versionRange="[20.14.17,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.compact_style]]
+modId="wom"
+mandatory=true
+versionRange="[2.0.171,)"
 ordering="AFTER"
 side="BOTH"
