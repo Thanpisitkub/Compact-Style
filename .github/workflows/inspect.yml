@@ -1,0 +1,27 @@
+name: Inspect Epic Fight API
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Download Epic Fight and dump playback-speed code
+        run: |
+          set -euo pipefail
+          mkdir -p libs
+          url="https://api.modrinth.com/v2/project/epic-fight/version?loaders=%5B%22forge%22%5D&game_versions=%5B%221.20.1%22%5D"
+          file_url=$(curl -fsSL "$url" | jq -r --arg v "20.14.17" '[.[] | select(.version_number | contains($v))][0].files | (map(select(.primary)) + .)[0].url')
+          curl -fsSL -o libs/ef.jar "$file_url"
+          for c in yesman.epicfight.api.animation.types.StaticAnimation yesman.epicfight.api.animation.types.AttackAnimation yesman.epicfight.api.animation.types.DynamicAnimation yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch; do
+            echo "=================== $c"
+            javap -p -c -constants -cp libs/ef.jar "$c" > /tmp/dump.txt
+            awk '/^  [a-z].*(getPlaySpeed|getAttackSpeed|getPlaybackSpeed|modify)\(/{p=1} p{print} /^$/{p=0}' /tmp/dump.txt | sed -E 's/^ +[0-9]+: //; s/ +#[0-9]+//' | cut -c1-220 | head -150
+          done
+          echo "=================== PlaybackSpeedModifier + properties"
+          javap -p -cp libs/ef.jar 'yesman.epicfight.api.animation.property.AnimationProperty$PlaybackSpeedModifier' 'yesman.epicfight.api.animation.property.AnimationProperty$AttackAnimationProperty' 'yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty' | cut -c1-220
