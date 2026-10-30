@@ -68,6 +68,7 @@ public final class CompactPresets {
         types.put(id("sanda"), CompactPresets::sanda);
         types.put(id("kyokushin"), CompactPresets::kyokushin);
         types.put(id("basic"), CompactPresets::basic);
+        types.put(id("breakdance"), CompactPresets::breakdance);
     }
 
     private static ResourceLocation id(String path) {
@@ -85,50 +86,51 @@ public final class CompactPresets {
                 cz("SFA_Animations", "IRONCLAD_AIRSLASH", AnimsAgony.AGONY_RIPPING_FANGS));
     }
 
-    /** Muay Thai: Ender Blaster one-hand set (punches, knee, kick) with its jump kick. */
+    /** Muay Thai: Flawless punch set (EF Champion Zone) with Kabal's dash and the Ender Blaster jump kick. */
     private static CapabilityItem.Builder muaythai(Item item) {
         applySpeedTweaks();
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_1,
-                AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_2,
-                AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_3,
-                AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_4,
-                AnimsEnderblaster.ENDERBLASTER_ONEHAND_DASH,
+                cz("DC_Animations", "FLAWLESS_AUTO1", AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_1),
+                cz("DC_Animations", "FLAWLESS_AUTO2", AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_2),
+                cz("DC_Animations", "FLAWLESS_AUTO3", AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_3),
+                cz("DC_Animations", "FLAWLESS_AUTO4", AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_4),
+                cz("MK_Animations", "KABAL_DASH_AUTO1", AnimsEnderblaster.ENDERBLASTER_ONEHAND_DASH),
                 AnimsEnderblaster.ENDERBLASTER_ONEHAND_JUMPKICK);
     }
 
-    /** Chinese: flowing mix of Satsujin, Orbit and Moonless strikes. */
+    /** Chinese: Pan strikes (EF Champion Zone) with Satsujin's sheathed draw and dash. */
     private static CapabilityItem.Builder chinese(Item item) {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsSatsujin.SATSUJIN_AUTO_1,
-                AnimsOrbit.ORBIT_ATTACK_2,
-                AnimsSatsujin.SATSUJIN_AUTO_3,
-                AnimsMoonless.MOONLESS_AUTO_2,
-                AnimsSatsujin.SATSUJIN_HARUSAKI,
-                AnimsNova.NOVA_ATTACK_AIRSLASH);
+                cz("DC_Animations", "PAN_AUTO1", AnimsSatsujin.SATSUJIN_AUTO_1),
+                cz("DC_Animations", "PAN_AUTO2", AnimsSatsujin.SATSUJIN_AUTO_2),
+                cz("DC_Animations", "PAN_AUTO3", AnimsSatsujin.SATSUJIN_AUTO_3),
+                AnimsSatsujin.SATSUJIN_SHEATHED_1,
+                AnimsSatsujin.SATSUJIN_SHEATHED_DASH,
+                AnimsAgony.AGONY_AIR_ATTACK_4);
     }
 
-    /** Taekwondo: Ender Blaster two-hand set with Nova's dash attack. */
+    /** Taekwondo: Kabal strikes (EF Champion Zone) with the Ender Blaster finisher and jump kick. */
     private static CapabilityItem.Builder taekwondo(Item item) {
         applySpeedTweaks();
         return withDownedPunch(base(CompactPresets::scytheSkill)).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_1,
-                AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_2,
-                AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_3,
+                cz("MK_Animations", "KABAL_AUTO1", AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_1),
+                cz("MK_Animations", "KABAL_AUTO2", AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_2),
+                cz("MK_Animations", "KABAL_AUTO3", AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_3),
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_4,
-                AnimsNova.NOVA_ATTACK_DASH,
+                cz("MK_Animations", "KABAL_DASH_AUTO2", AnimsNova.NOVA_ATTACK_DASH),
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW);
     }
 
 
+    /** Capoeira: Moonless flow with Agony's run-then-punch dash. */
     private static CapabilityItem.Builder capoeira(Item item) {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsMoonless.MOONLESS_AUTO_1_VERSO,
-                AnimsMoonless.MOONLESS_AUTO_2_VERSO,
-                AnimsMoonless.MOONLESS_AUTO_3_VERSO,
-                AnimsOrbit.ORBIT_ATTACK_3,
+                AnimsMoonless.MOONLESS_AUTO_1,
+                AnimsMoonless.MOONLESS_AUTO_2,
+                AnimsMoonless.MOONLESS_AUTO_3,
+                AnimsOrbit.ORBIT_ATTACK_1,
                 AnimsAgony.AGONY_CLAWSTRIKE,
-                AnimsMoonless.MOONLESS_AUTO_3);
+                AnimsMoonless.MOONLESS_AUTO_1_VERSO);
     }
 
     /**
@@ -150,64 +152,80 @@ public final class CompactPresets {
                 AnimsRuine.RUINE_COMET);
     }
 
+    /** Breakdance: spinning Moonless / Orbit / Kabal moves on Agony's stance (Epic Sanji moves are added separately). */
+    private static CapabilityItem.Builder breakdance(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsMoonless.MOONLESS_AUTO_1_VERSO,
+                AnimsMoonless.MOONLESS_AUTO_2_VERSO,
+                AnimsMoonless.MOONLESS_AUTO_3_VERSO,
+                AnimsOrbit.ORBIT_ATTACK_3,
+                cz("MK_Animations", "KABAL_DASH_AUTO3", AnimsOrbit.ORBIT_ATTACK_2),
+                AnimsMoonless.MOONLESS_AUTO_3);
+    }
+
+    /** Judo: Gesetz throws with Satsujin and Kabal. */
     private static CapabilityItem.Builder judo(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsHerrscher.GESETZ_AUTO_1,
+                AnimsHerrscher.GESETZ_AUTO_2,
+                AnimsHerrscher.GESETZ_AUTO_3,
+                AnimsSatsujin.SATSUJIN_AUTO_2,
+                cz("MK_Animations", "KABAL_DASH_AUTO3", AnimsHerrscher.GESETZ_KRUMMEN),
+                AnimsAgony.AGONY_AIR_ATTACK_3);
+    }
+
+    /** Brazilian Jiu-Jitsu: Herrscher holds with a Napoleon finisher. */
+    private static CapabilityItem.Builder bjj(Item item) {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 AnimsHerrscher.HERRSCHER_AUTO_1,
                 AnimsHerrscher.HERRSCHER_AUTO_2,
                 AnimsHerrscher.HERRSCHER_AUTO_3,
-                AnimsHerrscher.GESETZ_AUTO_1,
+                AnimsNapoleon.NAPOLEON_AUTO_4,
                 AnimsHerrscher.GESETZ_KRUMMEN,
-                AnimsAgony.AGONY_AIR_ATTACK_3);
-    }
-
-    private static CapabilityItem.Builder bjj(Item item) {
-        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsRuine.RUINE_AUTO_1,
-                AnimsRuine.RUINE_AUTO_2,
-                AnimsRuine.RUINE_AUTO_3,
-                AnimsRuine.RUINE_AUTO_4,
-                AnimsRuine.RUINE_PUNITION,
                 AnimsAgony.AGONY_AIR_ATTACK_1);
     }
 
+    /** Kickboxing: Shogun fists and Blackstar kicks with Shogun's dash. */
     private static CapabilityItem.Builder kickboxing(Item item) {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsBlackstar.BLACKSTAR_ATTACK_1,
-                AnimsBlackstar.BLACKSTAR_ATTACK_2,
+                cz("SFA_Animations", "SHOGUN_AUTO1", AnimsBlackstar.BLACKSTAR_ATTACK_1),
+                cz("SFA_Animations", "SHOGUN_AUTO2", AnimsBlackstar.BLACKSTAR_ATTACK_2),
                 AnimsBlackstar.BLACKSTAR_ATTACK_3,
                 AnimsBlackstar.BLACKSTAR_ATTACK_4,
-                AnimsOrbit.ORBIT_ATTACK_4,
-                AnimsAgony.AGONY_AIR_ATTACK_4);
+                cz("SFA_Animations", "SHOGUN_DASH1", AnimsOrbit.ORBIT_ATTACK_4),
+                cz("MK_Animations", "KABAL_AIRSLASH", AnimsAgony.AGONY_AIR_ATTACK_4));
     }
 
+    /** Jeet Kune Do: Orbit combo with Nova's dash and air slash. */
     private static CapabilityItem.Builder jkd(Item item) {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsNova.NOVA_ATTACK_1,
-                AnimsNova.NOVA_ATTACK_2,
-                AnimsNova.NOVA_ATTACK_3,
-                AnimsNova.NOVA_ATTACK_4,
                 AnimsOrbit.ORBIT_ATTACK_1,
+                AnimsOrbit.ORBIT_ATTACK_2,
+                AnimsOrbit.ORBIT_ATTACK_3,
+                AnimsOrbit.ORBIT_ATTACK_4,
+                AnimsNova.NOVA_ATTACK_DASH,
                 AnimsNova.NOVA_ATTACK_AIRSLASH);
     }
 
+    /** Sanda: Satsujin strikes with Solar's finisher. */
     private static CapabilityItem.Builder sanda(Item item) {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsSolar.SOLAR_AUTO_1,
-                AnimsSolar.SOLAR_AUTO_2,
-                AnimsSolar.SOLAR_AUTO_3,
+                AnimsSatsujin.SATSUJIN_AUTO_1,
+                AnimsSatsujin.SATSUJIN_AUTO_2,
+                AnimsSatsujin.SATSUJIN_AUTO_3,
                 AnimsSolar.SOLAR_AUTO_4,
-                AnimsSolar.SOLAR_HORNO,
-                AnimsAgony.AGONY_AIR_ATTACK_1);
+                AnimsSatsujin.SATSUJIN_HARUSAKI,
+                AnimsAgony.AGONY_AIR_ATTACK_2);
     }
 
-    /** Kyokushin: heavy Napoleon strikes with an Ironclad fist charge as the one running punch. Hits a downed enemy with punch 1. */
+    /** Kyokushin: heavy Blackstar and Napoleon strikes with Shogun's dash. Hits a downed enemy. */
     private static CapabilityItem.Builder kyokushin(Item item) {
         return withDownedPunch(base(() -> WOMSkills.AGONY_PLUNGE)).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                cz("SFA_Animations", "IRONCLAD_AUTO2", AnimsNapoleon.NAPOLEON_AUTO_1),
+                AnimsBlackstar.BLACKSTAR_ATTACK_3,
+                AnimsBlackstar.BLACKSTAR_ATTACK_4,
                 AnimsNapoleon.NAPOLEON_AUTO_2,
                 AnimsNapoleon.NAPOLEON_AUTO_3,
-                AnimsNapoleon.NAPOLEON_AUTO_4,
-                cz("SFA_Animations", "IRONCLAD_FIST_CHARGE", AnimsHerrscher.GESETZ_AUTO_3),
+                cz("SFA_Animations", "SHOGUN_DASH2", AnimsNapoleon.NAPOLEON_AUTO_4),
                 AnimsAgony.AGONY_AIR_ATTACK_3);
     }
 
