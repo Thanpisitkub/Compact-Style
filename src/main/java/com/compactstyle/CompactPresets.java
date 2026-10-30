@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
+import com.blackbone.skill.BlackBoneSkills;
 import reascer.wom.gameasset.WOMSkills;
 import reascer.wom.gameasset.animations.weapons.AnimsAgony;
 import reascer.wom.gameasset.animations.weapons.AnimsBlackstar;
@@ -25,6 +26,7 @@ import reascer.wom.gameasset.colliders.WOMWeaponColliders;
 import yesman.epicfight.api.animation.AnimationManager;
 import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.animation.property.AnimationProperty;
+import yesman.epicfight.api.animation.types.AttackAnimation;
 import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.api.forgeevent.WeaponCapabilityPresetRegistryEvent;
 import yesman.epicfight.gameasset.Animations;
@@ -71,15 +73,15 @@ public final class CompactPresets {
         return new ResourceLocation(CompactStyle.MODID, path);
     }
 
-    /** Classic: Agony's own full combo. */
+    /** Classic: Ironclad gauntlet punches (EF Champion Zone) mixed with Agony. Hits a downed enemy with punch 1. */
     private static CapabilityItem.Builder classic(Item item) {
-        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsAgony.AGONY_AUTO_1,
-                AnimsAgony.AGONY_AUTO_2,
+        return withDownedPunch(base(() -> WOMSkills.AGONY_PLUNGE)).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                cz("SFA_Animations", "IRONCLAD_AUTO1", AnimsAgony.AGONY_AUTO_1),
+                cz("SFA_Animations", "IRONCLAD_AUTO2", AnimsAgony.AGONY_AUTO_2),
                 AnimsAgony.AGONY_AUTO_3,
                 AnimsAgony.AGONY_AUTO_4,
-                AnimsAgony.AGONY_CLAWSTRIKE,
-                AnimsAgony.AGONY_RIPPING_FANGS);
+                cz("SFA_Animations", "IRONCLAD_DASH", AnimsAgony.AGONY_CLAWSTRIKE),
+                cz("SFA_Animations", "IRONCLAD_AIRSLASH", AnimsAgony.AGONY_RIPPING_FANGS));
     }
 
     /** Muay Thai: Ender Blaster one-hand set (punches, knee, kick) with its jump kick. */
@@ -108,7 +110,7 @@ public final class CompactPresets {
     /** Taekwondo: Ender Blaster two-hand set with Nova's dash attack. */
     private static CapabilityItem.Builder taekwondo(Item item) {
         applySpeedTweaks();
-        return base(CompactPresets::scytheSkill).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+        return withDownedPunch(base(CompactPresets::scytheSkill)).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_1,
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_2,
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_3,
@@ -178,14 +180,41 @@ public final class CompactPresets {
                 AnimsAgony.AGONY_AIR_ATTACK_1);
     }
 
+    /** Kyokushin: heavy Napoleon strikes with an Ironclad fist charge as the one running punch. Hits a downed enemy with punch 1. */
     private static CapabilityItem.Builder kyokushin(Item item) {
-        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsNapoleon.NAPOLEON_AUTO_1,
+        return withDownedPunch(base(() -> WOMSkills.AGONY_PLUNGE)).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                cz("SFA_Animations", "IRONCLAD_AUTO2", AnimsNapoleon.NAPOLEON_AUTO_1),
                 AnimsNapoleon.NAPOLEON_AUTO_2,
                 AnimsNapoleon.NAPOLEON_AUTO_3,
                 AnimsNapoleon.NAPOLEON_AUTO_4,
-                AnimsHerrscher.GESETZ_AUTO_3,
+                cz("SFA_Animations", "IRONCLAD_FIST_CHARGE", AnimsHerrscher.GESETZ_AUTO_3),
                 AnimsAgony.AGONY_AIR_ATTACK_3);
+    }
+
+    /** Adds the weapon passive that makes a downed enemy get punched with the style's first punch. */
+    private static WeaponCapability.Builder withDownedPunch(WeaponCapability.Builder builder) {
+        return BlackBoneSkills.DOWNED_PUNCH == null ? builder : builder.passiveSkill(BlackBoneSkills.DOWNED_PUNCH);
+    }
+
+    /**
+     * An attack animation from Epic Fight Champion Zone (ef_cz), looked up by name so this mod still
+     * loads without it. Falls back to a Weapons of Miracles animation when ef_cz is missing or the
+     * field is not an attack animation.
+     */
+    @SuppressWarnings("unchecked")
+    private static AnimationManager.AnimationAccessor<? extends AttackAnimation> cz(String className, String field,
+            AnimationManager.AnimationAccessor<? extends AttackAnimation> fallback) {
+        try {
+            Object value = Class.forName("com.pr1me_m4sk.ef_cz.gameasset.Animations.biped.player." + className).getField(field).get(null);
+
+            if (value instanceof AnimationManager.AnimationAccessor<?> accessor && accessor.get() instanceof AttackAnimation) {
+                return (AnimationManager.AnimationAccessor<? extends AttackAnimation>) accessor;
+            }
+        } catch (Throwable ignored) {
+            // ef_cz not installed or renamed: use the fallback
+        }
+
+        return fallback;
     }
 
     /** Shared part: fist category, Agony's stance animations, Agony collider. */

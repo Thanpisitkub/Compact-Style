@@ -19,6 +19,7 @@ public final class BlackBoneSkills {
 	public static Skill BLACK_BONE;
 	public static Skill FLOW;
 	public static Skill ZONE;
+	public static Skill DOWNED_PUNCH;
 
 	private BlackBoneSkills() {
 	}
@@ -38,5 +39,6 @@ public final class BlackBoneSkills {
 		BLACK_BONE = registry.build("black_bone", BlackBoneSkill::new, PassiveSkill.createPassiveBuilder());
 		FLOW = registry.build("flow", builder -> new BlackBoneActiveSkill(builder, BlackBoneMode.FLOW), BlackBoneActiveSkill.createBuilder());
 		ZONE = registry.build("zone", builder -> new BlackBoneActiveSkill(builder, BlackBoneMode.ZONE), BlackBoneActiveSkill.createBuilder());
+		DOWNED_PUNCH = registry.build("downed_punch", DownedPunchSkill::new, DownedPunchSkill.createBuilder());
 	}
 }
