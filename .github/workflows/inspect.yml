@@ -1,0 +1,44 @@
+name: Inspect Epic Fight API
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Download Epic Fight and dump playback-speed code
+        run: |
+          set -euo pipefail
+          mkdir -p libs
+          url="https://api.modrinth.com/v2/project/epic-fight/version?loaders=%5B%22forge%22%5D&game_versions=%5B%221.20.1%22%5D"
+          file_url=$(curl -fsSL "$url" | jq -r --arg v "20.14.17" '[.[] | select(.version_number | contains($v))][0].files | (map(select(.primary)) + .)[0].url')
+          curl -fsSL -o libs/ef.jar "$file_url"
+          : > dump_out.txt
+          for c in yesman.epicfight.world.entity.eventlistener.SkillCastEvent yesman.epicfight.world.entity.eventlistener.PlayerEvent yesman.epicfight.world.entity.eventlistener.DetachablePlayerEvent yesman.epicfight.world.entity.eventlistener.BasicAttackEvent yesman.epicfight.world.entity.eventlistener.SkillExecuteEvent yesman.epicfight.skill.SkillContainer yesman.epicfight.skill.weaponinnate.WeaponInnateSkill yesman.epicfight.skill.Skill; do
+            echo "=================== $c" >> dump_out.txt
+            javap -p -cp libs/ef.jar "$c" 2>&1 | cut -c1-300 >> dump_out.txt || true
+          done
+          echo "=================== PlayerPatch/ServerPlayerPatch anim methods" >> dump_out.txt
+          javap -p -cp libs/ef.jar yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch | grep -iE 'playAnimation|reserveAnimation|getSkill\(|isBattleMode|getAnimator' | cut -c1-300 >> dump_out.txt || true
+          echo "=================== SkillContainer.requestExecute / sendCastRequest" >> dump_out.txt
+          javap -p -c -constants -cp libs/ef.jar yesman.epicfight.skill.SkillContainer | sed -E 's/^ +[0-9]+: //; s/ +#[0-9]+//' | grep -nE 'SKILL_CAST_EVENT|SkillCastEvent|requestExecute|sendCastRequest|executeOnServer|triggerEvents' | cut -c1-260 >> dump_out.txt || true
+      - name: Publish dump to a temporary branch
+        run: |
+          mkdir -p /tmp/out && cp dump_out.txt /tmp/out/ef_dump.txt
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout --orphan inspect-output
+          git rm -rf . -q || true
+          cp /tmp/out/ef_dump.txt ef_dump.txt
+          git add ef_dump.txt
+          git commit -q -m "EF dump"
+          git push -f origin inspect-output
