@@ -5,6 +5,10 @@ import com.blackbone.network.BlackBoneNetwork;
 import com.blackbone.state.BlackBoneMode;
 import com.blackbone.state.BlackBoneState;
 import com.blackbone.state.BlackBoneStates;
+import org.joml.Vector3f;
+
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -173,6 +177,17 @@ public final class BlackBoneManager {
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.TRIDENT_THUNDER, SoundSource.PLAYERS, 0.8F, 1.3F);
 			level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BEACON_POWER_SELECT, SoundSource.PLAYERS, 1.0F, 1.8F);
 		}
+
+		DustParticleOptions dust = new DustParticleOptions(flow ? new Vector3f(1.0F, 0.08F, 0.06F) : new Vector3f(0.15F, 0.6F, 1.0F), 1.4F);
+
+		for (int i = 0; i < 40; i++) {
+			double angle = i * (Math.PI * 2.0D / 40.0D);
+			double dx = Math.cos(angle);
+			double dz = Math.sin(angle);
+			level.sendParticles(dust, player.getX() + dx * 0.6D, player.getY() + 0.1D, player.getZ() + dz * 0.6D, 1, dx * 0.05D, 0.25D, dz * 0.05D, 0.2D);
+		}
+
+		level.sendParticles(flow ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.ELECTRIC_SPARK, player.getX(), player.getY() + 1.0D, player.getZ(), 30, 0.5D, 0.8D, 0.5D, 0.15D);
 	}
 
 	// ------------------------------------------------------------------ ending
