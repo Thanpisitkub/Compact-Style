@@ -72,9 +72,24 @@ public class CompactStyle {
                         output.accept(JKD_STYLE.get());
                         output.accept(SANDA_STYLE.get());
                         output.accept(KYOKUSHIN_STYLE.get());
+                        addSkillBooks(output);
 
                     })
                     .build());
+
+    /** Epic Fight skill books for the Black Bone skills, so they can be taken from this tab. */
+    private static void addSkillBooks(CreativeModeTab.Output output) {
+        for (yesman.epicfight.skill.Skill skill : new yesman.epicfight.skill.Skill[] {
+                com.blackbone.skill.BlackBoneSkills.BLACK_BONE,
+                com.blackbone.skill.BlackBoneSkills.FLOW,
+                com.blackbone.skill.BlackBoneSkills.ZONE}) {
+            if (skill != null) {
+                ItemStack book = new ItemStack(yesman.epicfight.world.item.EpicFightItems.SKILLBOOK.get());
+                yesman.epicfight.world.item.SkillBookItem.setContainingSkill(skill, book);
+                output.accept(book);
+            }
+        }
+    }
 
     public CompactStyle() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

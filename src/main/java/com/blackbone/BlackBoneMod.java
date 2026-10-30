@@ -1,13 +1,11 @@
 package com.blackbone;
 
 import com.blackbone.network.BlackBoneNetwork;
-import com.blackbone.skill.BlackBoneSlots;
 import com.mojang.logging.LogUtils;
 
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
-import yesman.epicfight.skill.SkillSlot;
 
 /**
  * Black Bone skills, built into Compact Style. Not a separate mod: Compact Style's
@@ -21,8 +19,7 @@ public class BlackBoneMod {
 	private BlackBoneMod() {}
 
 	public static void init(IEventBus modBus) {
-		// Epic Fight docs: custom skill slots must be registered in the mod constructor.
-		SkillSlot.ENUM_MANAGER.registerEnumCls(MODID, BlackBoneSlots.class);
+		// Flow and Zone share Epic Fight's single Identity slot, so only one can be equipped at a time.
 		modBus.addListener(BlackBoneMod::commonSetup);
 	}
 

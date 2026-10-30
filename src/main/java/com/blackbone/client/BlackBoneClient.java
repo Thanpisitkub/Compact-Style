@@ -27,8 +27,8 @@ import yesman.epicfight.skill.SkillContainer;
 
 /** Client-only: key bindings that trigger the skills through Epic Fight's cast pipeline, and the stack HUD. */
 public final class BlackBoneClient {
-	public static final KeyMapping FLOW_KEY = new KeyMapping("key.blackbone.flow", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, "key.categories.blackbone");
-	public static final KeyMapping ZONE_KEY = new KeyMapping("key.blackbone.zone", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H, "key.categories.blackbone");
+	/** One key for both skills: it activates whichever of Flow / Zone is equipped. */
+	public static final KeyMapping ACTIVATE_KEY = new KeyMapping("key.blackbone.activate", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, "key.categories.blackbone");
 
 	private BlackBoneClient() {
 	}
@@ -40,8 +40,7 @@ public final class BlackBoneClient {
 
 		@SubscribeEvent
 		public static void registerKeys(RegisterKeyMappingsEvent event) {
-			event.register(FLOW_KEY);
-			event.register(ZONE_KEY);
+			event.register(ACTIVATE_KEY);
 		}
 
 		@SubscribeEvent
@@ -95,17 +94,13 @@ public final class BlackBoneClient {
 				return;
 			}
 
-			while (FLOW_KEY.consumeClick()) {
-				cast(BlackBoneMode.FLOW);
-			}
-
-			while (ZONE_KEY.consumeClick()) {
-				cast(BlackBoneMode.ZONE);
+			while (ACTIVATE_KEY.consumeClick()) {
+				cast();
 			}
 		}
 
 		/** Goes through Epic Fight: SkillContainer#sendCastRequest checks canUse() and queues the CPSkillRequest packet. */
-		private static void cast(BlackBoneMode mode) {
+		private static void cast() {
 			Minecraft mc = Minecraft.getInstance();
 			LocalPlayerPatch patch = ClientEngine.getInstance().getPlayerPatch();
 
@@ -113,11 +108,12 @@ public final class BlackBoneClient {
 				return;
 			}
 
-			Skill skill = BlackBoneSkills.of(mode);
-			SkillContainer container = skill == null ? null : patch.getSkill(skill);
+			SkillContainer flow = BlackBoneSkills.FLOW == null ? null : patch.getSkill(BlackBoneSkills.FLOW);
+			SkillContainer zone = BlackBoneSkills.ZONE == null ? null : patch.getSkill(BlackBoneSkills.ZONE);
+			SkillContainer container = flow != null ? flow : zone;
 
 			if (container == null) {
-				mc.player.displayClientMessage(Component.translatable("message.blackbone.not_equipped", Component.translatable(BlackBoneManager.modeKey(mode))), true);
+				mc.player.displayClientMessage(Component.translatable("message.blackbone.none_equipped"), true);
 				return;
 			}
 
