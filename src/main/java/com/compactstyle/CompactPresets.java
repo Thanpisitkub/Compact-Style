@@ -124,8 +124,8 @@ public final class CompactPresets {
                 AnimsMoonless.MOONLESS_AUTO_2_VERSO,
                 AnimsMoonless.MOONLESS_AUTO_3_VERSO,
                 AnimsOrbit.ORBIT_ATTACK_3,
-                AnimsMoonless.MOONLESS_AUTO_3,
-                AnimsAgony.AGONY_AIR_ATTACK_2);
+                AnimsAgony.AGONY_AIR_ATTACK_2,
+                AnimsMoonless.MOONLESS_AUTO_3);
     }
 
     private static CapabilityItem.Builder judo(Item item) {
