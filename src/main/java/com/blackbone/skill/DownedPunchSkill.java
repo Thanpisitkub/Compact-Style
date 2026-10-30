@@ -15,6 +15,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import yesman.epicfight.api.animation.AnimationManager;
+import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.skill.Skill;
 import yesman.epicfight.skill.SkillBuilder;
 import yesman.epicfight.skill.SkillCategories;
@@ -104,7 +105,9 @@ public class DownedPunchSkill extends Skill {
 			return;
 		}
 
-		patch.playAnimationSynchronized(move, 0.0F);
+		@SuppressWarnings("unchecked")
+		AnimationManager.AnimationAccessor<? extends StaticAnimation> toPlay = (AnimationManager.AnimationAccessor<? extends StaticAnimation>) move;
+		patch.playAnimationSynchronized(toPlay, 0.0F);
 
 		SkillContainer basicAttack = patch.getSkill(SkillSlots.BASIC_ATTACK);
 
