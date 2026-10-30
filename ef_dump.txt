@@ -1,0 +1,221 @@
+=== classes referencing SKILL_CAST_EVENT
+ex/yesman/epicfight/skill/SkillContainer.class
+ex/yesman/epicfight/skill/passive/EmergencyEscapeSkill.class
+ex/yesman/epicfight/skill/mover/PhantomAscentSkill.class
+ex/yesman/epicfight/skill/identity/RevelationSkill.class
+ex/yesman/epicfight/skill/identity/MeteorSlamSkill.class
+ex/yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.class
+ex/yesman/epicfight/compat/PlayerReviveCompat.class
+=== classes referencing SkillCastEvent
+ex/yesman/epicfight/skill/SkillContainer.class
+ex/yesman/epicfight/skill/passive/EmergencyEscapeSkill.class
+ex/yesman/epicfight/skill/mover/PhantomAscentSkill.class
+ex/yesman/epicfight/skill/Skill.class
+ex/yesman/epicfight/skill/identity/RevelationSkill.class
+ex/yesman/epicfight/skill/identity/MeteorSlamSkill.class
+ex/yesman/epicfight/world/entity/eventlistener/SkillCastEvent.class
+ex/yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.class
+ex/yesman/epicfight/client/events/engine/ControlEngine.class
+ex/yesman/epicfight/compat/kubejs/EFUtilsJS.class
+ex/yesman/epicfight/compat/PlayerReviveCompat.class
+=== yesman.epicfight.skill.SkillContainer
+21:  protected boolean isActivated;
+31:  public yesman.epicfight.skill.SkillContainer(yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch<?>, yesman.epicfight.skill.SkillSlot);
+49:  public yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch<?> getExecutor();
+55:  public yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch getClientExecutor();
+62:  public yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch getServerExecutor();
+69:  public boolean setSkill(yesman.epicfight.skill.Skill);
+77:  public boolean setSkill(yesman.epicfight.skill.Skill, boolean);
+194:  public void setSkillRemote(yesman.epicfight.skill.Skill);
+288:  public boolean isDisabled();
+294:  public void setDisabled(boolean);
+301:  public void resetValues();
+305:       2: putfield                // Field isActivated:Z
+320:  public boolean isEmpty();
+330:  public boolean hasSkill();
+340:  public void setResource(float);
+359:  public void setMaxDuration(int);
+368:  public void setDuration(int);
+374:       8: invokevirtual                // Method isActivated:()Z
+380:      20: putfield                // Field isActivated:Z
+394:  public void setStack(int);
+428:  public void setMaxResource(float);
+435:  public void setReplaceCooldown(int);
+453:  public yesman.epicfight.world.entity.eventlistener.SkillCastEvent sendCastRequest(yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch, yesman.epicfight.client.events.engine.ControlEngine);
+558:  public void sendCancelRequest(yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch, yesman.epicfight.client.events.engine.ControlEngine);
+572:  public boolean requestCasting(yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch, net.minecraft.network.FriendlyByteBuf);
+591:      29: invokevirtual                // Method yesman/epicfight/skill/Skill.executeOnServer:(Lyesman/epicfight/skill/SkillContainer;Lnet/minecraft/network/FriendlyByteBuf;)V
+597:  public boolean requestCancel(yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch, net.minecraft.network.FriendlyByteBuf);
+612:  public boolean requestHold(yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch, net.minecraft.network.FriendlyByteBuf);
+653:      79: invokevirtual                // Method yesman/epicfight/world/entity/eventlistener/SkillConsumeEvent.isCanceled:()Z
+676:  public yesman.epicfight.skill.SkillDataManager getDataManager();
+682:  public void transferDataTo(yesman.epicfight.skill.SkillContainer);
+715:      61: getfield                // Field isActivated:Z
+716:      64: putfield                // Field isActivated:Z
+727:  public float getResource();
+733:  public int getRemainDuration();
+739:  public boolean canUse(yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch<?>, yesman.epicfight.world.entity.eventlistener.SkillCastEvent);
+778:      74: invokevirtual                // Method yesman/epicfight/skill/Skill.canExecute:(Lyesman/epicfight/skill/SkillContainer;)Z
+784:      86: invokevirtual                // Method yesman/epicfight/skill/Skill.isExecutableState:(Lyesman/epicfight/world/capabilities/entitypatch/player/PlayerPatch;)Z
+788:      96: getstatic                // Field yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+793:     105: invokevirtual                // Method yesman/epicfight/world/entity/eventlistener/SkillCastEvent.isCanceled:()Z
+810:     144: invokevirtual                // Method isActivated:()Z
+824:  public void update();
+855:  public int getStack();
+861:  public yesman.epicfight.skill.SkillSlot getSlot();
+867:  public int getSlotId();
+874:  public yesman.epicfight.skill.Skill getSkill();
+880:  public float getMaxResource();
+886:  public void activate();
+889:       1: getfield                // Field isActivated:Z
+901:      25: putfield                // Field isActivated:Z
+904:  public void deactivate();
+907:       1: getfield                // Field isActivated:Z
+917:      19: putfield                // Field isActivated:Z
+920:  public boolean isActivated();
+923:       1: getfield                // Field isActivated:Z
+926:  public boolean hasSkill(yesman.epicfight.skill.Skill);
+941:  public boolean isFull();
+957:  public float getResource(float);
+984:  public float getNeededResource();
+998:  public float getDurationRatio(float);
+1026:  public boolean onReplaceCooldown();
+1042:  public int getReplaceCooldown();
+1048:  public yesman.epicfight.network.server.SPChangeSkill createSyncPacketToLocalPlayer();
+1064:  public yesman.epicfight.network.server.SPSetRemotePlayerSkill createSyncPacketToRemotePlayer();
+1080:  public boolean equals(java.lang.Object);
+=== yesman.epicfight.skill.passive.EmergencyEscapeSkill
+7:  public static yesman.epicfight.skill.passive.EmergencyEscapeSkill$Builder createEmergencyEscapeBuilder();
+19:  public yesman.epicfight.skill.passive.EmergencyEscapeSkill(yesman.epicfight.skill.passive.EmergencyEscapeSkill$Builder);
+30:  public void onInitiate(yesman.epicfight.skill.SkillContainer);
+37:       9: getstatic                 // Field yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+52:  public void executeOnServer(yesman.epicfight.skill.SkillContainer, net.minecraft.network.FriendlyByteBuf);
+110:  public void onRemoved(yesman.epicfight.skill.SkillContainer);
+115:       7: getstatic                 // Field yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+126:  public boolean shouldDraw(yesman.epicfight.skill.SkillContainer);
+136:  public java.util.List<java.lang.Object> getTooltipArgsOfScreen(java.util.List<java.lang.Object>);
+154:  public java.util.Set<yesman.epicfight.world.capabilities.item.WeaponCategory> getAvailableWeaponCategories();
+160:  private void lambda$onInitiate$1(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.SkillConsumeEvent);
+196:      78: invokevirtual                // Method executeOnServer:(Lyesman/epicfight/skill/SkillContainer;Lnet/minecraft/network/FriendlyByteBuf;)V
+221:     135: invokevirtual                // Method executeOnServer:(Lyesman/epicfight/skill/SkillContainer;Lnet/minecraft/network/FriendlyByteBuf;)V
+224:  private void lambda$onInitiate$0(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.SkillCastEvent);
+227:       1: invokevirtual                // Method yesman/epicfight/world/entity/eventlistener/SkillCastEvent.getSkillContainer:()Lyesman/epicfight/skill/SkillContainer;
+=== yesman.epicfight.skill.mover.PhantomAscentSkill
+11:  public yesman.epicfight.skill.mover.PhantomAscentSkill(yesman.epicfight.skill.SkillBuilder<? extends yesman.epicfight.skill.Skill>);
+34:  public void setParams(net.minecraft.nbt.CompoundTag);
+54:  public void onInitiate(yesman.epicfight.skill.SkillContainer);
+84:  public void onRemoved(yesman.epicfight.skill.SkillContainer);
+104:  public boolean canExecute(yesman.epicfight.skill.SkillContainer);
+109:  public java.util.List<java.lang.Object> getTooltipArgsOfScreen(java.util.List<java.lang.Object>);
+120:  private static boolean isJumpActionPressed();
+126:  private static void lambda$onInitiate$3(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.FallEvent);
+150:  private static void lambda$onInitiate$2(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.TakeDamageEvent$Attack);
+186:  private void lambda$onInitiate$1(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.MovementInputEvent);
+274:     208: getstatic                // Field yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+279:     219: invokevirtual                // Method yesman/epicfight/world/entity/eventlistener/SkillCastEvent.isCanceled:()Z
+475:  private static java.lang.Integer lambda$onInitiate$0(java.lang.Integer);
+=== yesman.epicfight.skill.identity.RevelationSkill
+17:  public static yesman.epicfight.skill.identity.RevelationSkill$Builder createRevelationSkillBuilder();
+40:  public yesman.epicfight.skill.identity.RevelationSkill(yesman.epicfight.skill.identity.RevelationSkill$Builder);
+54:  public void setParams(net.minecraft.nbt.CompoundTag);
+122:  public void onInitiate(yesman.epicfight.skill.SkillContainer);
+129:       9: getstatic                // Field yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+166:  public void onRemoved(yesman.epicfight.skill.SkillContainer);
+174:      12: getstatic                // Field yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+203:  public void executeOnServer(yesman.epicfight.skill.SkillContainer, net.minecraft.network.FriendlyByteBuf);
+208:       3: invokespecial                // Method yesman/epicfight/skill/Skill.executeOnServer:(Lyesman/epicfight/skill/SkillContainer;Lnet/minecraft/network/FriendlyByteBuf;)V
+241:  public void checkStackAndActivate(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch, net.minecraft.world.entity.LivingEntity, int, int);
+272:      68: invokevirtual                // Method isActivated:(Lyesman/epicfight/skill/SkillContainer;)Z
+289:  public boolean shouldDraw(yesman.epicfight.skill.SkillContainer);
+300:  public void drawOnGui(yesman.epicfight.client.gui.BattleModeGui, yesman.epicfight.skill.SkillContainer, net.minecraft.client.gui.GuiGraphics, float, float, float);
+383:  private void lambda$onInitiate$8(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.TargetIndicatorCheckEvent);
+387:       2: invokevirtual                // Method isActivated:(Lyesman/epicfight/skill/SkillContainer;)Z
+394:  private void lambda$onInitiate$7(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.TakeDamageEvent$Attack);
+439:  private void lambda$onInitiate$6(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.DodgeSuccessEvent);
+472:  private static void lambda$onInitiate$5(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.SetTargetEvent);
+484:  private void lambda$onInitiate$4(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.SkillCastEvent);
+491:      11: invokevirtual                // Method yesman/epicfight/world/entity/eventlistener/SkillCastEvent.getSkillContainer:()Lyesman/epicfight/skill/SkillContainer;
+515:  private void lambda$onInitiate$3(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.SkillCastEvent, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch);
+519:       2: invokevirtual                // Method isActivated:(Lyesman/epicfight/skill/SkillContainer;)Z
+538:  private static yesman.epicfight.api.animation.AnimationManager$AnimationAccessor lambda$createRevelationSkillBuilder$2(yesman.epicfight.world.capabilities.item.CapabilityItem, yesman.epicfight.world.capabilities.entitypatch.player.Pla
+543:  private static yesman.epicfight.api.animation.AnimationManager$AnimationAccessor lambda$createRevelationSkillBuilder$1(yesman.epicfight.world.capabilities.item.CapabilityItem, yesman.epicfight.world.capabilities.entitypatch.player.Pla
+548:  private static yesman.epicfight.api.animation.AnimationManager$AnimationAccessor lambda$createRevelationSkillBuilder$0(yesman.epicfight.world.capabilities.item.CapabilityItem, yesman.epicfight.world.capabilities.entitypatch.player.Pla
+=== yesman.epicfight.skill.identity.MeteorSlamSkill
+9:  public static float getFallDistance(yesman.epicfight.skill.SkillContainer);
+21:  public static yesman.epicfight.skill.identity.MeteorSlamSkill$Builder createMeteorSlamBuilder();
+45:  public yesman.epicfight.skill.identity.MeteorSlamSkill(yesman.epicfight.skill.identity.MeteorSlamSkill$Builder);
+59:  public void onInitiate(yesman.epicfight.skill.SkillContainer);
+66:       9: getstatic                // Field yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+86:  public void onRemoved(yesman.epicfight.skill.SkillContainer);
+106:      44: getstatic                // Field yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+111:  public java.util.Set<yesman.epicfight.world.capabilities.item.WeaponCategory> getAvailableWeaponCategories();
+118:  public boolean getCustomConsumptionTooltips(yesman.epicfight.client.gui.screen.SkillBookScreen$AttributeIconList);
+130:  private static void lambda$onInitiate$6(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.FallEvent);
+153:  private static void lambda$onInitiate$5(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.TakeDamageEvent$Hurt);
+197:  private void lambda$onInitiate$4(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.SkillCastEvent);
+204:      11: invokevirtual                // Method yesman/epicfight/world/entity/eventlistener/SkillCastEvent.getSkillContainer:()Lyesman/epicfight/skill/SkillContainer;
+351:  private static yesman.epicfight.api.animation.AnimationManager$AnimationAccessor lambda$createMeteorSlamBuilder$3(yesman.epicfight.world.capabilities.item.CapabilityItem, yesman.epicfight.world.capabilities.entitypatch.player.PlayerPa
+356:  private static yesman.epicfight.api.animation.AnimationManager$AnimationAccessor lambda$createMeteorSlamBuilder$2(yesman.epicfight.world.capabilities.item.CapabilityItem, yesman.epicfight.world.capabilities.entitypatch.player.PlayerPa
+361:  private static yesman.epicfight.api.animation.AnimationManager$AnimationAccessor lambda$createMeteorSlamBuilder$1(yesman.epicfight.world.capabilities.item.CapabilityItem, yesman.epicfight.world.capabilities.entitypatch.player.PlayerPa
+366:  private static yesman.epicfight.api.animation.AnimationManager$AnimationAccessor lambda$createMeteorSlamBuilder$0(yesman.epicfight.world.capabilities.item.CapabilityItem, yesman.epicfight.world.capabilities.entitypatch.player.PlayerPa
+=== yesman.epicfight.world.entity.eventlistener.PlayerEventListener$EventType
+43:  public static final yesman.epicfight.world.entity.eventlistener.PlayerEventListener$EventType<yesman.epicfight.world.entity.eventlistener.SkillCastEvent> SKILL_CAST_EVENT;
+69:  public yesman.epicfight.world.entity.eventlistener.PlayerEventListener$EventType(net.minecraftforge.fml.LogicalSide);
+78:  public boolean shouldActive(boolean);
+199:     256: putstatic                // Field SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+=== yesman.epicfight.compat.PlayerReviveCompat
+3:  public yesman.epicfight.compat.PlayerReviveCompat();
+9:  public void onModEventBus(net.minecraftforge.eventbus.api.IEventBus);
+13:  public void onForgeEventBus(net.minecraftforge.eventbus.api.IEventBus);
+20:  public void onModEventBusClient(net.minecraftforge.eventbus.api.IEventBus);
+24:  public void onForgeEventBusClient(net.minecraftforge.eventbus.api.IEventBus);
+28:  private static void lambda$onForgeEventBus$2(net.minecraftforge.event.entity.EntityJoinLevelEvent);
+47:  private static void lambda$onForgeEventBus$1(net.minecraft.world.entity.player.Player, yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch);
+51:       4: getstatic                // Field yesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CAST_EVENT:Lyesman/epicfight/world/entity/eventlistener/PlayerEventListener$EventType;
+58:  private static void lambda$onForgeEventBus$0(net.minecraft.world.entity.player.Player, yesman.epicfight.world.entity.eventlistener.SkillCastEvent);
+=== Skill.canExecute / isExecutableState
+  protected final net.minecraft.resources.ResourceLocation registryName;
+  protected final yesman.epicfight.skill.Skill$Resource resource;
+  public boolean isExecutableState(yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch<?>);
+  public boolean canExecute(yesman.epicfight.skill.SkillContainer);
+  public boolean checkExecuteCondition(yesman.epicfight.skill.SkillContainer);
+  public java.lang.Object getExecutionPacket(yesman.epicfight.skill.SkillContainer, net.minecraft.network.FriendlyByteBuf);
+  public void executeOnServer(yesman.epicfight.skill.SkillContainer, net.minecraft.network.FriendlyByteBuf);
+  public void executeOnClient(yesman.epicfight.skill.SkillContainer, net.minecraft.network.FriendlyByteBuf);
+  public void setMaxResourceSynchronize(yesman.epicfight.skill.SkillContainer, float);
+  public static void setSkillMaxResourceSynchronize(yesman.epicfight.skill.SkillContainer, float);
+  public net.minecraft.resources.ResourceLocation getRegistryName();
+  public boolean resourcePredicate(yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch<?>, yesman.epicfight.world.entity.eventlistener.SkillCastEvent);
+  public yesman.epicfight.skill.Skill$Resource getResourceType();
+  public net.minecraft.resources.ResourceLocation getSkillTexture();
+  protected float resource;
+  protected float prevResource;
+  protected float maxResource;
+  protected final yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch<?> executor;
+  public yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch<?> getExecutor();
+  public yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch getClientExecutor();
+  public yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch getServerExecutor();
+  public void setResource(float);
+  public void setMaxResource(float);
+  public yesman.epicfight.world.entity.eventlistener.SkillCastEvent sendCastRequest(yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch, yesman.epicfight.client.events.engine.ControlEngine);
+  public boolean requestCasting(yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch, net.minecraft.network.FriendlyByteBuf);
+  public float getResource();
+  public boolean canUse(yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch<?>, yesman.epicfight.world.entity.eventlistener.SkillCastEvent);
+  public float getMaxResource();
+  public float getResource(float);
+  public float getNeededResource();
+=== key mapping for weapon innate
+ex/yesman/epicfight/skill/weaponinnate/SteelWhirlwindSkill.class
+ex/yesman/epicfight/world/damagesource/EpicFightDamageTypeTags.class
+ex/yesman/epicfight/config/ClientConfig.class
+ex/yesman/epicfight/generated/LangKeys.class
+ex/yesman/epicfight/api/client/input/action/EpicFightInputAction$1.class
+ex/yesman/epicfight/api/client/input/action/EpicFightInputAction.class
+ex/yesman/epicfight/client/events/ClientModBusEvent.class
+ex/yesman/epicfight/client/events/engine/ControlEngine.class
+ex/yesman/epicfight/client/events/engine/RenderEngine$Events.class
+ex/yesman/epicfight/client/gui/screen/config/UISetupScreen.class
+ex/yesman/epicfight/client/input/EpicFightKeyMappings.class
+ex/yesman/epicfight/compat/controlify/EpicFightControlifyEntrypoint$1.class
+ex/yesman/epicfight/compat/controlify/EpicFightControlifyEntrypoint.class
+ex/yesman/epicfight/compat/controlify/EpicFightControlifyEntrypoint$TranslationKeys.class
