@@ -43,7 +43,23 @@ jobs:
           get oWx9p4ug 2.0.171 wom-2.0.171.jar
 
       - name: Build
-        run: gradle build --no-daemon
+        shell: bash
+        run: |
+          set -o pipefail
+          gradle build --no-daemon 2>&1 | tee build.log
+
+      - name: Publish compile errors on failure
+        if: failure()
+        run: |
+          grep -E "error:|symbol:|location:|What went wrong" -A2 build.log | head -150 > /tmp/errors.txt || true
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout --orphan build-errors
+          git rm -rf . -q || true
+          cp /tmp/errors.txt errors.txt
+          git add errors.txt
+          git commit -q -m "build errors"
+          git push -f origin build-errors
 
       - uses: actions/upload-artifact@v4
         with:
