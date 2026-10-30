@@ -139,44 +139,102 @@ public final class AuraEffectRenderer {
 	}
 
 	/**
-	 * The lightning show: arcs crawling over the body, tall bolts striking up from the ground around the
-	 * player, and a star of bolts spreading over the floor. Every bolt is drawn twice, a wide faint glow
-	 * and a thin white-hot core, and can fork. The pattern re-rolls every 2 ticks so it crackles.
+	 * The lightning show, built to look composed rather than random:
+	 *  - three electric strands spiralling up around the body and slowly rotating
+	 *  - a ring of crackling arcs jumping around the feet
+	 *  - tall bolts that strike down at random spots around the player, fading in and out smoothly,
+	 *    each with a soft glow flare on the ground
+	 *  - a few forked arcs skittering over the body
+	 * Every bolt is a wide soft glow under a thin white-hot core and tapers towards its tip.
+	 * The jitter re-rolls every 2 ticks so it crackles.
 	 */
 	private static void arcs(VertexConsumer vc, Matrix4f m, Vec3 feet, float height, Vec3 camPos, float[] inner, float[] glow, float time, int seedId) {
 		Random rnd = new Random(seedId * 7919L + (long)(time / 2.0F));
-		float[] hot = {Mth.lerp(0.75F, inner[0], 1.0F), Mth.lerp(0.75F, inner[1], 1.0F), Mth.lerp(0.75F, inner[2], 1.0F)};
-		float flicker = 0.75F + 0.25F * rnd.nextFloat();
+		float[] hot = {Mth.lerp(0.80F, inner[0], 1.0F), Mth.lerp(0.80F, inner[1], 1.0F), Mth.lerp(0.80F, inner[2], 1.0F)};
+		float flicker = 0.8F + 0.2F * rnd.nextFloat();
+		float top = height + 0.3F;
 
-		// Arcs wrapping the body.
-		for (int a = 0; a < 14; a++) {
-			double angle = rnd.nextDouble() * Math.PI * 2.0D;
-			double y = feet.y + rnd.nextDouble() * height;
-			double r = 0.45D + rnd.nextDouble() * 0.2D;
-			Vec3 from = new Vec3(feet.x + Math.cos(angle) * r, y, feet.z + Math.sin(angle) * r);
-			double angle2 = angle + (rnd.nextDouble() - 0.5D) * 2.2D;
-			double y2 = Mth.clamp(y + (rnd.nextDouble() - 0.5D) * 1.1D, feet.y, feet.y + height + 0.2D);
-			double r2 = 0.45D + rnd.nextDouble() * 0.25D;
-			Vec3 to = new Vec3(feet.x + Math.cos(angle2) * r2, y2, feet.z + Math.sin(angle2) * r2);
-			bolt(vc, m, from, to, camPos, 5, 0.14D, 0.032F, glow, hot, flicker, rnd, 0.35D, 1);
+		// Spiral strands around the body.
+		for (int k = 0; k < 3; k++) {
+			float base = time * 0.09F + k * Mth.TWO_PI / 3.0F;
+			int points = 26;
+			Vec3 prev = null;
+
+			for (int i = 0; i <= points; i++) {
+				float t = (float)i / points;
+				float angle = base + t * 7.0F;
+				float radius = 0.50F + 0.07F * Mth.sin(t * 9.0F + time * 0.2F + k);
+				double jitter = 0.035D;
+				Vec3 point = new Vec3(
+						feet.x + Mth.cos(angle) * radius + (rnd.nextDouble() - 0.5D) * jitter,
+						feet.y + t * top + (rnd.nextDouble() - 0.5D) * jitter,
+						feet.z + Mth.sin(angle) * radius + (rnd.nextDouble() - 0.5D) * jitter);
+
+				if (prev != null) {
+					float env = Mth.sin(t * Mth.PI);
+					float a = Mth.clamp(env * 1.4F, 0.0F, 1.0F) * flicker;
+					float w = 0.026F * (0.35F + 0.65F * env);
+					ribbon(vc, m, prev, point, camPos, w * 3.4F, glow, glow, 0.30F * a, 0.30F * a);
+					ribbon(vc, m, prev, point, camPos, w, hot, hot, 0.95F * a, 0.95F * a);
+				}
+
+				prev = point;
+			}
 		}
 
-		// Tall bolts striking up from the ground around the player.
-		for (int a = 0; a < 4; a++) {
-			double angle = rnd.nextDouble() * Math.PI * 2.0D;
-			double r = 0.9D + rnd.nextDouble() * 0.9D;
+		// Crackling ring of arcs around the feet.
+		int ring = 10;
+
+		for (int i = 0; i < ring; i++) {
+			float a0 = time * -0.05F + i * Mth.TWO_PI / ring;
+			float a1 = a0 + Mth.TWO_PI / ring * (0.55F + 0.35F * rnd.nextFloat());
+			Vec3 from = new Vec3(feet.x + Mth.cos(a0) * 0.95D, feet.y + 0.05D, feet.z + Mth.sin(a0) * 0.95D);
+			Vec3 to = new Vec3(feet.x + Mth.cos(a1) * 0.95D, feet.y + 0.05D + rnd.nextDouble() * 0.5D, feet.z + Mth.sin(a1) * 0.95D);
+			bolt(vc, m, from, to, camPos, 5, 0.06D, 0.022F, glow, hot, flicker * 0.9F, rnd, 0.15D, 1);
+		}
+
+		// Tall strikes that fade in and out; each one picks a new spot when it starts.
+		for (int k = 0; k < 3; k++) {
+			float cycle = time * 0.055F + k / 3.0F;
+			float phase = cycle - (float)Math.floor(cycle);
+			Random strike = new Random(seedId * 31L + k * 977L + (long)Math.floor(cycle) * 7919L);
+			double angle = strike.nextDouble() * Math.PI * 2.0D;
+			double r = 1.0D + strike.nextDouble() * 1.1D;
+			float env = Mth.sin(phase * Mth.PI);
+			env = env * env;
 			Vec3 from = new Vec3(feet.x + Math.cos(angle) * r, feet.y + 0.02D, feet.z + Math.sin(angle) * r);
-			Vec3 to = from.add((rnd.nextDouble() - 0.5D) * 0.6D, height + 0.6D + rnd.nextDouble() * 1.4D, (rnd.nextDouble() - 0.5D) * 0.6D);
-			bolt(vc, m, from, to, camPos, 9, 0.22D, 0.05F, glow, hot, flicker, rnd, 0.3D, 2);
+			Vec3 to = from.add((strike.nextDouble() - 0.5D) * 0.5D, height + 1.0D + strike.nextDouble() * 1.2D, (strike.nextDouble() - 0.5D) * 0.5D);
+			bolt(vc, m, from, to, camPos, 12, 0.16D, 0.045F, glow, hot, flicker * env, rnd, 0.28D, 2);
+			flare(vc, m, from, 0.55F + 0.35F * env, glow, hot, 0.8F * env);
 		}
 
-		// Star of bolts crawling over the floor.
+		// A few forked arcs over the body.
 		for (int a = 0; a < 6; a++) {
 			double angle = rnd.nextDouble() * Math.PI * 2.0D;
-			double len = 1.0D + rnd.nextDouble() * 1.4D;
-			Vec3 from = new Vec3(feet.x + Math.cos(angle) * 0.4D, feet.y + 0.04D, feet.z + Math.sin(angle) * 0.4D);
-			Vec3 to = new Vec3(feet.x + Math.cos(angle) * len, feet.y + 0.04D, feet.z + Math.sin(angle) * len);
-			bolt(vc, m, from, to, camPos, 6, 0.16D, 0.04F, glow, hot, flicker * 0.9F, rnd, 0.25D, 1);
+			double y = feet.y + rnd.nextDouble() * height;
+			Vec3 from = new Vec3(feet.x + Math.cos(angle) * 0.5D, y, feet.z + Math.sin(angle) * 0.5D);
+			double angle2 = angle + (rnd.nextDouble() - 0.5D) * 1.6D;
+			Vec3 to = new Vec3(feet.x + Math.cos(angle2) * 0.55D, Mth.clamp(y + (rnd.nextDouble() - 0.5D) * 0.9D, feet.y, feet.y + top), feet.z + Math.sin(angle2) * 0.55D);
+			bolt(vc, m, from, to, camPos, 5, 0.1D, 0.03F, glow, hot, flicker, rnd, 0.4D, 1);
+		}
+	}
+
+	/** Flat soft glow on the ground where a bolt lands (radial gradient, additive). */
+	private static void flare(VertexConsumer vc, Matrix4f m, Vec3 center, float radius, float[] glow, float[] hot, float alpha) {
+		if (alpha <= 0.01F) {
+			return;
+		}
+
+		int seg = 16;
+		double y = center.y + 0.03D;
+
+		for (int i = 0; i < seg; i++) {
+			double a0 = Mth.TWO_PI * i / seg;
+			double a1 = Mth.TWO_PI * (i + 1) / seg;
+			v(vc, m, center.x, y, center.z, hot, alpha);
+			v(vc, m, center.x + Math.cos(a0) * radius, y, center.z + Math.sin(a0) * radius, glow, 0.0F);
+			v(vc, m, center.x + Math.cos(a1) * radius, y, center.z + Math.sin(a1) * radius, glow, 0.0F);
+			v(vc, m, center.x + Math.cos(a1) * radius, y, center.z + Math.sin(a1) * radius, glow, 0.0F);
 		}
 	}
 
