@@ -120,6 +120,10 @@ public final class AuraEffectRenderer {
 
 	/** Camera-facing tapered ribbon, bright at the start and transparent at the tip. */
 	private static void ribbon(VertexConsumer vc, Matrix4f m, Vec3 start, Vec3 end, Vec3 camPos, float width, float[] tip, float[] base, float alpha) {
+		ribbon(vc, m, start, end, camPos, width, tip, base, alpha, 0.0F);
+	}
+
+	private static void ribbon(VertexConsumer vc, Matrix4f m, Vec3 start, Vec3 end, Vec3 camPos, float width, float[] tip, float[] base, float alpha, float endAlpha) {
 		Vec3 dir = end.subtract(start);
 		Vec3 side = dir.cross(camPos.subtract(start));
 
@@ -130,28 +134,77 @@ public final class AuraEffectRenderer {
 		side = side.normalize().scale(width);
 		v(vc, m, start.add(side), base, alpha);
 		v(vc, m, start.subtract(side), base, alpha);
-		v(vc, m, end.subtract(side.scale(0.15D)), tip, 0.0F);
-		v(vc, m, end.add(side.scale(0.15D)), tip, 0.0F);
+		v(vc, m, end.subtract(side.scale(0.85D)), tip, endAlpha);
+		v(vc, m, end.add(side.scale(0.85D)), tip, endAlpha);
 	}
 
-	/** Short jagged lightning arcs hugging the body. Pattern changes every few ticks. */
+	/**
+	 * The lightning show: arcs crawling over the body, tall bolts striking up from the ground around the
+	 * player, and a star of bolts spreading over the floor. Every bolt is drawn twice, a wide faint glow
+	 * and a thin white-hot core, and can fork. The pattern re-rolls every 2 ticks so it crackles.
+	 */
 	private static void arcs(VertexConsumer vc, Matrix4f m, Vec3 feet, float height, Vec3 camPos, float[] inner, float[] glow, float time, int seedId) {
-		Random rnd = new Random(seedId * 7919L + (long)(time / 3.0F));
-		float[] white = {Mth.lerp(0.7F, inner[0], 1.0F), Mth.lerp(0.7F, inner[1], 1.0F), Mth.lerp(0.7F, inner[2], 1.0F)};
+		Random rnd = new Random(seedId * 7919L + (long)(time / 2.0F));
+		float[] hot = {Mth.lerp(0.75F, inner[0], 1.0F), Mth.lerp(0.75F, inner[1], 1.0F), Mth.lerp(0.75F, inner[2], 1.0F)};
+		float flicker = 0.75F + 0.25F * rnd.nextFloat();
 
-		for (int a = 0; a < 8; a++) {
+		// Arcs wrapping the body.
+		for (int a = 0; a < 14; a++) {
 			double angle = rnd.nextDouble() * Math.PI * 2.0D;
-			double y = feet.y + rnd.nextDouble() * height * 0.8D;
-			Vec3 prev = new Vec3(feet.x + Math.cos(angle) * 0.5D, y, feet.z + Math.sin(angle) * 0.5D);
+			double y = feet.y + rnd.nextDouble() * height;
+			double r = 0.45D + rnd.nextDouble() * 0.2D;
+			Vec3 from = new Vec3(feet.x + Math.cos(angle) * r, y, feet.z + Math.sin(angle) * r);
+			double angle2 = angle + (rnd.nextDouble() - 0.5D) * 2.2D;
+			double y2 = Mth.clamp(y + (rnd.nextDouble() - 0.5D) * 1.1D, feet.y, feet.y + height + 0.2D);
+			double r2 = 0.45D + rnd.nextDouble() * 0.25D;
+			Vec3 to = new Vec3(feet.x + Math.cos(angle2) * r2, y2, feet.z + Math.sin(angle2) * r2);
+			bolt(vc, m, from, to, camPos, 5, 0.14D, 0.032F, glow, hot, flicker, rnd, 0.35D, 1);
+		}
 
-			for (int s = 0; s < 4; s++) {
-				angle += (rnd.nextDouble() - 0.4D) * 0.7D;
-				y += (rnd.nextDouble() - 0.35D) * 0.45D;
-				double r = 0.5D + rnd.nextDouble() * 0.22D;
-				Vec3 next = new Vec3(feet.x + Math.cos(angle) * r, y, feet.z + Math.sin(angle) * r);
-				ribbon(vc, m, prev, next, camPos, 0.026F, glow, white, 0.95F - s * 0.15F);
-				prev = next;
+		// Tall bolts striking up from the ground around the player.
+		for (int a = 0; a < 4; a++) {
+			double angle = rnd.nextDouble() * Math.PI * 2.0D;
+			double r = 0.9D + rnd.nextDouble() * 0.9D;
+			Vec3 from = new Vec3(feet.x + Math.cos(angle) * r, feet.y + 0.02D, feet.z + Math.sin(angle) * r);
+			Vec3 to = from.add((rnd.nextDouble() - 0.5D) * 0.6D, height + 0.6D + rnd.nextDouble() * 1.4D, (rnd.nextDouble() - 0.5D) * 0.6D);
+			bolt(vc, m, from, to, camPos, 9, 0.22D, 0.05F, glow, hot, flicker, rnd, 0.3D, 2);
+		}
+
+		// Star of bolts crawling over the floor.
+		for (int a = 0; a < 6; a++) {
+			double angle = rnd.nextDouble() * Math.PI * 2.0D;
+			double len = 1.0D + rnd.nextDouble() * 1.4D;
+			Vec3 from = new Vec3(feet.x + Math.cos(angle) * 0.4D, feet.y + 0.04D, feet.z + Math.sin(angle) * 0.4D);
+			Vec3 to = new Vec3(feet.x + Math.cos(angle) * len, feet.y + 0.04D, feet.z + Math.sin(angle) * len);
+			bolt(vc, m, from, to, camPos, 6, 0.16D, 0.04F, glow, hot, flicker * 0.9F, rnd, 0.25D, 1);
+		}
+	}
+
+	/** A jagged bolt from start to end, with optional forks (depth levels). */
+	private static void bolt(VertexConsumer vc, Matrix4f m, Vec3 start, Vec3 end, Vec3 camPos, int segments, double jitter, float width,
+			float[] glow, float[] hot, float alpha, Random rnd, double forkChance, int depth) {
+		Vec3 prev = start;
+
+		for (int s = 1; s <= segments; s++) {
+			double t = (double)s / segments;
+			Vec3 point = start.lerp(end, t);
+
+			if (s < segments) {
+				point = point.add((rnd.nextDouble() - 0.5D) * 2.0D * jitter, (rnd.nextDouble() - 0.5D) * 2.0D * jitter, (rnd.nextDouble() - 0.5D) * 2.0D * jitter);
 			}
+
+			float fade = 1.0F - 0.35F * (float)t;
+			// Wide glow under a thin hot core.
+			ribbon(vc, m, prev, point, camPos, width * 3.2F, glow, glow, 0.38F * alpha * fade, 0.38F * alpha * fade * 0.9F);
+			ribbon(vc, m, prev, point, camPos, width, hot, hot, alpha * fade, alpha * fade * 0.9F);
+
+			if (depth > 0 && s < segments && rnd.nextDouble() < forkChance) {
+				Vec3 dir = end.subtract(start);
+				Vec3 branchEnd = point.add(dir.scale(0.35D)).add((rnd.nextDouble() - 0.5D) * 1.0D, (rnd.nextDouble() - 0.5D) * 0.7D, (rnd.nextDouble() - 0.5D) * 1.0D);
+				bolt(vc, m, point, branchEnd, camPos, Math.max(2, segments / 2), jitter * 0.8D, width * 0.6F, glow, hot, alpha * 0.8F, rnd, 0.0D, depth - 1);
+			}
+
+			prev = point;
 		}
 	}
 
@@ -179,9 +232,9 @@ public final class AuraEffectRenderer {
 
 			float height = player.getBbHeight();
 
-			if (level.random.nextInt(2) == 0) {
-				level.addParticle(ParticleTypes.ELECTRIC_SPARK, player.getX() + (level.random.nextDouble() - 0.5D) * 0.9D, player.getY() + level.random.nextDouble() * height,
-						player.getZ() + (level.random.nextDouble() - 0.5D) * 0.9D, 0.0D, 0.0D, 0.0D);
+			for (int i = 0; i < 3; i++) {
+				level.addParticle(ParticleTypes.ELECTRIC_SPARK, player.getX() + (level.random.nextDouble() - 0.5D) * 1.6D, player.getY() + level.random.nextDouble() * (height + 0.5D),
+						player.getZ() + (level.random.nextDouble() - 0.5D) * 1.6D, (level.random.nextDouble() - 0.5D) * 0.2D, 0.05D, (level.random.nextDouble() - 0.5D) * 0.2D);
 			}
 		}
 	}
