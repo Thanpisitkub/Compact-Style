@@ -27,13 +27,13 @@ public class CompactStyle {
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC), 7.0, 2.30));
 
     public static final RegistryObject<Item> MUAYTHAI_GLOVES = ITEMS.register("muaythai_gloves",
-            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.0, 2.15));
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 6.5, 2.15));
 
     public static final RegistryObject<Item> CHINESE_STYLE = ITEMS.register("chinese_style",
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.0, 2.15));
 
     public static final RegistryObject<Item> TAEKWONDO_STYLE = ITEMS.register("taekwondo_style",
-            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 4.0, 2.15));
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 6.5, 2.15));
 
     public static final RegistryObject<Item> CAPOEIRA_STYLE = ITEMS.register("capoeira_style",
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2.5, 2.35));
