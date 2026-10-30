@@ -1,0 +1,49 @@
+name: Inspect Epic Fight API
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Download Epic Fight and dump skill cast flow
+        run: |
+          set -euo pipefail
+          mkdir -p libs ex
+          url="https://api.modrinth.com/v2/project/epic-fight/version?loaders=%5B%22forge%22%5D&game_versions=%5B%221.20.1%22%5D"
+          file_url=$(curl -fsSL "$url" | jq -r --arg v "20.14.17" '[.[] | select(.version_number | contains($v))][0].files | (map(select(.primary)) + .)[0].url')
+          curl -fsSL -o libs/ef.jar "$file_url"
+          (cd ex && unzip -q ../libs/ef.jar)
+          : > dump_out.txt
+          echo "=== classes referencing SKILL_CAST_EVENT" >> dump_out.txt
+          grep -rl "SKILL_CAST_EVENT" ex --include=*.class >> dump_out.txt || true
+          echo "=== classes referencing SkillCastEvent" >> dump_out.txt
+          grep -rl "SkillCastEvent" ex --include=*.class >> dump_out.txt || true
+          for c in $(grep -rl "SKILL_CAST_EVENT" ex --include=*.class | sed 's#ex/##; s#\.class$##; s#/#.#g'); do
+            echo "=== $c" >> dump_out.txt
+            javap -p -c -constants -cp libs/ef.jar "$c" | sed -E 's/ +#[0-9]+//' | grep -nE '^  [a-z].*\(|SKILL_CAST_EVENT|canExecute|isExecutableState|isCanceled|isBattleMode|checkExecuteCondition|getSkillContainer|requestExecute|executeOnServer|hasEnoughResource|isActivated|isDisabled' | cut -c1-240 >> dump_out.txt || true
+          done
+          echo "=== Skill.canExecute / isExecutableState" >> dump_out.txt
+          javap -p -cp libs/ef.jar yesman.epicfight.skill.Skill yesman.epicfight.skill.SkillContainer | grep -iE 'execut|cast|resource|canUse' | cut -c1-260 >> dump_out.txt || true
+          echo "=== key mapping for weapon innate" >> dump_out.txt
+          grep -rl "WEAPON_INNATE_SKILL\|weapon_innate" ex --include=*.class | head -20 >> dump_out.txt || true
+      - name: Publish dump
+        run: |
+          mkdir -p /tmp/out && cp dump_out.txt /tmp/out/ef_dump.txt
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout --orphan inspect-output2
+          git rm -rf . -q || true
+          cp /tmp/out/ef_dump.txt ef_dump.txt
+          git add ef_dump.txt
+          git commit -q -m "EF dump 2"
+          git push -f origin inspect-output2
