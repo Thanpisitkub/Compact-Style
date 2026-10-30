@@ -2,6 +2,10 @@ package com.blackbone.skill;
 
 import java.util.UUID;
 
+import com.blackbone.network.BlackBoneNetwork;
+import com.blackbone.network.DownedStrikePacket;
+
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
@@ -10,6 +14,7 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import yesman.epicfight.api.animation.AnimationManager;
 import yesman.epicfight.skill.Skill;
 import yesman.epicfight.skill.SkillBuilder;
 import yesman.epicfight.skill.SkillCategories;
@@ -27,8 +32,8 @@ import yesman.epicfight.world.entity.eventlistener.PlayerEventListener.EventType
 /**
  * Weapon passive used by Classic, Kyokushin and Taekwondo: pressing the weapon-skill button (right mouse
  * button by default) while the enemy in front of you is lying knocked down cancels the normal weapon skill
- * and plays the style's first punch (auto 1) on the downed enemy instead. The left button is unchanged.
- * Runs on SKILL_CAST_EVENT, which Epic Fight fires on the server before it executes a skill.
+ * and plays the first hit of the scythe animation (Epic Fight Extra) on the downed enemy instead. The left
+ * button is unchanged. The client intercepts SKILL_CAST_EVENT and asks the server through a packet.
  */
 public class DownedPunchSkill extends Skill {
 	private static final UUID EVENT_UUID = UUID.fromString("5d3c3a8e-7a53-4a0f-9f5e-b1ac4b0e0010");
@@ -50,38 +55,79 @@ public class DownedPunchSkill extends Skill {
 
 		PlayerEventListener listener = container.getExecutor().getEventListener();
 
+		// Epic Fight fires SKILL_CAST_EVENT on the client before it sends the cast request, so this is where
+		// the weapon-skill button can be intercepted. The server is then asked to play the move.
 		listener.addEventListener(EventType.SKILL_CAST_EVENT, EVENT_UUID, (event) -> {
-			// Only the weapon skill, and only on the server (the client just sends the request).
-			if (event.getSkillContainer().getSlot() != SkillSlots.WEAPON_INNATE || !(event.getPlayerPatch() instanceof ServerPlayerPatch patch)) {
+			if (event.getSkillContainer().getSlot() != SkillSlots.WEAPON_INNATE || event.getPlayerPatch() instanceof ServerPlayerPatch) {
 				return;
 			}
 
-			if (!targetIsDowned(patch.getOriginal())) {
-				return;
-			}
+			Player player = event.getPlayerPatch().getOriginal();
 
-			CapabilityItem capability = patch.getHoldingItemCapability(InteractionHand.MAIN_HAND);
-
-			if (!(capability instanceof WeaponCapability weapon)) {
-				return;
-			}
-
-			var combo = weapon.getAutoAttackMotion(patch);
-
-			if (combo.isEmpty()) {
+			if (!player.level().isClientSide || !targetIsDowned(player)) {
 				return;
 			}
 
 			event.setCanceled(true);
-			patch.playAnimationSynchronized(combo.get(0), 0.0F);
 
-			SkillContainer basicAttack = patch.getSkill(SkillSlots.BASIC_ATTACK);
-
-			if (basicAttack != null) {
-				// The next left-click continues with punch 2.
-				basicAttack.getDataManager().setData(SkillDataKeys.COMBO_COUNTER.get(), 1);
+			if (player.tickCount - lastSentTick >= 8 || player.tickCount < lastSentTick) {
+				lastSentTick = player.tickCount;
+				BlackBoneNetwork.CHANNEL.sendToServer(new DownedStrikePacket());
 			}
 		});
+	}
+
+	private static int lastSentTick = -100;
+
+	/** Server side: plays the scythe's first attack (or the style's first punch) on the downed enemy. */
+	public static void performOnServer(ServerPlayer player) {
+		ServerPlayerPatch patch = EpicFightCapabilities.getEntityPatch(player, ServerPlayerPatch.class);
+
+		if (patch == null || !targetIsDowned(player)) {
+			return;
+		}
+
+		CapabilityItem capability = patch.getHoldingItemCapability(InteractionHand.MAIN_HAND);
+
+		if (!(capability instanceof WeaponCapability weapon) || !patch.getEntityState().canBasicAttack()) {
+			return;
+		}
+
+		var combo = weapon.getAutoAttackMotion(patch);
+		AnimationManager.AnimationAccessor<?> move = scytheFirstAttack();
+
+		if (move == null && !combo.isEmpty()) {
+			move = combo.get(0);
+		}
+
+		if (move == null) {
+			return;
+		}
+
+		patch.playAnimationSynchronized(move, 0.0F);
+
+		SkillContainer basicAttack = patch.getSkill(SkillSlots.BASIC_ATTACK);
+
+		if (basicAttack != null) {
+			// The next left-click continues with punch 2.
+			basicAttack.getDataManager().setData(SkillDataKeys.COMBO_COUNTER.get(), 1);
+		}
+	}
+
+	/** First hit of the scythe combo from Epic Fight Extra (looked up by name; null when it is not installed). */
+	private static AnimationManager.AnimationAccessor<?> scytheFirstAttack() {
+		try {
+			Object value = Class.forName("com.asanginxst.epicfightx.gameassets.animations.ExtraAnimations")
+				.getField("SCYTHE_TWOHAND_AUTO1").get(null);
+
+			if (value instanceof AnimationManager.AnimationAccessor<?> accessor) {
+				return accessor;
+			}
+		} catch (Throwable ignored) {
+			// Epic Fight Extra not installed: fall back to the style's own first punch
+		}
+
+		return null;
 	}
 
 	@Override
@@ -91,7 +137,7 @@ public class DownedPunchSkill extends Skill {
 	}
 
 	/** The living entity under the crosshair is knocked down (Epic Fight) or sleeping. */
-	private static boolean targetIsDowned(Player player) {
+	public static boolean targetIsDowned(Player player) {
 		Vec3 eye = player.getEyePosition();
 		Vec3 look = player.getViewVector(1.0F);
 		Vec3 end = eye.add(look.scale(REACH));

@@ -67,6 +67,7 @@ public final class CompactPresets {
         types.put(id("jkd"), CompactPresets::jkd);
         types.put(id("sanda"), CompactPresets::sanda);
         types.put(id("kyokushin"), CompactPresets::kyokushin);
+        types.put(id("breakdance"), CompactPresets::breakdance);
     }
 
     private static ResourceLocation id(String path) {
@@ -126,7 +127,21 @@ public final class CompactPresets {
                 AnimsMoonless.MOONLESS_AUTO_2_VERSO,
                 AnimsMoonless.MOONLESS_AUTO_3_VERSO,
                 AnimsOrbit.ORBIT_ATTACK_3,
-                AnimsAgony.AGONY_AIR_ATTACK_2,
+                AnimsAgony.AGONY_CLAWSTRIKE,
+                AnimsMoonless.MOONLESS_AUTO_3);
+    }
+
+    /**
+     * Breakdance: spinning Moonless / Solar / Orbit moves on Agony's stance. (Epic Sanji's animations are
+     * "All rights reserved" and built for an older Epic Fight, so they are not used here.)
+     */
+    private static CapabilityItem.Builder breakdance(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsMoonless.MOONLESS_AUTO_1,
+                AnimsMoonless.MOONLESS_AUTO_2,
+                AnimsSolar.SOLAR_OBSCURIDAD_AUTO_3,
+                AnimsSolar.SOLAR_OBSCURIDAD_AUTO_4,
+                AnimsOrbit.ORBIT_ATTACK_2,
                 AnimsMoonless.MOONLESS_AUTO_3);
     }
 

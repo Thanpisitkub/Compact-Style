@@ -29,6 +29,12 @@ public final class BlackBoneNetwork {
 			.decoder(SyncStatePacket::decode)
 			.consumerMainThread(SyncStatePacket::handle)
 			.add();
+
+		CHANNEL.messageBuilder(DownedStrikePacket.class, 1, NetworkDirection.PLAY_TO_SERVER)
+			.encoder(DownedStrikePacket::encode)
+			.decoder(DownedStrikePacket::decode)
+			.consumerMainThread(DownedStrikePacket::handle)
+			.add();
 	}
 
 	private static SyncStatePacket packetFor(ServerPlayer player, BlackBoneState state) {

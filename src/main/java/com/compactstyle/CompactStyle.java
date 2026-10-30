@@ -56,6 +56,9 @@ public class CompactStyle {
     public static final RegistryObject<Item> KYOKUSHIN_STYLE = ITEMS.register("kyokushin_style",
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5.5, 1.85));
 
+    public static final RegistryObject<Item> BREAKDANCE_STYLE = ITEMS.register("breakdance_style",
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.0, 2.25));
+
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("compact_style",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.compact_style"))
@@ -72,6 +75,7 @@ public class CompactStyle {
                         output.accept(JKD_STYLE.get());
                         output.accept(SANDA_STYLE.get());
                         output.accept(KYOKUSHIN_STYLE.get());
+                        output.accept(BREAKDANCE_STYLE.get());
                         addSkillBooks(output);
 
                     })
