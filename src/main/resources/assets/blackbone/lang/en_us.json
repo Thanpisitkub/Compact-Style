@@ -21,5 +21,5 @@
   "key.blackbone.activate": "Activate Flow / Zone",
   "message.blackbone.none_equipped": "Equip Flow or Zone first",
   "skill.blackbone.downed_punch": "Ground Punch",
-  "skill.blackbone.downed_punch.tooltip": "Attacking an enemy lying knocked down starts the combo again with the first punch."
+  "skill.blackbone.downed_punch.tooltip": "Pressing the weapon skill button (right mouse button) on an enemy lying knocked down throws the style's first punch at them."
 }

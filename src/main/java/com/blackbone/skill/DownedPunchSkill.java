@@ -2,6 +2,7 @@ package com.blackbone.skill;
 
 import java.util.UUID;
 
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
@@ -17,15 +18,17 @@ import yesman.epicfight.skill.SkillDataKeys;
 import yesman.epicfight.skill.SkillSlots;
 import yesman.epicfight.world.capabilities.EpicFightCapabilities;
 import yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch;
-import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
+import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
+import yesman.epicfight.world.capabilities.item.CapabilityItem;
+import yesman.epicfight.world.capabilities.item.WeaponCapability;
 import yesman.epicfight.world.entity.eventlistener.PlayerEventListener;
 import yesman.epicfight.world.entity.eventlistener.PlayerEventListener.EventType;
 
 /**
- * Weapon passive used by Classic, Kyokushin and Taekwondo: when you start a basic attack and the enemy
- * in front of you is lying knocked down, the combo restarts so the attack that plays is the style's
- * first punch (auto 1). Epic Fight has no slot for a "downed" attack, so this runs on BASIC_ATTACK_EVENT,
- * which Epic Fight fires on the server just before it reads the combo counter.
+ * Weapon passive used by Classic, Kyokushin and Taekwondo: pressing the weapon-skill button (right mouse
+ * button by default) while the enemy in front of you is lying knocked down cancels the normal weapon skill
+ * and plays the style's first punch (auto 1) on the downed enemy instead. The left button is unchanged.
+ * Runs on SKILL_CAST_EVENT, which Epic Fight fires on the server before it executes a skill.
  */
 public class DownedPunchSkill extends Skill {
 	private static final UUID EVENT_UUID = UUID.fromString("5d3c3a8e-7a53-4a0f-9f5e-b1ac4b0e0010");
@@ -47,19 +50,36 @@ public class DownedPunchSkill extends Skill {
 
 		PlayerEventListener listener = container.getExecutor().getEventListener();
 
-		// BASIC_ATTACK_EVENT only fires on the server; addEventListener does nothing on the client.
-		listener.addEventListener(EventType.BASIC_ATTACK_EVENT, EVENT_UUID, (event) -> {
-			PlayerPatch<?> patch = event.getPlayerPatch();
-			Player player = patch.getOriginal();
-
-			if (!targetIsDowned(player)) {
+		listener.addEventListener(EventType.SKILL_CAST_EVENT, EVENT_UUID, (event) -> {
+			// Only the weapon skill, and only on the server (the client just sends the request).
+			if (event.getSkillContainer().getSlot() != SkillSlots.WEAPON_INNATE || !(event.getPlayerPatch() instanceof ServerPlayerPatch patch)) {
 				return;
 			}
+
+			if (!targetIsDowned(patch.getOriginal())) {
+				return;
+			}
+
+			CapabilityItem capability = patch.getHoldingItemCapability(InteractionHand.MAIN_HAND);
+
+			if (!(capability instanceof WeaponCapability weapon)) {
+				return;
+			}
+
+			var combo = weapon.getAutoAttackMotion(patch);
+
+			if (combo.isEmpty()) {
+				return;
+			}
+
+			event.setCanceled(true);
+			patch.playAnimationSynchronized(combo.get(0), 0.0F);
 
 			SkillContainer basicAttack = patch.getSkill(SkillSlots.BASIC_ATTACK);
 
 			if (basicAttack != null) {
-				basicAttack.getDataManager().setData(SkillDataKeys.COMBO_COUNTER.get(), 0);
+				// The next left-click continues with punch 2.
+				basicAttack.getDataManager().setData(SkillDataKeys.COMBO_COUNTER.get(), 1);
 			}
 		});
 	}
@@ -67,7 +87,7 @@ public class DownedPunchSkill extends Skill {
 	@Override
 	public void onRemoved(SkillContainer container) {
 		super.onRemoved(container);
-		container.getExecutor().getEventListener().removeListener(EventType.BASIC_ATTACK_EVENT, EVENT_UUID);
+		container.getExecutor().getEventListener().removeListener(EventType.SKILL_CAST_EVENT, EVENT_UUID);
 	}
 
 	/** The living entity under the crosshair is knocked down (Epic Fight) or sleeping. */
