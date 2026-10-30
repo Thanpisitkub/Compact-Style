@@ -93,7 +93,7 @@ public final class CompactPresets {
                 cz("DC_Animations", "FLAWLESS_AUTO1", AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_1),
                 cz("DC_Animations", "FLAWLESS_AUTO2", AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_2),
                 cz("DC_Animations", "FLAWLESS_AUTO3", AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_3),
-                cz("DC_Animations", "FLAWLESS_AUTO4", AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_4),
+                sanji(SanjiAnimations.AUTO_4, cz("DC_Animations", "FLAWLESS_AUTO4", AnimsEnderblaster.ENDERBLASTER_ONEHAND_AUTO_4)),
                 cz("MK_Animations", "KABAL_DASH_AUTO1", AnimsEnderblaster.ENDERBLASTER_ONEHAND_DASH),
                 AnimsEnderblaster.ENDERBLASTER_ONEHAND_JUMPKICK);
     }
@@ -114,7 +114,7 @@ public final class CompactPresets {
         applySpeedTweaks();
         return withDownedPunch(base(CompactPresets::scytheSkill)).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 cz("MK_Animations", "KABAL_AUTO1", AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_1),
-                cz("MK_Animations", "KABAL_AUTO2", AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_2),
+                sanji(SanjiAnimations.AUTO_2, cz("MK_Animations", "KABAL_AUTO2", AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_2)),
                 cz("MK_Animations", "KABAL_AUTO3", AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_3),
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_4,
                 cz("MK_Animations", "KABAL_DASH_AUTO2", AnimsNova.NOVA_ATTACK_DASH),
@@ -127,8 +127,8 @@ public final class CompactPresets {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 AnimsMoonless.MOONLESS_AUTO_1,
                 AnimsMoonless.MOONLESS_AUTO_2,
-                AnimsMoonless.MOONLESS_AUTO_3,
-                AnimsOrbit.ORBIT_ATTACK_1,
+                sanji(SanjiAnimations.AUTO_3, AnimsMoonless.MOONLESS_AUTO_3),
+                sanji(SanjiAnimations.AUTO_2, AnimsOrbit.ORBIT_ATTACK_1),
                 AnimsAgony.AGONY_CLAWSTRIKE,
                 AnimsMoonless.MOONLESS_AUTO_1_VERSO);
     }
@@ -152,13 +152,22 @@ public final class CompactPresets {
                 AnimsRuine.RUINE_COMET);
     }
 
-    /** Breakdance: spinning Moonless / Orbit / Kabal moves on Agony's stance (Epic Sanji moves are added separately). */
+    /** Breakdance: Epic Sanji's stance, kicks and spinning flurry mixed with Moonless / Orbit moves. */
     private static CapabilityItem.Builder breakdance(Item item) {
-        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsMoonless.MOONLESS_AUTO_1_VERSO,
+        WeaponCapability.Builder builder = base(() -> WOMSkills.AGONY_PLUNGE);
+
+        if (SanjiAnimations.IDLE != null) {
+            builder.livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.IDLE, SanjiAnimations.IDLE)
+                    .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.WALK, SanjiAnimations.WALK)
+                    .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.CHASE, SanjiAnimations.RUN)
+                    .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.RUN, SanjiAnimations.RUN);
+        }
+
+        return builder.newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                sanji(SanjiAnimations.AUTO_1, AnimsMoonless.MOONLESS_AUTO_1_VERSO),
                 AnimsMoonless.MOONLESS_AUTO_2_VERSO,
-                AnimsMoonless.MOONLESS_AUTO_3_VERSO,
-                AnimsOrbit.ORBIT_ATTACK_3,
+                sanji(SanjiAnimations.AUTO_3, AnimsMoonless.MOONLESS_AUTO_3_VERSO),
+                sanji(SanjiAnimations.AUTO_4, AnimsOrbit.ORBIT_ATTACK_3),
                 cz("MK_Animations", "KABAL_DASH_AUTO3", AnimsOrbit.ORBIT_ATTACK_2),
                 AnimsMoonless.MOONLESS_AUTO_3);
     }
@@ -189,9 +198,9 @@ public final class CompactPresets {
     private static CapabilityItem.Builder kickboxing(Item item) {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 cz("SFA_Animations", "SHOGUN_AUTO1", AnimsBlackstar.BLACKSTAR_ATTACK_1),
-                cz("SFA_Animations", "SHOGUN_AUTO2", AnimsBlackstar.BLACKSTAR_ATTACK_2),
+                sanji(SanjiAnimations.AUTO_1, cz("SFA_Animations", "SHOGUN_AUTO2", AnimsBlackstar.BLACKSTAR_ATTACK_2)),
                 AnimsBlackstar.BLACKSTAR_ATTACK_3,
-                AnimsBlackstar.BLACKSTAR_ATTACK_4,
+                sanji(SanjiAnimations.AUTO_4, AnimsBlackstar.BLACKSTAR_ATTACK_4),
                 cz("SFA_Animations", "SHOGUN_DASH1", AnimsOrbit.ORBIT_ATTACK_4),
                 cz("MK_Animations", "KABAL_AIRSLASH", AnimsAgony.AGONY_AIR_ATTACK_4));
     }
@@ -253,6 +262,13 @@ public final class CompactPresets {
         }
 
         return fallback;
+    }
+
+    /** An Epic Sanji move re-created in SanjiAnimations, or the given Weapons of Miracles move when it is not available. */
+    private static AnimationManager.AnimationAccessor<? extends AttackAnimation> sanji(
+            AnimationManager.AnimationAccessor<? extends AttackAnimation> move,
+            AnimationManager.AnimationAccessor<? extends AttackAnimation> fallback) {
+        return move != null ? move : fallback;
     }
 
     /** Shared part: fist category, Agony's stance animations, Agony collider. */
