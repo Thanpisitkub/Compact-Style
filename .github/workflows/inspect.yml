@@ -23,14 +23,12 @@ jobs:
           file_url=$(curl -fsSL "$url" | jq -r --arg v "20.14.17" '[.[] | select(.version_number | contains($v))][0].files | (map(select(.primary)) + .)[0].url')
           curl -fsSL -o libs/ef.jar "$file_url"
           : > dump_out.txt
-          for c in yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch yesman.epicfight.world.damagesource.EntityState yesman.epicfight.world.entity.eventlistener.PlayerEventListener yesman.epicfight.world.capabilities.item.WeaponCapability 'yesman.epicfight.world.capabilities.item.WeaponCapability$Builder' 'yesman.epicfight.world.capabilities.item.CapabilityItem$Builder'; do
+          for c in yesman.epicfight.api.animation.types.EntityState 'yesman.epicfight.world.entity.eventlistener.PlayerEventListener$EventType' yesman.epicfight.world.entity.eventlistener.SkillExecuteEvent 'yesman.epicfight.world.entity.eventlistener.ComboCounterHandleEvent$Causal' yesman.epicfight.world.entity.eventlistener.ComboCounterHandleEvent yesman.epicfight.skill.SkillContainer yesman.epicfight.skill.SkillDataManager yesman.epicfight.skill.Skill yesman.epicfight.skill.passive.PassiveSkill yesman.epicfight.skill.BasicAttack yesman.epicfight.skill.SkillCategories yesman.epicfight.skill.SkillSlots; do
             echo "=================== $c" >> dump_out.txt
-            javap -p -cp libs/ef.jar "$c" 2>&1 | cut -c1-260 >> dump_out.txt || true
+            javap -p -cp libs/ef.jar "$c" 2>&1 | cut -c1-330 >> dump_out.txt || true
           done
-          echo "=================== EntityState" >> dump_out.txt
-          unzip -Z1 libs/ef.jar | grep -i 'EntityState' >> dump_out.txt || true
-          echo "=================== BasicAttack" >> dump_out.txt
-          javap -p -c -constants -cp libs/ef.jar yesman.epicfight.skill.BasicAttack 2>&1 | sed -E 's/^ +[0-9]+: //; s/ +#[0-9]+//' | cut -c1-230 >> dump_out.txt || true
+          echo "=================== BasicAttack executeOnServer" >> dump_out.txt
+          javap -p -c -constants -cp libs/ef.jar yesman.epicfight.skill.BasicAttack 2>&1 | sed -E 's/^ +[0-9]+: //; s/ +#[0-9]+//' | awk '/executeOnServer/{p=1} p' | cut -c1-260 | head -260 >> dump_out.txt || true
       - name: Publish dump to a temporary branch
         run: |
           mkdir -p /tmp/out && cp dump_out.txt /tmp/out/ef_dump.txt
