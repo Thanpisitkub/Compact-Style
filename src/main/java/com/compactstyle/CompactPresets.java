@@ -67,7 +67,7 @@ public final class CompactPresets {
         types.put(id("jkd"), CompactPresets::jkd);
         types.put(id("sanda"), CompactPresets::sanda);
         types.put(id("kyokushin"), CompactPresets::kyokushin);
-        types.put(id("breakdance"), CompactPresets::breakdance);
+        types.put(id("basic"), CompactPresets::basic);
     }
 
     private static ResourceLocation id(String path) {
@@ -132,17 +132,22 @@ public final class CompactPresets {
     }
 
     /**
-     * Breakdance: spinning Moonless / Solar / Orbit moves on Agony's stance. (Epic Sanji's animations are
-     * "All rights reserved" and built for an older Epic Fight, so they are not used here.)
+     * Basic: Solar's Obscuridad form (stance and combo), with Ruine's sword jump attack (Comet).
      */
-    private static CapabilityItem.Builder breakdance(Item item) {
-        return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsMoonless.MOONLESS_AUTO_1,
-                AnimsMoonless.MOONLESS_AUTO_2,
+    private static CapabilityItem.Builder basic(Item item) {
+        return base(() -> WOMSkills.AGONY_PLUNGE)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.IDLE, AnimsSolar.SOLAR_OBSCURIDAD_IDLE)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.WALK, AnimsSolar.SOLAR_OBSCURIDAD_WALK)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.CHASE, AnimsSolar.SOLAR_OBSCURIDAD_RUN)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.RUN, AnimsSolar.SOLAR_OBSCURIDAD_RUN)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.BLOCK, AnimsSolar.SOLAR_GUARD)
+                .newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                AnimsSolar.SOLAR_OBSCURIDAD_AUTO_1,
+                AnimsSolar.SOLAR_OBSCURIDAD_AUTO_2,
                 AnimsSolar.SOLAR_OBSCURIDAD_AUTO_3,
                 AnimsSolar.SOLAR_OBSCURIDAD_AUTO_4,
-                AnimsOrbit.ORBIT_ATTACK_2,
-                AnimsMoonless.MOONLESS_AUTO_3);
+                AnimsSolar.SOLAR_OBSCURIDAD_IMPACTO,
+                AnimsRuine.RUINE_COMET);
     }
 
     private static CapabilityItem.Builder judo(Item item) {

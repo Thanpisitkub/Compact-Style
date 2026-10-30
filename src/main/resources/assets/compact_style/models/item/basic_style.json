@@ -3,7 +3,7 @@
   "base": {
     "parent": "minecraft:item/generated",
     "textures": {
-      "layer0": "compact_style:item/breakdance_style"
+      "layer0": "compact_style:item/basic_style"
     }
   },
   "perspectives": {
