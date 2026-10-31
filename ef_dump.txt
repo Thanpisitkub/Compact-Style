@@ -1,0 +1,418 @@
+=== AttackAnimation.getState / phase
+invokevirtual                // Method getPlaySpeed:(Lworld/capabilities/entitypatch/LivingEntityPatch;Lapi/animation/types/DynamicAnimation;)F
+invokevirtual                // Method api/animation/types/AttackAnimation$Phase.getCollidingEntities:(Lworld/capabilities/entitypatch/LivingEntityPatch;Lapi/animation/types/AttackAnimation;FFF)Ljava/
+astore        10
+aload         10
+invokeinterface,  1          // InterfaceMethod java/util/List.isEmpty:()Z
+ifne          431
+new                 // class api/utils/HitEntityList
+dup
+aload_1
+aload         10
+aload         6
+getstatic                // Field api/animation/property/AnimationProperty$AttackPhaseProperty.HIT_PRIORITY:Lapi/animation/property/AnimationProperty$AttackPhaseProperty;
+invokevirtual                // Method api/animation/types/AttackAnimation$Phase.getProperty:(Lapi/animation/property/AnimationProperty$AttackPhaseProperty;)Ljava/util/Optional;
+getstatic                // Field api/utils/HitEntityList$Priority.DISTANCE:Lapi/utils/HitEntityList$Priority;
+invokevirtual                // Method java/util/Optional.orElse:(Ljava/lang/Object;)Ljava/lang/Object;
+checkcast                 // class api/utils/HitEntityList$Priority
+invokespecial                // Method api/utils/HitEntityList."<init>":(Lworld/capabilities/entitypatch/LivingEntityPatch;Ljava/util/List;Lapi/utils/HitEntityList$Priority;)V
+astore        11
+aload_0
+aload_1
+aload         6
+invokevirtual                // Method getMaxStrikes:(Lworld/capabilities/entitypatch/LivingEntityPatch;Lapi/animation/types/AttackAnimation$Phase;)I
+istore        12
+aload_1
+invokevirtual                // Method world/capabilities/entitypatch/LivingEntityPatch.getCurrentlyActuallyHitEntities:()Ljava/util/List;
+invokeinterface,  1          // InterfaceMethod java/util/List.size:()I
+iload         12
+if_icmpge     431
+aload         11
+invokevirtual                // Method api/utils/HitEntityList.next:()Z
+ifeq          431
+aload         11
+invokevirtual                // Method api/utils/HitEntityList.getEntity:()Lworld/entity/Entity;
+astore        13
+aload_0
+aload         13
+invokevirtual                // Method getTrueEntity:(Lworld/entity/Entity;)Lworld/entity/LivingEntity;
+astore        14
+aload         14
+ifnull        428
+aload         14
+invokevirtual                // Method world/entity/LivingEntity.m_6084_:()Z
+ifeq          428
+aload_1
+invokevirtual                // Method world/capabilities/entitypatch/LivingEntityPatch.getCurrentlyAttackTriedEntities:()Ljava/util/List;
+aload         14
+invokeinterface,  2          // InterfaceMethod java/util/List.contains:(Ljava/lang/Object;)Z
+ifne          428
+aload_1
+aload         13
+invokevirtual                // Method world/capabilities/entitypatch/LivingEntityPatch.isTargetInvulnerable:(Lworld/entity/Entity;)Z
+ifne          428
+aload         13
+instanceof                // class world/entity/LivingEntity
+ifne          206
+aload         13
+instanceof                // class net/minecraftforge/entity/PartEntity
+ifeq          428
+aload         13
+invokevirtual                // Method world/entity/Entity.m_20191_:()Lworld/phys/AABB;
+astore        15
+aload         13
+aload         7
+aload         13
+invokevirtual                // Method world/entity/Entity.m_20182_:()Lworld/phys/Vec3;
+aload         7
+invokevirtual                // Method world/entity/LivingEntity.m_146892_:()Lworld/phys/Vec3;
+invokevirtual                // Method world/phys/Vec3.m_82554_:(Lworld/phys/Vec3;)D
+aload         15
+invokevirtual                // Method world/phys/AABB.m_82399_:()Lworld/phys/Vec3;
+new                // class world/phys/Vec3
+dup
+aload         15
+getfield                // Field world/phys/AABB.f_82291_:D
+aload         15
+getfield                // Field world/phys/AABB.f_82292_:D
+aload         15
+getfield                // Field world/phys/AABB.f_82293_:D
+invokespecial                // Method world/phys/Vec3."<init>":(DDD)V
+invokevirtual                // Method world/phys/Vec3.m_82554_:(Lworld/phys/Vec3;)D
+dadd
+invokestatic                // Method api/utils/math/MathUtils.canBeSeen:(Lworld/entity/Entity;Lworld/entity/Entity;D)Z
+ifeq          428
+aload_0
+aload_1
+aload         13
+aload         6
+invokevirtual                // Method getEpicFightDamageSource:(Lworld/capabilities/entitypatch/LivingEntityPatch;Lworld/entity/Entity;Lapi/animation/types/AttackAnimation$Phase;)Lworld/damagesource/
+astore        16
+aload         13
+getfield                // Field world/entity/Entity.f_19802_:I
+istore        17
+aload         13
+iconst_0
+putfield                // Field world/entity/Entity.f_19802_:I
+aload_1
+aload         16
+aload         13
+aload         6
+getfield                // Field api/animation/types/AttackAnimation$Phase.hand:Lworld/InteractionHand;
+invokevirtual                // Method world/capabilities/entitypatch/LivingEntityPatch.attack:(Lworld/damagesource/EpicFightDamageSource;Lworld/entity/Entity;Lworld/InteractionHand;)Lapi/utils/Attack
+astore        18
+aload         13
+iload         17
+putfield                // Field world/entity/Entity.f_19802_:I
+aload         18
+getfield                // Field api/utils/AttackResult.resultType:Lapi/utils/AttackResult$ResultType;
+invokevirtual                // Method api/utils/AttackResult$ResultType.dealtDamage:()Z
+ifeq          393
+aload_0
+aload_1
+aload         6
+invokevirtual                // Method getHitSound:(Lworld/capabilities/entitypatch/LivingEntityPatch;Lapi/animation/types/AttackAnimation$Phase;)Lsounds/SoundEvent;
+astore        19
+aload         19
+ifnull        376
+aload         13
+invokevirtual                // Method world/entity/Entity.m_9236_:()Lworld/level/Level;
+aconst_null
+aload         13
+invokevirtual                // Method world/entity/Entity.m_20185_:()D
+aload         13
+invokevirtual                // Method world/entity/Entity.m_20186_:()D
+aload         13
+invokevirtual                // Method world/entity/Entity.m_20189_:()D
+aload_0
+aload_1
+aload         6
+invokevirtual                // Method getHitSound:(Lworld/capabilities/entitypatch/LivingEntityPatch;Lapi/animation/types/AttackAnimation$Phase;)Lsounds/SoundEvent;
+aload         13
+invokevirtual                // Method world/entity/Entity.m_5720_:()Lsounds/SoundSource;
+fconst_1
+fconst_1
+invokevirtual                // Method world/level/Level.m_6263_:(Lworld/entity/player/Player;DDDLsounds/SoundEvent;Lsounds/SoundSource;FF)V
+aload_0
+aload         13
+invokevirtual                // Method world/entity/Entity.m_9236_:()Lworld/level/Level;
+checkcast                // class server/level/ServerLevel
+aload_1
+aload         13
+aload         6
+invokevirtual                // Method spawnHitParticle:(Lserver/level/ServerLevel;Lworld/capabilities/entitypatch/LivingEntityPatch;Lworld/entity/Entity;Lapi/animation/types/AttackAnimation$Phase;)V
+aload_1
+invokevirtual                // Method world/capabilities/entitypatch/LivingEntityPatch.getCurrentlyAttackTriedEntities:()Ljava/util/List;
+aload         14
+invokeinterface,  2          // InterfaceMethod java/util/List.add:(Ljava/lang/Object;)Z
+pop
+aload         18
+getfield                // Field api/utils/AttackResult.resultType:Lapi/utils/AttackResult$ResultType;
+invokevirtual                // Method api/utils/AttackResult$ResultType.shouldCount:()Z
+=== BasicAttack skill
+Compiled from "BasicAttack.java"
+public class yesman.epicfight.skill.BasicAttack extends yesman.epicfight.skill.Skill {
+  private static final double MIN_AIR_ATTACK_Y_VELOCITY;
+  private static final java.util.UUID EVENT_UUID;
+  public static final yesman.epicfight.api.animation.AnimationVariables$IndependentAnimationVariableKey<java.lang.Boolean> COMBO;
+  private float dashAttackConsumption;
+  private float airAttackConsumption;
+  public static yesman.epicfight.skill.SkillBuilder<yesman.epicfight.skill.BasicAttack> createBasicAttackBuilder();
+  public static void setComboCounterWithEvent(yesman.epicfight.world.entity.eventlistener.ComboCounterHandleEvent$Causal, yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch, yesman.epicfight.skill.S
+  public yesman.epicfight.skill.BasicAttack(yesman.epicfight.skill.SkillBuilder<? extends yesman.epicfight.skill.BasicAttack>);
+  public void onInitiate(yesman.epicfight.skill.SkillContainer);
+  public void onRemoved(yesman.epicfight.skill.SkillContainer);
+  public void setParams(net.minecraft.nbt.CompoundTag);
+  public boolean isExecutableState(yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch<?>);
+  public void executeOnServer(yesman.epicfight.skill.SkillContainer, net.minecraft.network.FriendlyByteBuf);
+  public void updateContainer(yesman.epicfight.skill.SkillContainer);
+  protected boolean checkConsumption(yesman.epicfight.skill.SkillContainer, boolean, boolean);
+  private static void lambda$onInitiate$1(yesman.epicfight.skill.SkillContainer, yesman.epicfight.world.entity.eventlistener.ActionEvent);
+  private static java.lang.Boolean lambda$static$0(yesman.epicfight.api.animation.Animator);
+  static {};
+}
+getstatic                // Field api/animation/property/AnimationProperty$ActionAnimationProperty.RESET_PLAYER_COMBO_COUNTER:Lapi/animation/property/AnimationProperty$ActionAnimationProperty;
+invokevirtual                // Method api/animation/types/MainFrameAnimation.getProperty:(Lapi/animation/property/AnimationProperty;)Ljava/util/Optional;
+iconst_1
+invokestatic                // Method java/lang/Boolean.valueOf:(Z)Ljava/lang/Boolean;
+invokevirtual                // Method java/util/Optional.orElse:(Ljava/lang/Object;)Ljava/lang/Object;
+checkcast                // class java/lang/Boolean
+invokevirtual                // Method java/lang/Boolean.booleanValue:()Z
+ifne          39
+return
+aload_1
+getstatic                // Field world/InteractionHand.MAIN_HAND:Lworld/InteractionHand;
+invokevirtual                // Method world/capabilities/entitypatch/player/ServerPlayerPatch.getHoldingItemCapability:(Lworld/InteractionHand;)Lworld/capabilities/item/CapabilityItem;
+astore        5
+aload         5
+aload_0
+aload_1
+aload_3
+iload         4
+invokevirtual                // Method world/capabilities/item/CapabilityItem.handleComboCounter:(Lworld/entity/eventlistener/ComboCounterHandleEvent$Causal;Lworld/capabilities/entitypatch/player/Play
+istore        6
+aload_2
+invokevirtual                // Method skill/SkillContainer.getDataManager:()Lskill/SkillDataManager;
+getstatic                // Field skill/SkillDataKeys.COMBO_COUNTER:Lnet/minecraftforge/registries/RegistryObject;
+invokevirtual                // Method net/minecraftforge/registries/RegistryObject.get:()Ljava/lang/Object;
+checkcast                // class skill/SkillDataKey
+invokevirtual                // Method skill/SkillDataManager.getDataValue:(Lskill/SkillDataKey;)Ljava/lang/Object;
+checkcast                // class java/lang/Integer
+invokevirtual                // Method java/lang/Integer.intValue:()I
+istore        7
+new                 // class world/entity/eventlistener/ComboCounterHandleEvent
+dup
+aload_0
+aload_1
+aload_3
+iload         7
+iload         6
+invokespecial                // Method world/entity/eventlistener/ComboCounterHandleEvent."<init>":(Lworld/entity/eventlistener/ComboCounterHandleEvent$Causal;Lworld/capabilities/entitypatch/player/Se
+astore        8
+aload_2
+invokevirtual                // Method skill/SkillContainer.getExecutor:()Lworld/capabilities/entitypatch/player/PlayerPatch;
+invokevirtual                // Method world/capabilities/entitypatch/player/PlayerPatch.getEventListener:()Lworld/entity/eventlistener/PlayerEventListener;
+getstatic                // Field world/entity/eventlistener/PlayerEventListener$EventType.COMBO_COUNTER_HANDLE_EVENT:Lworld/entity/eventlistener/PlayerEventListener$EventType;
+aload         8
+invokevirtual                // Method world/entity/eventlistener/PlayerEventListener.triggerEvents:(Lworld/entity/eventlistener/PlayerEventListener$EventType;Lworld/entity/eventlistener/DetachablePla
+pop
+aload         5
+aload_1
+invokevirtual                // Method world/capabilities/item/CapabilityItem.getAutoAttackMotion:(Lworld/capabilities/entitypatch/player/PlayerPatch;)Ljava/util/List;
+astore        9
+aload         8
+invokevirtual                // Method world/entity/eventlistener/ComboCounterHandleEvent.getNextValue:()I
+iconst_0
+aload         9
+ifnonnull     139
+iconst_0
+goto          148
+aload         9
+invokeinterface,  1          // InterfaceMethod java/util/List.size:()I
+iconst_3
+isub
+invokestatic                // Method util/Mth.m_14045_:(III)I
+istore        10
+aload_2
+invokevirtual                // Method skill/SkillContainer.getDataManager:()Lskill/SkillDataManager;
+getstatic                // Field skill/SkillDataKeys.COMBO_COUNTER:Lnet/minecraftforge/registries/RegistryObject;
+invokevirtual                // Method net/minecraftforge/registries/RegistryObject.get:()Ljava/lang/Object;
+checkcast                // class skill/SkillDataKey
+iload         10
+invokestatic                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+invokevirtual                // Method skill/SkillDataManager.setData:(Lskill/SkillDataKey;Ljava/lang/Object;)V
+return
+
+  public void executeOnServer(yesman.epicfight.skill.SkillContainer, net.minecraft.network.FriendlyByteBuf);
+    Code:
+aload_1
+invokevirtual                // Method skill/SkillContainer.getServerExecutor:()Lworld/capabilities/entitypatch/player/ServerPlayerPatch;
+astore_3
+new                // class world/entity/eventlistener/SkillConsumeEvent
+dup
+aload_3
+aload_0
+aload_0
+getfield                // Field resource:Lskill/Skill$Resource;
+aconst_null
+invokespecial                // Method world/entity/eventlistener/SkillConsumeEvent."<init>":(Lworld/capabilities/entitypatch/player/PlayerPatch;Lskill/Skill;Lskill/Skill$Resource;Lnetwork/FriendlyByt
+astore        4
+aload_3
+invokevirtual                // Method world/capabilities/entitypatch/player/ServerPlayerPatch.getEventListener:()Lworld/entity/eventlistener/PlayerEventListener;
+getstatic                // Field world/entity/eventlistener/PlayerEventListener$EventType.SKILL_CONSUME_EVENT:Lworld/entity/eventlistener/PlayerEventListener$EventType;
+aload         4
+invokevirtual                // Method world/entity/eventlistener/PlayerEventListener.triggerEvents:(Lworld/entity/eventlistener/PlayerEventListener$EventType;Lworld/entity/eventlistener/DetachablePla
+pop
+aload         4
+invokevirtual                // Method world/entity/eventlistener/SkillConsumeEvent.isCanceled:()Z
+ifne          62
+aload         4
+invokevirtual                // Method world/entity/eventlistener/SkillConsumeEvent.getResourceType:()Lskill/Skill$Resource;
+getfield                // Field skill/Skill$Resource.consumer:Lskill/Skill$Resource$ResourceConsumer;
+aload_1
+aload_3
+aload         4
+invokevirtual                // Method world/entity/eventlistener/SkillConsumeEvent.getAmount:()F
+invokeinterface,  4          // InterfaceMethod skill/Skill$Resource$ResourceConsumer.consume:(Lskill/SkillContainer;Lworld/capabilities/entitypatch/player/ServerPlayerPatch;F)V
+aload_3
+invokevirtual                // Method world/capabilities/entitypatch/player/ServerPlayerPatch.getEventListener:()Lworld/entity/eventlistener/PlayerEventListener;
+getstatic                // Field world/entity/eventlistener/PlayerEventListener$EventType.BASIC_ATTACK_EVENT:Lworld/entity/eventlistener/PlayerEventListener$EventType;
+new                // class world/entity/eventlistener/BasicAttackEvent
+dup
+aload_3
+invokespecial                // Method world/entity/eventlistener/BasicAttackEvent."<init>":(Lworld/capabilities/entitypatch/player/ServerPlayerPatch;)V
+invokevirtual                // Method world/entity/eventlistener/PlayerEventListener.triggerEvents:(Lworld/entity/eventlistener/PlayerEventListener$EventType;Lworld/entity/eventlistener/DetachablePla
+ifeq          84
+return
+aload_3
+getstatic                // Field world/InteractionHand.MAIN_HAND:Lworld/InteractionHand;
+invokevirtual                // Method world/capabilities/entitypatch/player/ServerPlayerPatch.getHoldingItemCapability:(Lworld/InteractionHand;)Lworld/capabilities/item/CapabilityItem;
+astore        5
+aconst_null
+astore        6
+aload_3
+invokevirtual                // Method world/capabilities/entitypatch/player/ServerPlayerPatch.getOriginal:()Lworld/entity/Entity;
+checkcast                // class server/level/ServerPlayer
+astore        7
+aload_1
+invokevirtual                // Method skill/SkillContainer.getDataManager:()Lskill/SkillDataManager;
+astore        8
+aload         8
+getstatic                // Field skill/SkillDataKeys.COMBO_COUNTER:Lnet/minecraftforge/registries/RegistryObject;
+invokevirtual                // Method net/minecraftforge/registries/RegistryObject.get:()Ljava/lang/Object;
+checkcast                // class skill/SkillDataKey
+invokevirtual                // Method skill/SkillDataManager.getDataValue:(Lskill/SkillDataKey;)Ljava/lang/Object;
+checkcast                // class java/lang/Integer
+invokevirtual                // Method java/lang/Integer.intValue:()I
+istore        9
+aload         7
+invokevirtual                // Method server/level/ServerPlayer.m_20142_:()Z
+istore        10
+aload_1
+invokevirtual                // Method skill/SkillContainer.getExecutor:()Lworld/capabilities/entitypatch/player/PlayerPatch;
+invokevirtual                // Method world/capabilities/entitypatch/player/PlayerPatch.getOriginal:()Lworld/entity/Entity;
+checkcast                // class world/entity/player/Player
+invokevirtual                // Method world/entity/player/Player.m_20096_:()Z
+ifne          199
+aload_1
+invokevirtual                // Method skill/SkillContainer.getExecutor:()Lworld/capabilities/entitypatch/player/PlayerPatch;
+invokevirtual                // Method world/capabilities/entitypatch/player/PlayerPatch.getOriginal:()Lworld/entity/Entity;
+checkcast                // class world/entity/player/Player
+invokevirtual                // Method world/entity/player/Player.m_20069_:()Z
+ifne          199
+aload_1
+invokevirtual                // Method skill/SkillContainer.getExecutor:()Lworld/capabilities/entitypatch/player/PlayerPatch;
+invokevirtual                // Method world/capabilities/entitypatch/player/PlayerPatch.getOriginal:()Lworld/entity/Entity;
+checkcast                // class world/entity/player/Player
+invokevirtual                // Method world/entity/player/Player.m_20184_:()Lworld/phys/Vec3;
+invokevirtual                // Method world/phys/Vec3.m_7098_:()D
+ldc2_w                 // double -0.05d
+dcmpl
+ifle          199
+iconst_1
+goto          200
+iconst_0
+istore        11
+aload         7
+invokevirtual                // Method server/level/ServerPlayer.m_20159_:()Z
+ifeq          296
+aload         7
+invokevirtual                // Method server/level/ServerPlayer.m_20202_:()Lworld/entity/Entity;
+astore        12
+aload         12
+instanceof                // class world/entity/PlayerRideableJumping
+ifeq          293
+aload         12
+checkcast                // class world/entity/PlayerRideableJumping
+astore        13
+aload         13
+invokeinterface,  1          // InterfaceMethod world/entity/PlayerRideableJumping.m_7132_:()Z
+ifeq          293
+aload         5
+invokevirtual                // Method world/capabilities/item/CapabilityItem.availableOnHorse:()Z
+ifeq          293
+aload         5
+invokevirtual                // Method world/capabilities/item/CapabilityItem.getMountAttackMotion:()Ljava/util/List;
+ifnull        293
+iload         9
+aload         5
+invokevirtual                // Method world/capabilities/item/CapabilityItem.getMountAttackMotion:()Ljava/util/List;
+invokeinterface,  1          // InterfaceMethod java/util/List.size:()I
+irem
+istore        9
+aload         5
+invokevirtual                // Method world/capabilities/item/CapabilityItem.getMountAttackMotion:()Ljava/util/List;
+iload         9
+invokeinterface,  2          // InterfaceMethod java/util/List.get:(I)Ljava/lang/Object;
+checkcast                 // class api/animation/AnimationManager$AnimationAccessor
+astore        6
+iinc          9, 1
+goto          392
+aload         5
+aload_3
+invokevirtual                // Method world/capabilities/item/CapabilityItem.getAutoAttackMotion:(Lworld/capabilities/entitypatch/player/PlayerPatch;)Ljava/util/List;
+astore        12
+aload         12
+ifnonnull     310
+return
+aload         12
+invokeinterface,  1          // InterfaceMethod java/util/List.size:()I
+istore        13
+iload         11
+ifeq          343
+aload         12
+iload         13
+iconst_1
+isub
+invokeinterface,  2          // InterfaceMethod java/util/List.get:(I)Ljava/lang/Object;
+checkcast                 // class api/animation/AnimationManager$AnimationAccessor
+astore        6
+goto          392
+iload         10
+ifeq          367
+aload         12
+=== BasicAttackAnimation
+Compiled from "BasicAttackAnimation.java"
+public class yesman.epicfight.api.animation.types.BasicAttackAnimation extends yesman.epicfight.api.animation.types.AttackAnimation {
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, float, float, float, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.animation.AnimationManager
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, float, float, float, float, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.animation.Animation
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, float, float, float, net.minecraft.world.InteractionHand, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epi
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.BasicAttackAnimation>, yesman.epi
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, java.lang.String, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>, yesman.epicfight.api.animation.types.At
+  protected void bindPhaseState(yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  public void loadAnimation();
+  public yesman.epicfight.api.utils.datastruct.TypeFlexibleHashMap<yesman.epicfight.api.animation.types.EntityState$StateFactor<?>> getStatesMap(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float
+  protected net.minecraft.world.phys.Vec3 getCoordVector(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.Dynam
+  public java.util.Optional<yesman.epicfight.api.client.animation.property.JointMaskEntry> getJointMaskEntry(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, boolean);
+  public boolean isBasicAttackAnimation();
+  public boolean shouldPlayerMove(yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch);
+  private static boolean isPlayerMoving(yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch);
+}
+=== EntityState canBasicAttack
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> ATTACKING;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> INACTION;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Integer> PHASE_LEVEL;
+  public <T> void setState(yesman.epicfight.api.animation.types.EntityState$StateFactor<T>, T);
+  public boolean attacking();
+  public boolean canBasicAttack();
+  public boolean inaction();
