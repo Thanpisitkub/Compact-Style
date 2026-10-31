@@ -124,11 +124,11 @@ public final class CompactPresets {
     }
 
 
-    /** Capoeira: the Moonless set (verso strikes) with Agony's run-then-punch dash. */
+    /** Capoeira: Satsujin's first two strikes, then Moonless verso strikes, with Agony's run-then-punch dash. */
     private static CapabilityItem.Builder capoeira(Item item) {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                AnimsMoonless.MOONLESS_AUTO_1_VERSO,
-                AnimsMoonless.MOONLESS_AUTO_2_VERSO,
+                AnimsSatsujin.SATSUJIN_AUTO_1,
+                AnimsSatsujin.SATSUJIN_AUTO_2,
                 AnimsMoonless.MOONLESS_AUTO_3_VERSO,
                 AnimsMoonless.MOONLESS_AUTO_1,
                 AnimsAgony.AGONY_CLAWSTRIKE,
@@ -154,15 +154,15 @@ public final class CompactPresets {
                 AnimsRuine.RUINE_COMET);
     }
 
-    /** Breakdance: the whole Epic Sanji set (stance and four kicks; its autos are reused for dash and air). */
+    /** Breakdance: Napoleon's two punches, then Sanji's first kick and spin kick; Sanji stance, dash and air kick. */
     private static CapabilityItem.Builder breakdance(Item item) {
         WeaponCapability.Builder builder = base(() -> WOMSkills.AGONY_PLUNGE);
         withStance(builder, SanjiAnimations.IDLE, SanjiAnimations.WALK, SanjiAnimations.RUN);
         return builder.newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                sanji(SanjiAnimations.AUTO_1, AnimsMoonless.MOONLESS_AUTO_1_VERSO),
-                sanji(SanjiAnimations.AUTO_2, AnimsMoonless.MOONLESS_AUTO_2_VERSO),
-                sanji(SanjiAnimations.AUTO_3, AnimsMoonless.MOONLESS_AUTO_3_VERSO),
-                sanji(SanjiAnimations.AUTO_4, AnimsMoonless.MOONLESS_AUTO_3_VERSO),
+                AnimsNapoleon.NAPOLEON_AUTO_1,
+                AnimsNapoleon.NAPOLEON_AUTO_2,
+                sanji(SanjiAnimations.AUTO_1, AnimsMoonless.MOONLESS_AUTO_3_VERSO),
+                sanji(SanjiAnimations.AUTO_3, AnimsMoonless.MOONLESS_AUTO_1_VERSO),
                 sanji(SanjiAnimations.AUTO_4, AnimsAgony.AGONY_CLAWSTRIKE),
                 sanji(SanjiAnimations.AUTO_2, AnimsMoonless.MOONLESS_AUTO_3));
     }
@@ -189,15 +189,16 @@ public final class CompactPresets {
                 AnimsRuine.RUINE_COMET);
     }
 
-    /** Kickboxing: the Blackstar set. */
+    /** Kickboxing: the Blackstar set with the Clawed Gauntle jump attack. */
     private static CapabilityItem.Builder kickboxing(Item item) {
+        applySpeedTweaks();
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 AnimsBlackstar.BLACKSTAR_ATTACK_1,
                 AnimsBlackstar.BLACKSTAR_ATTACK_2,
                 AnimsBlackstar.BLACKSTAR_ATTACK_3,
                 AnimsBlackstar.BLACKSTAR_ATTACK_4,
                 AnimsOrbit.ORBIT_ATTACK_4,
-                AnimsAgony.AGONY_AIR_ATTACK_4);
+                AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW);
     }
 
     /** Jeet Kune Do: the whole Nova set (four strikes, dash, air slash). */
@@ -211,15 +212,15 @@ public final class CompactPresets {
                 AnimsNova.NOVA_ATTACK_AIRSLASH);
     }
 
-    /** Sanda: the Solar set (four strikes and Horno dash). */
+    /** Sanda: the Solar strikes, Napoleon's dash and the Nightfall Ruin Greatsword jump attack. */
     private static CapabilityItem.Builder sanda(Item item) {
         return base(() -> WOMSkills.AGONY_PLUNGE).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 AnimsSolar.SOLAR_AUTO_1,
                 AnimsSolar.SOLAR_AUTO_2,
                 AnimsSolar.SOLAR_AUTO_3,
                 AnimsSolar.SOLAR_AUTO_4,
-                AnimsSolar.SOLAR_HORNO,
-                AnimsAgony.AGONY_AIR_ATTACK_1);
+                AnimsNapoleon.NAPOLEON_AUSTERLITZ,
+                sanji(NightfallAnimations.RUIN_AIRSLASH, AnimsRuine.RUINE_COMET));
     }
 
     /** Kyokushin: Napoleon strikes with the Ironclad charge. Hits a downed enemy. */
@@ -327,6 +328,8 @@ public final class CompactPresets {
         scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_JUMPKICK, CompactStyle.MUAYTHAI_GLOVES::get, MUAYTHAI_JUMPKICK_SPEED);
         scaleSpeed(AnimsEnderblaster.ENDERBLASTER_ONEHAND_DASH, CompactStyle.MUAYTHAI_GLOVES::get, MUAYTHAI_JUMPSPIN_SPEED);
         matchAttackSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, CompactStyle.TAEKWONDO_STYLE::get,
+                TAEKWONDO_JUMPKICK_TARGET_ATTACK_SPEED);
+        matchAttackSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, CompactStyle.KICKBOXING_STYLE::get,
                 TAEKWONDO_JUMPKICK_TARGET_ATTACK_SPEED);
     }
 

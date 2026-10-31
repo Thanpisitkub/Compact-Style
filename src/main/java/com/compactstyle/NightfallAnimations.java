@@ -31,7 +31,8 @@ public final class NightfallAnimations {
 		"nf_meen_dash",
 		"nf_meen_idle",
 		"nf_meen_walk",
-		"nf_meen_run"
+		"nf_meen_run",
+		"ng_great_airslash"
 	};
 
 	public static AnimationManager.AnimationAccessor<StaticAnimation> MEEN_IDLE;
@@ -43,6 +44,7 @@ public final class NightfallAnimations {
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_AUTO_4;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_AIRSLASH;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_DASH;
+	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> RUIN_AIRSLASH;
 
 	private NightfallAnimations() {
 	}
@@ -71,6 +73,7 @@ public final class NightfallAnimations {
 		MEEN_AUTO_4 = builder.nextAccessor("biped/nightfall/nf_meen_auto4", (acc) -> attack(acc, 1.01F, 1.16F, biped().toolL, WOMWeaponColliders.PUNCH));
 		MEEN_AIRSLASH = builder.nextAccessor("biped/nightfall/nf_meen_airslash", (acc) -> attack(acc, 0.45F, 0.59F, biped().legL, WOMWeaponColliders.KICK_HUGE));
 		MEEN_DASH = builder.nextAccessor("biped/nightfall/nf_meen_dash", (acc) -> attack(acc, 0.82F, 1.08F, biped().legL, WOMWeaponColliders.KICK_HUGE));
+		RUIN_AIRSLASH = builder.nextAccessor("biped/nightfall/ng_great_airslash", (acc) -> attack(acc, 0.74F, 0.88F, biped().toolR, WOMWeaponColliders.KICK_HUGE));
 	}
 
 	private static BasicMultipleAttackAnimation attack(AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> acc,
