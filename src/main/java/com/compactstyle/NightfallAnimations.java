@@ -21,7 +21,17 @@ import yesman.epicfight.model.armature.HumanoidArmature;
 public final class NightfallAnimations {
 	private static final String BASE = "/assets/" + CompactStyle.MODID + "/animmodels/animations/biped/nightfall/";
 	private static final String[] FILES = {
-		FILES_PLACEHOLDER
+		"nf_meen_auto1",
+		"nf_meen_auto2",
+		"nf_meen_auto3",
+		"nf_meen_auto4",
+		"nf_meen_airslash",
+		"nf_meen_dash",
+		"nf_claw_auto1",
+		"nf_claw_auto2",
+		"nf_claw_auto3",
+		"nf_claw_airslash",
+		"nf_claw_dash"
 	};
 
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_AUTO_1;
