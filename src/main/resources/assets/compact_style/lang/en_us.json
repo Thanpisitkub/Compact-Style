@@ -12,18 +12,5 @@
   "item.compact_style.sanda_style": "Sanda Style",
   "item.compact_style.kyokushin_style": "Kyokushin Karate Style",
   "item.compact_style.basic_style": "Basic Style",
-  "item.compact_style.breakdance_style": "Breakdance Style",
-  "item.compact_style.zombie_egg_classic": "Zombie Spawn Egg: Classic",
-  "item.compact_style.zombie_egg_muaythai": "Zombie Spawn Egg: Muay Thai Gloves",
-  "item.compact_style.zombie_egg_chinese": "Zombie Spawn Egg: Chinese Style",
-  "item.compact_style.zombie_egg_taekwondo": "Zombie Spawn Egg: Taekwondo Style",
-  "item.compact_style.zombie_egg_capoeira": "Zombie Spawn Egg: Capoeira Style",
-  "item.compact_style.zombie_egg_judo": "Zombie Spawn Egg: Judo Style",
-  "item.compact_style.zombie_egg_bjj": "Zombie Spawn Egg: Brazilian Jiu-Jitsu Style",
-  "item.compact_style.zombie_egg_kickboxing": "Zombie Spawn Egg: Kickboxing Style",
-  "item.compact_style.zombie_egg_jkd": "Zombie Spawn Egg: Jeet Kune Do Style",
-  "item.compact_style.zombie_egg_sanda": "Zombie Spawn Egg: Sanda Style",
-  "item.compact_style.zombie_egg_kyokushin": "Zombie Spawn Egg: Kyokushin Karate Style",
-  "item.compact_style.zombie_egg_basic": "Zombie Spawn Egg: Basic Style",
-  "item.compact_style.zombie_egg_breakdance": "Zombie Spawn Egg: Breakdance Style"
+  "item.compact_style.breakdance_style": "Breakdance Style"
 }

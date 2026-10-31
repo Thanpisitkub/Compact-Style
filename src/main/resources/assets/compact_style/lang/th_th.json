@@ -12,18 +12,5 @@
   "item.compact_style.sanda_style": "สไตล์ซานดา",
   "item.compact_style.kyokushin_style": "สไตล์เคียวคุชินคาราเต้",
   "item.compact_style.basic_style": "สไตล์เบสิก",
-  "item.compact_style.breakdance_style": "สไตล์เบรกแดนซ์",
-  "item.compact_style.zombie_egg_classic": "ไข่เสกซอมบี้: คลาสสิค",
-  "item.compact_style.zombie_egg_muaythai": "ไข่เสกซอมบี้: ถุงมือมวยไทย",
-  "item.compact_style.zombie_egg_chinese": "ไข่เสกซอมบี้: สไตล์จีน",
-  "item.compact_style.zombie_egg_taekwondo": "ไข่เสกซอมบี้: สไตล์เทควันโด",
-  "item.compact_style.zombie_egg_capoeira": "ไข่เสกซอมบี้: สไตล์คาโปเอร่า",
-  "item.compact_style.zombie_egg_judo": "ไข่เสกซอมบี้: สไตล์ยูโด",
-  "item.compact_style.zombie_egg_bjj": "ไข่เสกซอมบี้: สไตล์บราซิลเลียนยิวยิตสู",
-  "item.compact_style.zombie_egg_kickboxing": "ไข่เสกซอมบี้: สไตล์คิกบ็อกซิ่ง",
-  "item.compact_style.zombie_egg_jkd": "ไข่เสกซอมบี้: สไตล์ Jeet Kune Do",
-  "item.compact_style.zombie_egg_sanda": "ไข่เสกซอมบี้: สไตล์ซานดา",
-  "item.compact_style.zombie_egg_kyokushin": "ไข่เสกซอมบี้: สไตล์เคียวคุชินคาราเต้",
-  "item.compact_style.zombie_egg_basic": "ไข่เสกซอมบี้: สไตล์เบสิก",
-  "item.compact_style.zombie_egg_breakdance": "ไข่เสกซอมบี้: สไตล์เบรกแดนซ์"
+  "item.compact_style.breakdance_style": "สไตล์เบรกแดนซ์"
 }

@@ -62,46 +62,6 @@ public class CompactStyle {
     public static final RegistryObject<Item> BREAKDANCE_STYLE = ITEMS.register("breakdance_style",
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.0, 2.00));
 
-    // One spawn egg per style: spawns a zombie holding that style.
-    public static final RegistryObject<Item> ZOMBIE_EGG_CLASSIC = ITEMS.register("zombie_egg_classic",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), CLASSIC::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_MUAYTHAI = ITEMS.register("zombie_egg_muaythai",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), MUAYTHAI_GLOVES::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_CHINESE = ITEMS.register("zombie_egg_chinese",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), CHINESE_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_TAEKWONDO = ITEMS.register("zombie_egg_taekwondo",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), TAEKWONDO_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_CAPOEIRA = ITEMS.register("zombie_egg_capoeira",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), CAPOEIRA_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_JUDO = ITEMS.register("zombie_egg_judo",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), JUDO_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_BJJ = ITEMS.register("zombie_egg_bjj",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), BJJ_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_KICKBOXING = ITEMS.register("zombie_egg_kickboxing",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), KICKBOXING_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_JKD = ITEMS.register("zombie_egg_jkd",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), JKD_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_SANDA = ITEMS.register("zombie_egg_sanda",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), SANDA_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_KYOKUSHIN = ITEMS.register("zombie_egg_kyokushin",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), KYOKUSHIN_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_BASIC = ITEMS.register("zombie_egg_basic",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), BASIC_STYLE::get));
-
-    public static final RegistryObject<Item> ZOMBIE_EGG_BREAKDANCE = ITEMS.register("zombie_egg_breakdance",
-            () -> new StyleZombieEggItem(new Item.Properties().stacksTo(16), BREAKDANCE_STYLE::get));
-
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("compact_style",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.compact_style"))
@@ -120,19 +80,6 @@ public class CompactStyle {
                         output.accept(KYOKUSHIN_STYLE.get());
                         output.accept(BASIC_STYLE.get());
                         output.accept(BREAKDANCE_STYLE.get());
-                        output.accept(ZOMBIE_EGG_CLASSIC.get());
-                        output.accept(ZOMBIE_EGG_MUAYTHAI.get());
-                        output.accept(ZOMBIE_EGG_CHINESE.get());
-                        output.accept(ZOMBIE_EGG_TAEKWONDO.get());
-                        output.accept(ZOMBIE_EGG_CAPOEIRA.get());
-                        output.accept(ZOMBIE_EGG_JUDO.get());
-                        output.accept(ZOMBIE_EGG_BJJ.get());
-                        output.accept(ZOMBIE_EGG_KICKBOXING.get());
-                        output.accept(ZOMBIE_EGG_JKD.get());
-                        output.accept(ZOMBIE_EGG_SANDA.get());
-                        output.accept(ZOMBIE_EGG_KYOKUSHIN.get());
-                        output.accept(ZOMBIE_EGG_BASIC.get());
-                        output.accept(ZOMBIE_EGG_BREAKDANCE.get());
                         addSkillBooks(output);
 
                     })
