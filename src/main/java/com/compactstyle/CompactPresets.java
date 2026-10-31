@@ -111,11 +111,11 @@ public final class CompactPresets {
                 sanji(NightfallAnimations.MEEN_AIRSLASH, AnimsNova.NOVA_ATTACK_AIRSLASH));
     }
 
-    /** Taekwondo: the Epic Sanji Diable Jambe kick set (stance, four kicks, jump attack) with Blackstar's dash and the scythe hold-attack skill. */
+    /** Taekwondo: the Epic Sanji Diable Jambe kick set (four kicks, jump attack) with Blackstar's dash, Epic Fight's normal stance and the scythe hold-attack skill. */
     private static CapabilityItem.Builder taekwondo(Item item) {
         applySpeedTweaks();
         WeaponCapability.Builder builder = withDownedPunch(base(CompactPresets::scytheSkill));
-        withStance(builder, SanjiAnimations.DIABLE_IDLE, SanjiAnimations.DIABLE_WALK, SanjiAnimations.RUN);
+        withStance(builder, Animations.BIPED_IDLE, Animations.BIPED_WALK, Animations.BIPED_RUN);
         return builder.newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 sanji(SanjiAnimations.DIABLE_AUTO_1, AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_1),
                 sanji(SanjiAnimations.DIABLE_AUTO_2, AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_2),
