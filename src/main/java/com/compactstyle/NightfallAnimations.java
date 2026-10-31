@@ -6,13 +6,15 @@ import yesman.epicfight.api.animation.AnimationManager;
 import yesman.epicfight.api.animation.Joint;
 import yesman.epicfight.api.animation.property.AnimationProperty;
 import yesman.epicfight.api.animation.types.AttackAnimation;
+import yesman.epicfight.api.animation.types.MovementAnimation;
+import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.api.collider.Collider;
 import yesman.epicfight.api.utils.math.ValueModifier;
 import yesman.epicfight.gameasset.Armatures;
 import yesman.epicfight.model.armature.HumanoidArmature;
 
 /**
- * Hand-to-hand moves from the Epic Fight Nightfall animation files (nf_meen and nf_claw sets). Only the hit
+ * Hand-to-hand moves from the Epic Fight Nightfall animation files (nf_meen set). Only the hit
  * timing is defined here (measured from the keyframes: the window around the fastest hand or foot movement).
  * The keyframe files (assets/compact_style/animmodels/animations/biped/nightfall/*.json) are NOT part of this
  * project's source: they are added to the jar by hand for personal use. When they are missing nothing is
@@ -27,24 +29,20 @@ public final class NightfallAnimations {
 		"nf_meen_auto4",
 		"nf_meen_airslash",
 		"nf_meen_dash",
-		"nf_claw_auto1",
-		"nf_claw_auto2",
-		"nf_claw_auto3",
-		"nf_claw_airslash",
-		"nf_claw_dash"
+		"nf_meen_idle",
+		"nf_meen_walk",
+		"nf_meen_run"
 	};
 
+	public static AnimationManager.AnimationAccessor<StaticAnimation> MEEN_IDLE;
+	public static AnimationManager.AnimationAccessor<MovementAnimation> MEEN_WALK;
+	public static AnimationManager.AnimationAccessor<MovementAnimation> MEEN_RUN;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_AUTO_1;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_AUTO_2;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_AUTO_3;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_AUTO_4;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_AIRSLASH;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> MEEN_DASH;
-	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> CLAW_AUTO_1;
-	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> CLAW_AUTO_2;
-	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> CLAW_AUTO_3;
-	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> CLAW_AIRSLASH;
-	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> CLAW_DASH;
 
 	private NightfallAnimations() {
 	}
@@ -64,17 +62,15 @@ public final class NightfallAnimations {
 	}
 
 	static void build(AnimationManager.AnimationBuilder builder) {
+		MEEN_IDLE = builder.nextAccessor("biped/nightfall/nf_meen_idle", (acc) -> new StaticAnimation(0.1F, true, acc, Armatures.BIPED));
+		MEEN_WALK = builder.nextAccessor("biped/nightfall/nf_meen_walk", (acc) -> new MovementAnimation(0.1F, true, acc, Armatures.BIPED));
+		MEEN_RUN = builder.nextAccessor("biped/nightfall/nf_meen_run", (acc) -> new MovementAnimation(0.1F, true, acc, Armatures.BIPED));
 		MEEN_AUTO_1 = builder.nextAccessor("biped/nightfall/nf_meen_auto1", (acc) -> attack(acc, 0.45F, 0.64F, biped().toolR, WOMWeaponColliders.PUNCH));
 		MEEN_AUTO_2 = builder.nextAccessor("biped/nightfall/nf_meen_auto2", (acc) -> attack(acc, 0.60F, 0.72F, biped().toolR, WOMWeaponColliders.PUNCH));
 		MEEN_AUTO_3 = builder.nextAccessor("biped/nightfall/nf_meen_auto3", (acc) -> attack(acc, 0.99F, 1.13F, biped().toolR, WOMWeaponColliders.PUNCH));
 		MEEN_AUTO_4 = builder.nextAccessor("biped/nightfall/nf_meen_auto4", (acc) -> attack(acc, 1.01F, 1.16F, biped().toolL, WOMWeaponColliders.PUNCH));
 		MEEN_AIRSLASH = builder.nextAccessor("biped/nightfall/nf_meen_airslash", (acc) -> attack(acc, 0.45F, 0.59F, biped().legL, WOMWeaponColliders.KICK_HUGE));
 		MEEN_DASH = builder.nextAccessor("biped/nightfall/nf_meen_dash", (acc) -> attack(acc, 0.82F, 1.08F, biped().legL, WOMWeaponColliders.KICK_HUGE));
-		CLAW_AUTO_1 = builder.nextAccessor("biped/nightfall/nf_claw_auto1", (acc) -> attack(acc, 0.34F, 0.54F, biped().toolR, WOMWeaponColliders.PUNCH));
-		CLAW_AUTO_2 = builder.nextAccessor("biped/nightfall/nf_claw_auto2", (acc) -> attack(acc, 0.29F, 0.42F, biped().toolL, WOMWeaponColliders.PUNCH));
-		CLAW_AUTO_3 = builder.nextAccessor("biped/nightfall/nf_claw_auto3", (acc) -> attack(acc, 0.59F, 0.76F, biped().toolR, WOMWeaponColliders.PUNCH));
-		CLAW_AIRSLASH = builder.nextAccessor("biped/nightfall/nf_claw_airslash", (acc) -> attack(acc, 0.64F, 0.79F, biped().toolR, WOMWeaponColliders.PUNCH));
-		CLAW_DASH = builder.nextAccessor("biped/nightfall/nf_claw_dash", (acc) -> attack(acc, 0.37F, 0.49F, biped().toolR, WOMWeaponColliders.PUNCH));
 	}
 
 	private static BasicMultipleAttackAnimation attack(AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> acc,
