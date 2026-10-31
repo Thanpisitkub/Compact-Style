@@ -44,9 +44,24 @@ public final class SanjiAnimations {
 			&& present("biped/combat/sanji_auto_3") && present("biped/combat/sanji_auto_4");
 	}
 
+	/**
+	 * Epic Fight allows one animation builder per namespace, so the Epic Sanji moves and the Nightfall moves are
+	 * registered together here.
+	 */
 	public static void register(AnimationManager.AnimationRegistryEvent event) {
-		if (available()) {
-			event.newBuilder(CompactStyle.MODID, SanjiAnimations::build);
+		boolean sanji = available();
+		boolean nightfall = NightfallAnimations.available();
+
+		if (sanji || nightfall) {
+			event.newBuilder(CompactStyle.MODID, (builder) -> {
+				if (sanji) {
+					build(builder);
+				}
+
+				if (nightfall) {
+					NightfallAnimations.build(builder);
+				}
+			});
 		}
 	}
 

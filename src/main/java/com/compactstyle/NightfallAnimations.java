@@ -59,17 +59,11 @@ public final class NightfallAnimations {
 		return true;
 	}
 
-	public static void register(AnimationManager.AnimationRegistryEvent event) {
-		if (available()) {
-			event.newBuilder(CompactStyle.MODID, NightfallAnimations::build);
-		}
-	}
-
 	private static HumanoidArmature biped() {
 		return (HumanoidArmature) Armatures.BIPED.get();
 	}
 
-	private static void build(AnimationManager.AnimationBuilder builder) {
+	static void build(AnimationManager.AnimationBuilder builder) {
 		MEEN_AUTO_1 = builder.nextAccessor("biped/nightfall/nf_meen_auto1", (acc) -> attack(acc, 0.45F, 0.64F, biped().toolR, WOMWeaponColliders.PUNCH));
 		MEEN_AUTO_2 = builder.nextAccessor("biped/nightfall/nf_meen_auto2", (acc) -> attack(acc, 0.60F, 0.72F, biped().toolR, WOMWeaponColliders.PUNCH));
 		MEEN_AUTO_3 = builder.nextAccessor("biped/nightfall/nf_meen_auto3", (acc) -> attack(acc, 0.99F, 1.13F, biped().toolR, WOMWeaponColliders.PUNCH));
