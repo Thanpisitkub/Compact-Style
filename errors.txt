@@ -1,0 +1,11 @@
+/home/runner/work/Compact-Style/Compact-Style/src/main/java/com/compactstyle/NightfallAnimations.java:24: error: cannot find symbol
+		FILES_PLACEHOLDER
+		^
+  symbol:   variable FILES_PLACEHOLDER
+  location: class NightfallAnimations
+/home/runner/work/Compact-Style/Compact-Style/src/main/java/com/compactstyle/CompactPresets.java:80: warning: [removal] newStyleCombo(Style,AnimationAccessor<? extends AttackAnimation>...) in Builder has been deprecated and marked for removal
+        return withDownedPunch(base(() -> WOMSkills.AGONY_PLUNGE)).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+--
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler error output for details.
