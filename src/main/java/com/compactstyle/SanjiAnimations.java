@@ -8,6 +8,9 @@ import yesman.epicfight.api.animation.property.AnimationProperty;
 import yesman.epicfight.api.animation.types.AttackAnimation;
 import yesman.epicfight.api.animation.types.MovementAnimation;
 import yesman.epicfight.api.animation.types.StaticAnimation;
+import yesman.epicfight.api.collider.Collider;
+import yesman.epicfight.api.collider.MultiOBBCollider;
+import yesman.epicfight.api.collider.OBBCollider;
 import yesman.epicfight.api.utils.math.ValueModifier;
 import yesman.epicfight.gameasset.Armatures;
 import yesman.epicfight.model.armature.HumanoidArmature;
@@ -29,6 +32,21 @@ public final class SanjiAnimations {
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> AUTO_2;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> AUTO_3;
 	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> AUTO_4;
+	/** Sanji's jump attack (Concasse): leaps and lands with an area hit. */
+	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> CONCASSER;
+	/** The Diable Jambe (leg-fire) set: stance, four kicks and the kick rush. */
+	public static AnimationManager.AnimationAccessor<StaticAnimation> DIABLE_IDLE;
+	public static AnimationManager.AnimationAccessor<MovementAnimation> DIABLE_WALK;
+	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> DIABLE_AUTO_1;
+	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> DIABLE_AUTO_2;
+	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> DIABLE_AUTO_3;
+	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> DIABLE_AUTO_4;
+	public static AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> DIABLE_ANTIMANER;
+
+	/** The Concasse landing box (taken from Epic Sanji): a wide, low box around the body. */
+	private static final Collider LANDING_BOX = new OBBCollider(2.0D, 1.5D, 2.0D, 0.0D, 0.75D, 0.0D);
+	/** The Anti-Manner kick box (taken from Epic Sanji): long and narrow. */
+	private static final Collider LONG_KICK_BOX = new MultiOBBCollider(4, 0.8D, 2.0D, 0.8D, 0.0D, 0.0D, 0.0D);
 
 	private SanjiAnimations() {
 	}
@@ -41,7 +59,11 @@ public final class SanjiAnimations {
 	public static boolean available() {
 		return present("biped/living/sanji_idle") && present("biped/living/sanji_walk") && present("biped/living/sanji_run")
 			&& present("biped/combat/sanji_auto_1") && present("biped/combat/sanji_auto_2")
-			&& present("biped/combat/sanji_auto_3") && present("biped/combat/sanji_auto_4");
+			&& present("biped/combat/sanji_auto_3") && present("biped/combat/sanji_auto_4")
+			&& present("biped/combat/sanji_concasser") && present("biped/living/sanji_diable_idle")
+			&& present("biped/living/sanji_diable_walk") && present("biped/skill/sanji_diable_auto_1")
+			&& present("biped/skill/sanji_diable_auto_2") && present("biped/skill/sanji_diable_auto_3")
+			&& present("biped/skill/sanji_diable_auto_4") && present("biped/skill/sanji_diable_antimaner");
 	}
 
 	/**
@@ -96,6 +118,51 @@ public final class SanjiAnimations {
 
 		AUTO_4 = builder.nextAccessor("biped/combat/sanji_auto_4", (acc) -> attack(acc, 0.05F, 1.4F, 1.35F,
 			phase(0.0F, 0.4F, 0.6F, 0.7F, Float.MAX_VALUE, biped().legL)));
+
+		// Concasse: the leap lasts until about 1.9s, the area hit is active the whole time (as in Epic Sanji).
+		CONCASSER = builder.nextAccessor("biped/combat/sanji_concasser", (acc) -> {
+			BasicMultipleAttackAnimation animation = attack(acc, 0.1F, 1.6F, 1.05F,
+				new AttackAnimation.Phase(0.0F, 1.15F, 1.9F, 2.35F, Float.MAX_VALUE, biped().rootJoint, LANDING_BOX));
+			animation.addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER, ValueModifier.setter(10.0F));
+			animation.addProperty(AnimationProperty.ActionAnimationProperty.MOVE_VERTICAL, true);
+			return animation;
+		});
+
+		// Diable Jambe: timings and joints as in Epic Sanji (right leg), damage scaled to the style's own damage.
+		DIABLE_IDLE = builder.nextAccessor("biped/living/sanji_diable_idle", (acc) -> new StaticAnimation(0.1F, true, acc, Armatures.BIPED));
+		DIABLE_WALK = builder.nextAccessor("biped/living/sanji_diable_walk", (acc) -> new MovementAnimation(0.1F, true, acc, Armatures.BIPED));
+
+		DIABLE_AUTO_1 = builder.nextAccessor("biped/skill/sanji_diable_auto_1", (acc) -> attack(acc, 0.1F, 1.0F, 1.25F,
+			phase(0.0F, 0.42F, 0.6F, 0.7F, Float.MAX_VALUE, biped().legR)));
+
+		DIABLE_AUTO_2 = builder.nextAccessor("biped/skill/sanji_diable_auto_2", (acc) -> {
+			// A flurry of six quick kicks.
+			float[][] t = {{0.0F, 0.25F, 0.3F, 0.35F}, {0.35F, 0.4F, 0.45F, 0.5F}, {0.5F, 0.55F, 0.6F, 0.65F},
+				{0.65F, 0.7F, 0.75F, 0.8F}, {0.8F, 0.85F, 0.9F, 0.95F}, {0.95F, 1.1F, 1.2F, 1.25F}};
+			AttackAnimation.Phase[] phases = new AttackAnimation.Phase[t.length];
+
+			for (int i = 0; i < t.length; i++) {
+				phases[i] = phase(t[i][0], t[i][1], t[i][2], t[i][3], i == t.length - 1 ? Float.MAX_VALUE : t[i][3], biped().legR);
+			}
+
+			BasicMultipleAttackAnimation animation = attack(acc, 0.05F, 0.2F, 1.25F, phases);
+			animation.addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F), 5);
+			return animation;
+		});
+
+		DIABLE_AUTO_3 = builder.nextAccessor("biped/skill/sanji_diable_auto_3", (acc) -> {
+			BasicMultipleAttackAnimation animation = attack(acc, 0.05F, 0.5F, 1.25F,
+				new AttackAnimation.Phase(0.0F, 0.45F, 0.65F, 0.7F, 0.7F, biped().legR, LONG_KICK_BOX),
+				phase(0.7F, 1.2F, 1.4F, 1.6F, Float.MAX_VALUE, biped().legR));
+			animation.addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.8F), 1);
+			return animation;
+		});
+
+		DIABLE_AUTO_4 = builder.nextAccessor("biped/skill/sanji_diable_auto_4", (acc) -> attack(acc, 0.1F, 1.5F, 1.25F,
+			phase(0.0F, 0.45F, 0.65F, 0.85F, Float.MAX_VALUE, biped().legR)));
+
+		DIABLE_ANTIMANER = builder.nextAccessor("biped/skill/sanji_diable_antimaner", (acc) -> attack(acc, 0.1F, 1.0F, 1.45F,
+			phase(0.0F, 0.4F, 0.55F, 0.65F, Float.MAX_VALUE, biped().legR)));
 	}
 
 	private static AttackAnimation.Phase phase(float start, float antic, float contact, float recovery, float end, Joint joint) {
