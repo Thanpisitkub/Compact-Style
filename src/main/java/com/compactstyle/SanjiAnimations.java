@@ -60,7 +60,7 @@ public final class SanjiAnimations {
 		RUN = builder.nextAccessor("biped/living/sanji_run", (acc) -> new MovementAnimation(0.1F, true, acc, Armatures.BIPED));
 
 		AUTO_1 = builder.nextAccessor("biped/combat/sanji_auto_1", (acc) -> attack(acc, 0.1F, 0.6F, 1.05F,
-			phase(0.0F, 0.25F, 0.35F, 0.35F, Float.MAX_VALUE, biped().toolL)));
+			phase(0.0F, 0.2F, 0.38F, 0.4F, Float.MAX_VALUE, biped().legL)));
 
 		AUTO_2 = builder.nextAccessor("biped/combat/sanji_auto_2", (acc) -> attack(acc, 0.05F, 0.65F, 1.05F,
 			phase(0.0F, 0.3F, 0.5F, 0.55F, 0.55F, biped().legR),
@@ -80,11 +80,13 @@ public final class SanjiAnimations {
 		});
 
 		AUTO_4 = builder.nextAccessor("biped/combat/sanji_auto_4", (acc) -> attack(acc, 0.05F, 1.4F, 1.35F,
-			phase(0.0F, 0.55F, 0.65F, 1.0F, Float.MAX_VALUE, biped().legR)));
+			phase(0.0F, 0.4F, 0.6F, 0.7F, Float.MAX_VALUE, biped().legL)));
 	}
 
 	private static AttackAnimation.Phase phase(float start, float antic, float contact, float recovery, float end, Joint joint) {
-		return new AttackAnimation.Phase(start, antic, contact, recovery, end, joint, WOMWeaponColliders.AGONY);
+		// KICK_HUGE is the large hit box the original Sanji moves used; AGONY's box is shaped for a held weapon
+		// and missed (no damage) when attached to a hand or foot.
+		return new AttackAnimation.Phase(start, antic, contact, recovery, end, joint, WOMWeaponColliders.KICK_HUGE);
 	}
 
 	private static BasicMultipleAttackAnimation attack(AnimationManager.AnimationAccessor<BasicMultipleAttackAnimation> acc, float convert,
