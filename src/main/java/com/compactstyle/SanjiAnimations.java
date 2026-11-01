@@ -114,7 +114,12 @@ public final class SanjiAnimations {
 				phases[i] = phase(t, t + 0.15F, t + 0.2F, t + 0.25F, i == 9 ? Float.MAX_VALUE : t + 0.25F, biped().rootJoint);
 			}
 
-			return attack(acc, 0.1F, 0.3F, 1.05F, phases);
+			BasicMultipleAttackAnimation animation = attack(acc, 0.1F, 0.3F, 1.05F, phases);
+			// The spin keeps the enemy staggered, and its last hit throws them into a longer stun.
+			animation.addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.SHORT);
+			animation.addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.LONG, 9);
+			animation.addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(3.0F), 9);
+			return animation;
 		});
 
 		AUTO_4 = builder.nextAccessor("biped/combat/sanji_auto_4", (acc) -> attack(acc, 0.05F, 1.4F, 1.35F,
@@ -179,6 +184,7 @@ public final class SanjiAnimations {
 		animation.addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, speed);
 		// Every hit stuns, like the other punches (Epic Sanji used HOLD for its stronger moves).
 		animation.addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.HOLD);
+		animation.addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(2.0F));
 		return animation;
 	}
 }

@@ -98,21 +98,20 @@ public final class CompactPresets {
                 AnimsEnderblaster.ENDERBLASTER_ONEHAND_JUMPKICK);
     }
 
-    /** Chinese: the Nightfall sword set (stance, four strikes, dash, jump strike). Falls back to the Satsujin moves. */
+    /** Chinese: Ender Blaster two-hand strikes, an Epic Fight Extra fist hit, Sanji's two-kick combo, with the Muay Thai dash. */
     private static CapabilityItem.Builder chinese(Item item) {
         WeaponCapability.Builder builder = base(() -> WOMSkills.AGONY_PLUNGE);
-        withStance(builder, NightfallAnimations.stance("nf_sword_idle"), NightfallAnimations.stance("nf_sword_walk"),
-                NightfallAnimations.stance("nf_sword_run"));
+        withStance(builder, Animations.BIPED_IDLE, Animations.BIPED_WALK, Animations.BIPED_RUN);
         return builder.newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                nf("nf_sword_auto1", AnimsSatsujin.SATSUJIN_AUTO_1),
-                nf("nf_sword_auto2", AnimsSatsujin.SATSUJIN_AUTO_2),
-                nf("nf_sword_auto3", AnimsSatsujin.SATSUJIN_AUTO_3),
-                nf("nf_sword_auto4", AnimsSatsujin.SATSUJIN_AUTO_3),
-                nf("nf_sword_dash", AnimsSatsujin.SATSUJIN_HARUSAKI),
-                nf("nf_sword_airslash", AnimsNova.NOVA_ATTACK_AIRSLASH));
+                AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_1,
+                AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_2,
+                efx("FIST_AUTO4", AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_3),
+                sanji(SanjiAnimations.AUTO_2, AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_4),
+                AnimsEnderblaster.ENDERBLASTER_ONEHAND_DASH,
+                AnimsAgony.AGONY_AIR_ATTACK_2);
     }
 
-    /** Taekwondo: the Epic Sanji Diable Jambe kick set (four kicks, jump attack) with Blackstar's dash, the old jump kick, Epic Fight's normal stance and the scythe hold-attack skill. */
+    /** Taekwondo: two Epic Sanji Diable Jambe kicks, then Sanda's 3rd and 4th strikes (jump attack with Blackstar's dash, the old jump kick, Epic Fight's normal stance and the scythe hold-attack skill. */
     private static CapabilityItem.Builder taekwondo(Item item) {
         applySpeedTweaks();
         WeaponCapability.Builder builder = withDownedPunch(base(CompactPresets::scytheSkill));
@@ -120,8 +119,8 @@ public final class CompactPresets {
         return builder.newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 sanji(SanjiAnimations.DIABLE_AUTO_1, AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_1),
                 sanji(SanjiAnimations.DIABLE_AUTO_2, AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_2),
-                sanji(SanjiAnimations.DIABLE_AUTO_3, AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_3),
-                sanji(SanjiAnimations.DIABLE_AUTO_4, AnimsEnderblaster.ENDERBLASTER_TWOHAND_AUTO_4),
+                AnimsSolar.SOLAR_AUTO_3,
+                AnimsSolar.SOLAR_AUTO_4,
                 AnimsBlackstar.BLACKSTAR_CHOCKNWAVE,
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW);
     }
@@ -170,17 +169,17 @@ public final class CompactPresets {
                 sanji(SanjiAnimations.AUTO_2, AnimsMoonless.MOONLESS_AUTO_3));
     }
 
-    /** Judo: the Nightfall greatsword set (stance, three heavy strikes, dash, jump strike). Falls back to the Herrscher / Gesetz set. */
+    /** Judo: Epic Fight Extra unarmed strikes, a heavy Gesetz finisher, unarmed dash and jump strike. */
     private static CapabilityItem.Builder judo(Item item) {
         WeaponCapability.Builder builder = base(() -> WOMSkills.AGONY_PLUNGE);
-        withStance(builder, NightfallAnimations.stance("ng_great_idle"), NightfallAnimations.stance("ng_great_walk"),
-                NightfallAnimations.stance("ng_great_run"));
+        withStance(builder, Animations.BIPED_IDLE, Animations.BIPED_WALK, Animations.BIPED_RUN);
         return builder.newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                nf("ng_great_auto1", AnimsHerrscher.HERRSCHER_AUTO_1),
-                nf("ng_great_auto2", AnimsHerrscher.HERRSCHER_AUTO_2),
-                nf("ng_great_auto3", AnimsHerrscher.HERRSCHER_AUTO_3),
-                nf("ng_great_dash", AnimsHerrscher.GESETZ_KRUMMEN),
-                nf("ng_great_airslash", AnimsAgony.AGONY_AIR_ATTACK_3));
+                efx("UNARMED_AUTO1", AnimsHerrscher.HERRSCHER_AUTO_1),
+                efx("UNARMED_AUTO2", AnimsHerrscher.HERRSCHER_AUTO_2),
+                efx("UNARMED_AUTO3", AnimsHerrscher.HERRSCHER_AUTO_3),
+                AnimsHerrscher.GESETZ_AUTO_3,
+                efx("UNARMED_DASH", AnimsHerrscher.GESETZ_KRUMMEN),
+                efx("UNARMED_AIR_SLASH", AnimsAgony.AGONY_AIR_ATTACK_3));
     }
 
     /** Brazilian Jiu-Jitsu: the Ruine set (four strikes, dash and air strike). */
@@ -206,18 +205,17 @@ public final class CompactPresets {
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW);
     }
 
-    /** Jeet Kune Do: the Nightfall dual-blade set (stance, four strikes, dash, jump strike). Falls back to the Nova set. */
+    /** Jeet Kune Do: Epic Fight Extra glove punches, a Sanji Diable Jambe front kick, glove dash and jump strike. */
     private static CapabilityItem.Builder jkd(Item item) {
         WeaponCapability.Builder builder = base(() -> WOMSkills.AGONY_PLUNGE);
-        withStance(builder, NightfallAnimations.stance("nf_dual_idle"), NightfallAnimations.stance("nf_dual_walk"),
-                NightfallAnimations.stance("nf_dual_run"));
+        withStance(builder, Animations.BIPED_IDLE, Animations.BIPED_WALK, Animations.BIPED_RUN);
         return builder.newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                nf("nf_dual_auto1", AnimsNova.NOVA_ATTACK_1),
-                nf("nf_dual_auto2", AnimsNova.NOVA_ATTACK_2),
-                nf("nf_dual_auto3", AnimsNova.NOVA_ATTACK_3),
-                nf("nf_dual_auto4", AnimsNova.NOVA_ATTACK_4),
-                nf("nf_dual_dash", AnimsNova.NOVA_ATTACK_DASH),
-                nf("nf_dual_airslash", AnimsNova.NOVA_ATTACK_AIRSLASH));
+                efx("GLOVE_AUTO1", AnimsNova.NOVA_ATTACK_1),
+                efx("GLOVE_AUTO2", AnimsNova.NOVA_ATTACK_2),
+                efx("GLOVE_AUTO3", AnimsNova.NOVA_ATTACK_3),
+                sanji(SanjiAnimations.DIABLE_AUTO_1, AnimsNova.NOVA_ATTACK_4),
+                efx("GLOVE_DASH", AnimsNova.NOVA_ATTACK_DASH),
+                efx("GLOVE_AIR_SLASH", AnimsNova.NOVA_ATTACK_AIRSLASH));
     }
 
     /** Sanda: the Solar strikes, Napoleon's dash and the Taekwondo jump kick. */
@@ -232,15 +230,16 @@ public final class CompactPresets {
                 AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW);
     }
 
-    /** Kyokushin: Napoleon strikes with Taekwondo's dash. Hits a downed enemy. */
+    /** Kyokushin: Napoleon strikes with Taekwondo's dash and jump kick. Hits a downed enemy. */
     private static CapabilityItem.Builder kyokushin(Item item) {
+        applySpeedTweaks();
         return withDownedPunch(base(() -> WOMSkills.AGONY_PLUNGE)).newStyleCombo(CapabilityItem.Styles.TWO_HAND,
                 cz("SFA_Animations", "IRONCLAD_AUTO2", AnimsNapoleon.NAPOLEON_AUTO_1),
                 AnimsNapoleon.NAPOLEON_AUTO_2,
                 AnimsNapoleon.NAPOLEON_AUTO_3,
                 AnimsNapoleon.NAPOLEON_AUTO_4,
                 AnimsBlackstar.BLACKSTAR_CHOCKNWAVE,
-                AnimsAgony.AGONY_AIR_ATTACK_3);
+                AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW);
     }
 
     /** Adds the weapon passive that makes a downed enemy get punched with the style's first punch. */
@@ -264,6 +263,26 @@ public final class CompactPresets {
             }
         } catch (Throwable ignored) {
             // ef_cz not installed or renamed: use the fallback
+        }
+
+        return fallback;
+    }
+
+    /**
+     * An Epic Fight Extra attack animation, looked up by name so this mod still loads without Epic Fight Extra
+     * (the fallback is used when it is missing or renamed).
+     */
+    @SuppressWarnings("unchecked")
+    private static AnimationManager.AnimationAccessor<? extends AttackAnimation> efx(String field,
+            AnimationManager.AnimationAccessor<? extends AttackAnimation> fallback) {
+        try {
+            Object value = Class.forName("com.asanginxst.epicfightx.gameassets.animations.ExtraAnimations").getField(field).get(null);
+
+            if (value instanceof AnimationManager.AnimationAccessor<?> accessor && accessor.get() instanceof AttackAnimation) {
+                return (AnimationManager.AnimationAccessor<? extends AttackAnimation>) accessor;
+            }
+        } catch (Throwable ignored) {
+            // Epic Fight Extra is not installed or renamed: use the fallback
         }
 
         return fallback;
@@ -348,6 +367,8 @@ public final class CompactPresets {
         matchAttackSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, CompactStyle.KICKBOXING_STYLE::get,
                 TAEKWONDO_JUMPKICK_TARGET_ATTACK_SPEED);
         matchAttackSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, CompactStyle.SANDA_STYLE::get,
+                TAEKWONDO_JUMPKICK_TARGET_ATTACK_SPEED);
+        matchAttackSpeed(AnimsEnderblaster.ENDERBLASTER_TWOHAND_TISHNAW, CompactStyle.KYOKUSHIN_STYLE::get,
                 TAEKWONDO_JUMPKICK_TARGET_ATTACK_SPEED);
     }
 
