@@ -30,16 +30,13 @@ public class CompactStyle {
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 6.5, 2.00));
 
     public static final RegistryObject<Item> CHINESE_STYLE = ITEMS.register("chinese_style",
-            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.0, 1.80));
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 7.30, 1.80));
 
     public static final RegistryObject<Item> TAEKWONDO_STYLE = ITEMS.register("taekwondo_style",
-            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 6.5, 2.00));
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5.20, 2.00));
 
     public static final RegistryObject<Item> CAPOEIRA_STYLE = ITEMS.register("capoeira_style",
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2.5, 2.00));
-
-    public static final RegistryObject<Item> JUDO_STYLE = ITEMS.register("judo_style",
-            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 4.5, 1.60));
 
     public static final RegistryObject<Item> BJJ_STYLE = ITEMS.register("bjj_style",
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.5, 1.70));
@@ -72,7 +69,6 @@ public class CompactStyle {
                         output.accept(CHINESE_STYLE.get());
                         output.accept(TAEKWONDO_STYLE.get());
                         output.accept(CAPOEIRA_STYLE.get());
-                        output.accept(JUDO_STYLE.get());
                         output.accept(BJJ_STYLE.get());
                         output.accept(KICKBOXING_STYLE.get());
                         output.accept(JKD_STYLE.get());

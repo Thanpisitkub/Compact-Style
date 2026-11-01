@@ -61,7 +61,6 @@ public final class CompactPresets {
         types.put(id("chinese"), CompactPresets::chinese);
         types.put(id("taekwondo"), CompactPresets::taekwondo);
         types.put(id("capoeira"), CompactPresets::capoeira);
-        types.put(id("judo"), CompactPresets::judo);
         types.put(id("bjj"), CompactPresets::bjj);
         types.put(id("kickboxing"), CompactPresets::kickboxing);
         types.put(id("jkd"), CompactPresets::jkd);
@@ -167,19 +166,6 @@ public final class CompactPresets {
                 sanji(SanjiAnimations.AUTO_3, AnimsMoonless.MOONLESS_AUTO_1_VERSO),
                 sanji(SanjiAnimations.AUTO_4, AnimsAgony.AGONY_CLAWSTRIKE),
                 sanji(SanjiAnimations.AUTO_2, AnimsMoonless.MOONLESS_AUTO_3));
-    }
-
-    /** Judo: Epic Fight Extra unarmed strikes, a heavy Gesetz finisher, unarmed dash and jump strike. */
-    private static CapabilityItem.Builder judo(Item item) {
-        WeaponCapability.Builder builder = base(() -> WOMSkills.AGONY_PLUNGE);
-        withStance(builder, Animations.BIPED_IDLE, Animations.BIPED_WALK, Animations.BIPED_RUN);
-        return builder.newStyleCombo(CapabilityItem.Styles.TWO_HAND,
-                efx("UNARMED_AUTO1", AnimsHerrscher.HERRSCHER_AUTO_1),
-                efx("UNARMED_AUTO2", AnimsHerrscher.HERRSCHER_AUTO_2),
-                efx("UNARMED_AUTO3", AnimsHerrscher.HERRSCHER_AUTO_3),
-                AnimsHerrscher.GESETZ_AUTO_3,
-                efx("UNARMED_DASH", AnimsHerrscher.GESETZ_KRUMMEN),
-                efx("UNARMED_AIR_SLASH", AnimsAgony.AGONY_AIR_ATTACK_3));
     }
 
     /** Brazilian Jiu-Jitsu: the Ruine set (four strikes, dash and air strike). */
