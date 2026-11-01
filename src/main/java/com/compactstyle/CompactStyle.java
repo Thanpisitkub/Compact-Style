@@ -33,7 +33,7 @@ public class CompactStyle {
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 7.30, 1.80));
 
     public static final RegistryObject<Item> TAEKWONDO_STYLE = ITEMS.register("taekwondo_style",
-            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 5.20, 2.00));
+            () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3.00, 2.00));
 
     public static final RegistryObject<Item> CAPOEIRA_STYLE = ITEMS.register("capoeira_style",
             () -> new StyleItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2.5, 2.00));
