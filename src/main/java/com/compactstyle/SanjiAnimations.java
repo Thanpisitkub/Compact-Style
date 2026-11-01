@@ -14,6 +14,7 @@ import yesman.epicfight.api.collider.OBBCollider;
 import yesman.epicfight.api.utils.math.ValueModifier;
 import yesman.epicfight.gameasset.Armatures;
 import yesman.epicfight.model.armature.HumanoidArmature;
+import yesman.epicfight.world.damagesource.StunType;
 
 /**
  * Epic Sanji's stance and kick combo, re-created for Epic Fight 20.14 (Epic Sanji itself only exists for older
@@ -176,6 +177,8 @@ public final class SanjiAnimations {
 		BasicMultipleAttackAnimation animation = new BasicMultipleAttackAnimation(convert, acc, Armatures.BIPED, phases);
 		animation.addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(damage));
 		animation.addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, speed);
+		// Every hit stuns, like the other punches (Epic Sanji used HOLD for its stronger moves).
+		animation.addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.HOLD);
 		return animation;
 	}
 }
