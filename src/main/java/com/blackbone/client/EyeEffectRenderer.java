@@ -7,22 +7,18 @@ import com.blackbone.state.BlackBoneStates;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -35,7 +31,8 @@ import net.minecraftforge.fml.common.Mod;
  * and with other players' clients, and never touches the skin texture.
  *
  * Parts: an emissive eye box (real 3D depth), a soft radial glow around each eye, and animated energy
- * streaks that radiate away from the eyes (jagged for Zone). Dust / spark particles are added on the client tick.
+ * streaks that radiate away from the eyes (jagged for Zone), plus drifting motes. Everything is drawn from the eye
+ * position of the current frame (no world particles), so it can never be left behind when the player moves.
  */
 @Mod.EventBusSubscriber(modid = com.compactstyle.CompactStyle.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public final class EyeEffectRenderer {
@@ -127,6 +124,8 @@ public final class EyeEffectRenderer {
 		float[] hot = {Mth.lerp(0.55F, core[0], 1.0F), Mth.lerp(0.55F, core[1], 1.0F), Mth.lerp(0.55F, core[2], 1.0F)};
 		box(vc, m, eye, g, 0.058D, 0.036D, 0.02D, core, hot, pulse);
 
+		motes(vc, m, g, eye, mode, camera, time, seedOffset, glow, core);
+
 		// Energy streaks radiating from the eye.
 		boolean zone = mode == BlackBoneMode.ZONE;
 		int count = zone ? STREAKS + 2 : STREAKS;
@@ -153,6 +152,40 @@ public final class EyeEffectRenderer {
 			} else {
 				streak(vc, m, start, end, camPos, width, glow, core, alpha);
 			}
+		}
+	}
+
+	/** Small glowing specks that drift out of the eye and fade, always positioned relative to the live eye. */
+	private static void motes(VertexConsumer vc, Matrix4f m, EyeGeometry g, Vec3 eye, BlackBoneMode mode, Camera camera, float time, float seedOffset, float[] glow, float[] core) {
+		boolean zone = mode == BlackBoneMode.ZONE;
+		int count = zone ? 7 : 5;
+		Vec3 camLeft = new Vec3(camera.getLeftVector());
+		Vec3 camUp = new Vec3(camera.getUpVector());
+
+		for (int i = 0; i < count; i++) {
+			float seed = i * 2.399F + seedOffset;
+			float phase = (time * (zone ? 0.09F : 0.06F) + i * 0.613F + seedOffset * 0.1F) % 1.0F;
+			float a = seed * 1.7F;
+			float spread = 0.05F + 0.14F * phase;
+
+			Vec3 offset = g.forward.scale(0.03D + 0.22D * phase)
+				.add(g.left.scale(Mth.cos(a) * spread))
+				.add(g.up.scale(Mth.sin(a) * spread + 0.05D * phase));
+
+			if (zone) {
+				// Electric flicker: quick jitter, some specks blink off.
+				float flick = Mth.sin(time * 3.1F + seed * 5.0F);
+				offset = offset.add(g.left.scale(flick * 0.015D));
+
+				if (flick < -0.6F) {
+					continue;
+				}
+			}
+
+			float alpha = (1.0F - phase) * 0.85F;
+			float size = (zone ? 0.02F : 0.028F) * (1.0F - 0.4F * phase);
+			disc(vc, m, eye.add(offset), camLeft, camUp, size * 2.2F, glow, alpha * 0.5F);
+			disc(vc, m, eye.add(offset), camLeft, camUp, size, core, alpha);
 		}
 	}
 
@@ -222,47 +255,6 @@ public final class EyeEffectRenderer {
 		vertex(vc, m, faceCenter.subtract(axisA).add(axisB), color, alpha);
 		vertex(vc, m, faceCenter.subtract(axisA).subtract(axisB), color, alpha * 0.6F);
 		vertex(vc, m, faceCenter.add(axisA).subtract(axisB), color, alpha * 0.6F);
-	}
-
-	// ----------------------------------------------------------------- particles
-
-	@SubscribeEvent
-	public static void onClientTick(TickEvent.ClientTickEvent event) {
-		if (event.phase != TickEvent.Phase.END) {
-			return;
-		}
-
-		Minecraft mc = Minecraft.getInstance();
-		ClientLevel level = mc.level;
-
-		if (level == null || mc.isPaused() || BlackBoneStates.CLIENT.isEmpty() || level.getGameTime() % 2L != 0L) {
-			return;
-		}
-
-		for (Player player : level.players()) {
-			BlackBoneState state = BlackBoneStates.CLIENT.get(player.getId());
-
-			if (state == null || state.mode == BlackBoneMode.NONE || player.isInvisible() || player.isSpectator()) {
-				continue;
-			}
-
-			if (player == mc.player && mc.options.getCameraType().isFirstPerson()) {
-				continue;
-			}
-
-			EyeGeometry g = new EyeGeometry(player, 1.0F);
-			boolean flow = state.mode == BlackBoneMode.FLOW;
-			DustParticleOptions dust = new DustParticleOptions(flow ? new Vector3f(1.0F, 0.08F, 0.06F) : new Vector3f(0.2F, 0.65F, 1.0F), 0.6F);
-
-			for (Vec3 eye : new Vec3[] {g.leftEye, g.rightEye}) {
-				Vec3 v = g.forward.scale(0.04D).add(g.left.scale((level.random.nextDouble() - 0.5D) * 0.06D)).add(g.up.scale((level.random.nextDouble() - 0.3D) * 0.06D));
-				level.addParticle(dust, eye.x, eye.y, eye.z, v.x, v.y, v.z);
-
-				if (!flow && level.random.nextInt(3) == 0) {
-					level.addParticle(ParticleTypes.ELECTRIC_SPARK, eye.x, eye.y, eye.z, v.x * 2.0D, v.y * 2.0D, v.z * 2.0D);
-				}
-			}
-		}
 	}
 
 	/** Forget everything when leaving a world so stale entity ids cannot leak into the next one. */
