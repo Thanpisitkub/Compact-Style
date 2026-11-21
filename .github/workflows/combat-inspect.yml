@@ -60,11 +60,13 @@ jobs:
 
       - name: Publish results
         run: |
+          cp -r out /tmp/out
           git config user.name "github-actions"
           git config user.email "actions@users.noreply.github.com"
           git checkout --orphan combat-inspect-out
           git rm -rf . -q || true
-          mv /home/runner/work/*/*/out/* . 2>/dev/null || cp -r "$GITHUB_WORKSPACE/out/"* . 2>/dev/null || true
+          git clean -fdxq
+          cp -r /tmp/out/* .
           git add -A
           git commit -q -m "inspect output" || true
           git push -f origin combat-inspect-out
