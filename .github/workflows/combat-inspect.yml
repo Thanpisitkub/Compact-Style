@@ -58,6 +58,19 @@ jobs:
           cd ..
           ls -R out | head -100
 
+      - name: Dump bytecode of speed handling
+        run: |
+          EF=libs/epicfight.jar
+          mkdir -p out/code efx && cd efx && unzip -q ../$EF && cd ..
+          grep -rlaE "PLAY_SPEED_MODIFIER|BASIS_ATTACK_SPEED|ATTACK_SPEED_FACTOR" efx --include=*.class | sed 's|^efx/||; s|\.class$||' > out/code/speed_users.txt || true
+          for c in $(cat out/code/speed_users.txt); do
+            javap -c -p -cp $EF "$(echo $c | tr / .)" > "out/code/$(echo $c | tr / .).txt" 2>&1 || true
+          done
+          for c in yesman.epicfight.api.animation.types.StaticAnimation yesman.epicfight.api.animation.types.DynamicAnimation yesman.epicfight.api.animation.types.AttackAnimation yesman.epicfight.api.animation.AnimationPlayer; do
+            javap -c -p -cp $EF $c > out/code/$c.txt 2>&1 || true
+          done
+          grep -rlaE "getPlaySpeed" efx --include=*.class | sed 's|^efx/||' > out/code/getplayspeed_users.txt || true
+
       - name: Publish results
         run: |
           cp -r out /tmp/out
