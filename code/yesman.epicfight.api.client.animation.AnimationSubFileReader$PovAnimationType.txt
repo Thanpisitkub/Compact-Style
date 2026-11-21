@@ -1,0 +1,96 @@
+Compiled from "AnimationSubFileReader.java"
+class yesman.epicfight.api.client.animation.AnimationSubFileReader$PovAnimationType extends yesman.epicfight.api.client.animation.AnimationSubFileReader$SubFileType<yesman.epicfight.api.client.animation.AnimationSubFileReader$PovSettings> {
+  private yesman.epicfight.api.client.animation.AnimationSubFileReader$PovAnimationType();
+    Code:
+       0: aload_0
+       1: ldc           #41                 // String pov
+       3: new           #10                 // class yesman/epicfight/api/client/animation/AnimationSubFileReader$PovAnimationDeserializer
+       6: dup
+       7: invokespecial #43                 // Method yesman/epicfight/api/client/animation/AnimationSubFileReader$PovAnimationDeserializer."<init>":()V
+      10: invokespecial #46                 // Method yesman/epicfight/api/client/animation/AnimationSubFileReader$SubFileType."<init>":(Ljava/lang/String;Lyesman/epicfight/api/client/animation/AnimationSubFileReader$AnimationSubFileDeserializer;)V
+      13: return
+
+  public void applySubFileInfo(yesman.epicfight.api.client.animation.AnimationSubFileReader$PovSettings, yesman.epicfight.api.animation.types.StaticAnimation);
+    Code:
+       0: aload_1
+       1: invokevirtual #54                 // Method yesman/epicfight/api/client/animation/AnimationSubFileReader$PovSettings.hasUniqueAnimation:()Z
+       4: ifeq          20
+       7: aload_2
+       8: invokevirtual #60                 // Method yesman/epicfight/api/animation/types/StaticAnimation.getLocation:()Lnet/minecraft/resources/ResourceLocation;
+      11: getstatic     #64                 // Field yesman/epicfight/api/client/animation/AnimationSubFileReader.SUBFILE_POV_ANIMATION:Lyesman/epicfight/api/client/animation/AnimationSubFileReader$SubFileType;
+      14: invokestatic  #70                 // Method yesman/epicfight/api/animation/AnimationManager.getSubAnimationFileLocation:(Lnet/minecraft/resources/ResourceLocation;Lyesman/epicfight/api/client/animation/AnimationSubFileReader$SubFileType;)Lnet/minecraft/resources/ResourceLocation;
+      17: goto          24
+      20: aload_2
+      21: invokevirtual #60                 // Method yesman/epicfight/api/animation/types/StaticAnimation.getLocation:()Lnet/minecraft/resources/ResourceLocation;
+      24: astore_3
+      25: new           #21                 // class yesman/epicfight/api/client/animation/AnimationSubFileReader$PovAnimationType$1
+      28: dup
+      29: aload_0
+      30: aload_3
+      31: aload_2
+      32: invokevirtual #76                 // Method yesman/epicfight/api/animation/types/StaticAnimation.getTransitionTime:()F
+      35: aload_2
+      36: invokevirtual #79                 // Method yesman/epicfight/api/animation/types/StaticAnimation.isRepeat:()Z
+      39: aload_2
+      40: invokevirtual #82                 // Method yesman/epicfight/api/animation/types/StaticAnimation.getRegistryName:()Lnet/minecraft/resources/ResourceLocation;
+      43: invokevirtual #86                 // Method net/minecraft/resources/ResourceLocation.toString:()Ljava/lang/String;
+      46: invokedynamic #98,  0             // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+      51: aload_2
+      52: invokevirtual #102                // Method yesman/epicfight/api/animation/types/StaticAnimation.getArmature:()Lyesman/epicfight/api/asset/AssetAccessor;
+      55: aload_2
+      56: invokespecial #105                // Method yesman/epicfight/api/client/animation/AnimationSubFileReader$PovAnimationType$1."<init>":(Lyesman/epicfight/api/client/animation/AnimationSubFileReader$PovAnimationType;Lnet/minecraft/resources/ResourceLocation;FZLjava/lang/String;Lyesman/epicfight/api/asset/AssetAccessor;Lyesman/epicfight/api/animation/types/StaticAnimation;)V
+      59: astore        4
+      61: aload_2
+      62: getstatic     #109                // Field yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty.PLAY_SPEED_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      65: invokevirtual #113                // Method yesman/epicfight/api/animation/types/StaticAnimation.getProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty;)Ljava/util/Optional;
+      68: aload         4
+      70: invokedynamic #133,  0            // InvokeDynamic #1:accept:(Lyesman/epicfight/api/animation/types/DirectStaticAnimation;)Ljava/util/function/Consumer;
+      75: invokevirtual #139                // Method java/util/Optional.ifPresent:(Ljava/util/function/Consumer;)V
+      78: aload_1
+      79: invokevirtual #142                // Method yesman/epicfight/api/client/animation/AnimationSubFileReader$PovSettings.syncFrame:()Z
+      82: ifeq          102
+      85: aload_2
+      86: getstatic     #145                // Field yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty.ELAPSED_TIME_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      89: invokevirtual #113                // Method yesman/epicfight/api/animation/types/StaticAnimation.getProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty;)Ljava/util/Optional;
+      92: aload         4
+      94: invokedynamic #153,  0            // InvokeDynamic #2:accept:(Lyesman/epicfight/api/animation/types/DirectStaticAnimation;)Ljava/util/function/Consumer;
+      99: invokevirtual #139                // Method java/util/Optional.ifPresent:(Ljava/util/function/Consumer;)V
+     102: aload_2
+     103: getstatic     #160                // Field yesman/epicfight/api/client/animation/property/ClientAnimationProperties.POV_ANIMATION:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+     106: aload         4
+     108: invokevirtual #164                // Method yesman/epicfight/api/animation/types/StaticAnimation.addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+     111: pop
+     112: aload_2
+     113: getstatic     #167                // Field yesman/epicfight/api/client/animation/property/ClientAnimationProperties.POV_SETTINGS:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+     116: aload_1
+     117: invokevirtual #164                // Method yesman/epicfight/api/animation/types/StaticAnimation.addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+     120: pop
+     121: return
+
+  public void applySubFileInfo(java.lang.Object, yesman.epicfight.api.animation.types.StaticAnimation);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: checkcast     #17                 // class yesman/epicfight/api/client/animation/AnimationSubFileReader$PovSettings
+       5: aload_2
+       6: invokevirtual #178                // Method applySubFileInfo:(Lyesman/epicfight/api/client/animation/AnimationSubFileReader$PovSettings;Lyesman/epicfight/api/animation/types/StaticAnimation;)V
+       9: return
+
+  private static void lambda$applySubFileInfo$1(yesman.epicfight.api.animation.types.DirectStaticAnimation, yesman.epicfight.api.animation.property.AnimationProperty$PlaybackTimeModifier);
+    Code:
+       0: aload_0
+       1: getstatic     #145                // Field yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty.ELAPSED_TIME_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+       4: aload_1
+       5: invokevirtual #179                // Method yesman/epicfight/api/animation/types/DirectStaticAnimation.addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+       8: pop
+       9: return
+
+  private static void lambda$applySubFileInfo$0(yesman.epicfight.api.animation.types.DirectStaticAnimation, yesman.epicfight.api.animation.property.AnimationProperty$PlaybackSpeedModifier);
+    Code:
+       0: aload_0
+       1: getstatic     #109                // Field yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty.PLAY_SPEED_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+       4: aload_1
+       5: invokevirtual #179                // Method yesman/epicfight/api/animation/types/DirectStaticAnimation.addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+       8: pop
+       9: return
+}

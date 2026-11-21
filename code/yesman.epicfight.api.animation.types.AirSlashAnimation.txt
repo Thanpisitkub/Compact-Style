@@ -1,0 +1,148 @@
+Compiled from "AirSlashAnimation.java"
+public class yesman.epicfight.api.animation.types.AirSlashAnimation extends yesman.epicfight.api.animation.types.AttackAnimation {
+  public yesman.epicfight.api.animation.types.AirSlashAnimation(float, float, float, float, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.AirSlashAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>);
+    Code:
+       0: aload_0
+       1: fload_1
+       2: fload_2
+       3: fload_2
+       4: fload_3
+       5: fload         4
+       7: iconst_1
+       8: aload         5
+      10: aload         6
+      12: aload         7
+      14: aload         8
+      16: invokespecial #42                 // Method "<init>":(FFFFFZLyesman/epicfight/api/collider/Collider;Lyesman/epicfight/api/animation/Joint;Lyesman/epicfight/api/animation/AnimationManager$AnimationAccessor;Lyesman/epicfight/api/asset/AssetAccessor;)V
+      19: return
+
+  public yesman.epicfight.api.animation.types.AirSlashAnimation(float, float, float, float, float, boolean, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.AirSlashAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>);
+    Code:
+       0: aload_0
+       1: fload_1
+       2: aload         9
+       4: aload         10
+       6: iconst_1
+       7: anewarray     #12                 // class yesman/epicfight/api/animation/types/AttackAnimation$Phase
+      10: dup
+      11: iconst_0
+      12: new           #12                 // class yesman/epicfight/api/animation/types/AttackAnimation$Phase
+      15: dup
+      16: fconst_0
+      17: fload_2
+      18: fload_3
+      19: fload         4
+      21: fload         5
+      23: ldc           #61                 // float 3.4028235E38f
+      25: aload         8
+      27: aload         7
+      29: invokespecial #64                 // Method yesman/epicfight/api/animation/types/AttackAnimation$Phase."<init>":(FFFFFFLyesman/epicfight/api/animation/Joint;Lyesman/epicfight/api/collider/Collider;)V
+      32: aastore
+      33: invokespecial #67                 // Method "<init>":(FLyesman/epicfight/api/animation/AnimationManager$AnimationAccessor;Lyesman/epicfight/api/asset/AssetAccessor;[Lyesman/epicfight/api/animation/types/AttackAnimation$Phase;)V
+      36: iload         6
+      38: ifeq          52
+      41: aload_0
+      42: getstatic     #71                 // Field yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty.POSE_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      45: getstatic     #75                 // Field yesman/epicfight/gameasset/Animations$ReusableSources.COMBO_ATTACK_DIRECTION_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$PoseModifier;
+      48: invokevirtual #79                 // Method addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+      51: pop
+      52: return
+
+  public yesman.epicfight.api.animation.types.AirSlashAnimation(float, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.AirSlashAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>, yesman.epicfight.api.animation.types.AttackAnimation$Phase...);
+    Code:
+       0: aload_0
+       1: fload_1
+       2: aload_2
+       3: aload_3
+       4: aload         4
+       6: invokespecial #90                 // Method yesman/epicfight/api/animation/types/AttackAnimation."<init>":(FLyesman/epicfight/api/animation/AnimationManager$AnimationAccessor;Lyesman/epicfight/api/asset/AssetAccessor;[Lyesman/epicfight/api/animation/types/AttackAnimation$Phase;)V
+       9: aload_0
+      10: getstatic     #94                 // Field yesman/epicfight/api/animation/property/AnimationProperty$AttackPhaseProperty.DAMAGE_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$AttackPhaseProperty;
+      13: ldc           #95                 // float 1.5f
+      15: invokestatic  #101                // InterfaceMethod yesman/epicfight/api/utils/math/ValueModifier.multiplier:(F)Lyesman/epicfight/api/utils/math/ValueModifier;
+      18: invokevirtual #104                // Method addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$AttackPhaseProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/AttackAnimation;
+      21: pop
+      22: aload_0
+      23: getstatic     #108                // Field yesman/epicfight/api/animation/property/AnimationProperty$AttackAnimationProperty.ATTACK_SPEED_FACTOR:Lyesman/epicfight/api/animation/property/AnimationProperty$AttackAnimationProperty;
+      26: ldc           #109                // float 0.5f
+      28: invokestatic  #115                // Method java/lang/Float.valueOf:(F)Ljava/lang/Float;
+      31: invokevirtual #79                 // Method addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+      34: pop
+      35: aload_0
+      36: getstatic     #119                // Field yesman/epicfight/api/animation/property/AnimationProperty$ActionAnimationProperty.STOP_MOVEMENT:Lyesman/epicfight/api/animation/property/AnimationProperty$ActionAnimationProperty;
+      39: iconst_0
+      40: invokestatic  #124                // Method java/lang/Boolean.valueOf:(Z)Ljava/lang/Boolean;
+      43: invokevirtual #79                 // Method addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+      46: pop
+      47: aload_0
+      48: getstatic     #127                // Field yesman/epicfight/api/animation/property/AnimationProperty$ActionAnimationProperty.MOVE_VERTICAL:Lyesman/epicfight/api/animation/property/AnimationProperty$ActionAnimationProperty;
+      51: iconst_1
+      52: invokestatic  #124                // Method java/lang/Boolean.valueOf:(Z)Ljava/lang/Boolean;
+      55: invokevirtual #79                 // Method addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+      58: pop
+      59: return
+
+  public yesman.epicfight.api.animation.types.AirSlashAnimation(float, java.lang.String, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>, yesman.epicfight.api.animation.types.AttackAnimation$Phase...);
+    Code:
+       0: aload_0
+       1: fload_1
+       2: aload_2
+       3: aload_3
+       4: aload         4
+       6: invokespecial #133                // Method yesman/epicfight/api/animation/types/AttackAnimation."<init>":(FLjava/lang/String;Lyesman/epicfight/api/asset/AssetAccessor;[Lyesman/epicfight/api/animation/types/AttackAnimation$Phase;)V
+       9: aload_0
+      10: getstatic     #94                 // Field yesman/epicfight/api/animation/property/AnimationProperty$AttackPhaseProperty.DAMAGE_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$AttackPhaseProperty;
+      13: ldc           #95                 // float 1.5f
+      15: invokestatic  #101                // InterfaceMethod yesman/epicfight/api/utils/math/ValueModifier.multiplier:(F)Lyesman/epicfight/api/utils/math/ValueModifier;
+      18: invokevirtual #104                // Method addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$AttackPhaseProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/AttackAnimation;
+      21: pop
+      22: aload_0
+      23: getstatic     #108                // Field yesman/epicfight/api/animation/property/AnimationProperty$AttackAnimationProperty.ATTACK_SPEED_FACTOR:Lyesman/epicfight/api/animation/property/AnimationProperty$AttackAnimationProperty;
+      26: ldc           #109                // float 0.5f
+      28: invokestatic  #115                // Method java/lang/Float.valueOf:(F)Ljava/lang/Float;
+      31: invokevirtual #79                 // Method addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+      34: pop
+      35: aload_0
+      36: getstatic     #119                // Field yesman/epicfight/api/animation/property/AnimationProperty$ActionAnimationProperty.STOP_MOVEMENT:Lyesman/epicfight/api/animation/property/AnimationProperty$ActionAnimationProperty;
+      39: iconst_0
+      40: invokestatic  #124                // Method java/lang/Boolean.valueOf:(Z)Ljava/lang/Boolean;
+      43: invokevirtual #79                 // Method addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+      46: pop
+      47: aload_0
+      48: getstatic     #127                // Field yesman/epicfight/api/animation/property/AnimationProperty$ActionAnimationProperty.MOVE_VERTICAL:Lyesman/epicfight/api/animation/property/AnimationProperty$ActionAnimationProperty;
+      51: iconst_1
+      52: invokestatic  #124                // Method java/lang/Boolean.valueOf:(Z)Ljava/lang/Boolean;
+      55: invokevirtual #79                 // Method addProperty:(Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;Ljava/lang/Object;)Lyesman/epicfight/api/animation/types/StaticAnimation;
+      58: pop
+      59: return
+
+  protected void spawnHitParticle(net.minecraft.server.level.ServerLevel, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, net.minecraft.world.entity.Entity, yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: aload_2
+       3: aload_3
+       4: aload         4
+       6: invokespecial #140                // Method yesman/epicfight/api/animation/types/AttackAnimation.spawnHitParticle:(Lnet/minecraft/server/level/ServerLevel;Lyesman/epicfight/world/capabilities/entitypatch/LivingEntityPatch;Lnet/minecraft/world/entity/Entity;Lyesman/epicfight/api/animation/types/AttackAnimation$Phase;)V
+       9: aload_1
+      10: getstatic     #146                // Field net/minecraft/core/particles/ParticleTypes.f_123797_:Lnet/minecraft/core/particles/SimpleParticleType;
+      13: aload_3
+      14: invokevirtual #152                // Method net/minecraft/world/entity/Entity.m_20185_:()D
+      17: aload_3
+      18: invokevirtual #155                // Method net/minecraft/world/entity/Entity.m_20186_:()D
+      21: aload_3
+      22: invokevirtual #158                // Method net/minecraft/world/entity/Entity.m_20189_:()D
+      25: bipush        15
+      27: dconst_0
+      28: dconst_0
+      29: dconst_0
+      30: dconst_1
+      31: invokevirtual #164                // Method net/minecraft/server/level/ServerLevel.m_8767_:(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I
+      34: pop
+      35: return
+
+  public boolean isBasicAttackAnimation();
+    Code:
+       0: iconst_1
+       1: ireturn
+}

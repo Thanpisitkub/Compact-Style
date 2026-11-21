@@ -1,0 +1,32 @@
+Compiled from "Animator.java"
+public abstract class yesman.epicfight.api.animation.Animator {
+  protected final java.util.Map<yesman.epicfight.api.animation.LivingMotion, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>> livingAnimations;
+  protected final yesman.epicfight.api.animation.AnimationVariables animationVariables;
+  protected final yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?> entitypatch;
+  public yesman.epicfight.api.animation.Animator(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+  public abstract void playAnimation(yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>, float);
+  public final void playAnimation(int, float);
+  public abstract void playAnimationInstantly(yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>);
+  public final void playAnimationInstantly(int);
+  public abstract void reserveAnimation(yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>);
+  public final void reserveAnimation(int);
+  public abstract boolean stopPlaying(yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>);
+  public abstract void playShootingAnimation();
+  public final boolean stopPlaying(int);
+  public abstract void setSoftPause(boolean);
+  public abstract void setHardPause(boolean);
+  public abstract void tick();
+  public abstract yesman.epicfight.api.animation.types.EntityState getEntityState();
+  public abstract yesman.epicfight.api.animation.AnimationPlayer getPlayerFor(yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>);
+  public abstract java.util.Optional<yesman.epicfight.api.animation.AnimationPlayer> getPlayer(yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>);
+  public abstract <T> com.mojang.datafixers.util.Pair<yesman.epicfight.api.animation.AnimationPlayer, T> findFor(java.lang.Class<T>);
+  public abstract yesman.epicfight.api.animation.Pose getPose(float);
+  public void postInit();
+  public void playDeathAnimation();
+  public void addLivingAnimation(yesman.epicfight.api.animation.LivingMotion, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>);
+  public yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation> getLivingAnimation(yesman.epicfight.api.animation.LivingMotion, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>);
+  public java.util.Map<yesman.epicfight.api.animation.LivingMotion, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>> getLivingAnimations();
+  public yesman.epicfight.api.animation.AnimationVariables getVariables();
+  public yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?> getEntityPatch();
+  public void resetLivingAnimations();
+}

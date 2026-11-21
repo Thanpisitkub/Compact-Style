@@ -1,0 +1,5 @@
+Compiled from "AnimationManager.java"
+public interface yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<A extends yesman.epicfight.api.animation.types.DynamicAnimation> extends yesman.epicfight.api.asset.AssetAccessor<A> {
+  public abstract int id();
+  public default boolean idBetween(yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>);
+}

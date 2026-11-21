@@ -1,0 +1,4 @@
+Compiled from "AnimationProperty.java"
+public interface yesman.epicfight.api.animation.property.AnimationProperty$YRotProvider {
+  public abstract float get(yesman.epicfight.api.animation.types.DynamicAnimation, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+}

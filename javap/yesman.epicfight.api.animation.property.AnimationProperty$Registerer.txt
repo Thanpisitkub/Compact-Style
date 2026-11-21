@@ -1,0 +1,4 @@
+Compiled from "AnimationProperty.java"
+public interface yesman.epicfight.api.animation.property.AnimationProperty$Registerer<T> {
+  public abstract void register(java.util.Map<yesman.epicfight.api.animation.property.AnimationProperty<T>, java.lang.Object>, yesman.epicfight.api.animation.property.AnimationProperty<T>, T);
+}

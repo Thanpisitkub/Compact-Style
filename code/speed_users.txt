@@ -1,0 +1,14 @@
+yesman/epicfight/gameasset/Animations
+yesman/epicfight/api/animation/AnimationPlayer
+yesman/epicfight/api/animation/property/AnimationProperty$AttackAnimationProperty
+yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+yesman/epicfight/api/animation/types/AttackAnimation
+yesman/epicfight/api/animation/types/AirSlashAnimation
+yesman/epicfight/api/animation/types/DashAttackAnimation
+yesman/epicfight/api/animation/types/StaticAnimation
+yesman/epicfight/api/animation/types/ActionAnimation
+yesman/epicfight/api/animation/types/grappling/GrapplingAttackAnimation
+yesman/epicfight/api/animation/types/grappling/GrapplingTryAnimation
+yesman/epicfight/api/animation/types/BasicAttackAnimation
+yesman/epicfight/api/animation/types/AimAnimation
+yesman/epicfight/api/client/animation/AnimationSubFileReader$PovAnimationType

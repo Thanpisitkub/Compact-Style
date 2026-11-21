@@ -1,0 +1,16 @@
+Compiled from "BasicAttackAnimation.java"
+public class yesman.epicfight.api.animation.types.BasicAttackAnimation extends yesman.epicfight.api.animation.types.AttackAnimation {
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, float, float, float, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.BasicAttackAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>);
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, float, float, float, float, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.BasicAttackAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>);
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, float, float, float, net.minecraft.world.InteractionHand, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.BasicAttackAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>);
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.BasicAttackAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>, yesman.epicfight.api.animation.types.AttackAnimation$Phase...);
+  public yesman.epicfight.api.animation.types.BasicAttackAnimation(float, java.lang.String, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>, yesman.epicfight.api.animation.types.AttackAnimation$Phase...);
+  protected void bindPhaseState(yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  public void loadAnimation();
+  public yesman.epicfight.api.utils.datastruct.TypeFlexibleHashMap<yesman.epicfight.api.animation.types.EntityState$StateFactor<?>> getStatesMap(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float);
+  protected net.minecraft.world.phys.Vec3 getCoordVector(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>);
+  public java.util.Optional<yesman.epicfight.api.client.animation.property.JointMaskEntry> getJointMaskEntry(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, boolean);
+  public boolean isBasicAttackAnimation();
+  public boolean shouldPlayerMove(yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch);
+  private static boolean isPlayerMoving(yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch);
+}

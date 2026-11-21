@@ -1,0 +1,44 @@
+Compiled from "DynamicAnimation.java"
+public abstract class yesman.epicfight.api.animation.types.DynamicAnimation {
+  protected final boolean isRepeat;
+  protected final float transitionTime;
+  protected yesman.epicfight.api.animation.AnimationClip animationClip;
+  public yesman.epicfight.api.animation.types.DynamicAnimation();
+  public yesman.epicfight.api.animation.types.DynamicAnimation(float, boolean);
+  public final yesman.epicfight.api.animation.Pose getRawPose(float);
+  public yesman.epicfight.api.animation.Pose getPoseByTime(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float, float);
+  public void modifyPose(yesman.epicfight.api.animation.types.DynamicAnimation, yesman.epicfight.api.animation.Pose, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float, float);
+  public void putOnPlayer(yesman.epicfight.api.animation.AnimationPlayer, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+  public void begin(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+  public void tick(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+  public void end(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>, boolean);
+  public void linkTick(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>);
+  public boolean hasTransformFor(java.lang.String);
+  public java.util.Optional<yesman.epicfight.api.client.animation.property.JointMaskEntry> getJointMaskEntry(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, boolean);
+  public yesman.epicfight.api.animation.types.EntityState getState(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float);
+  public yesman.epicfight.api.utils.datastruct.TypeFlexibleHashMap<yesman.epicfight.api.animation.types.EntityState$StateFactor<?>> getStatesMap(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float);
+  public <T> T getState(yesman.epicfight.api.animation.types.EntityState$StateFactor<T>, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float);
+  public yesman.epicfight.api.animation.AnimationClip getAnimationClip();
+  public java.util.Map<java.lang.String, yesman.epicfight.api.animation.TransformSheet> getTransfroms();
+  public float getPlaySpeed(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.animation.types.DynamicAnimation);
+  public yesman.epicfight.api.animation.TransformSheet getCoord();
+  public void setTotalTime(float);
+  public float getTotalTime();
+  public float getTransitionTime();
+  public boolean isRepeat();
+  public boolean canBePlayedReverse();
+  public net.minecraft.resources.ResourceLocation getRegistryName();
+  public int getId();
+  public <V> java.util.Optional<V> getProperty(yesman.epicfight.api.animation.property.AnimationProperty<V>);
+  public boolean isBasicAttackAnimation();
+  public boolean isMainFrameAnimation();
+  public boolean isReboundAnimation();
+  public boolean isMetaAnimation();
+  public boolean isClientAnimation();
+  public boolean isStaticAnimation();
+  public abstract <A extends yesman.epicfight.api.animation.types.DynamicAnimation> yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation> getAccessor();
+  public abstract yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation> getRealAnimation();
+  public boolean isLinkAnimation();
+  public boolean doesHeadRotFollowEntityHead();
+  public void renderDebugging(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.MultiBufferSource, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float, float);
+}

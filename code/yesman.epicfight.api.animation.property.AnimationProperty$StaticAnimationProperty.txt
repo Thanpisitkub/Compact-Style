@@ -1,0 +1,108 @@
+Compiled from "AnimationProperty.java"
+public class yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<T> extends yesman.epicfight.api.animation.property.AnimationProperty<T> {
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.animation.property.AnimationEvent<?, ?>>> TICK_EVENTS;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.animation.property.AnimationEvent$SimpleEvent<?>>> ON_BEGIN_EVENTS;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.animation.property.AnimationEvent$SimpleEvent<?>>> ON_END_EVENTS;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.property.AnimationEvent$SimpleEvent<yesman.epicfight.api.animation.property.AnimationEvent$E2<yesman.epicfight.world.capabilities.item.CapabilityItem, yesman.epicfight.world.capabilities.item.CapabilityItem>>> ON_ITEM_CHANGE_EVENT;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.property.AnimationProperty$PlaybackSpeedModifier> PLAY_SPEED_MODIFIER;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.property.AnimationProperty$PlaybackTimeModifier> ELAPSED_TIME_MODIFIER;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.property.AnimationProperty$PoseModifier> POSE_MODIFIER;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.lang.Boolean> FIXED_HEAD_ROTATION;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.Map<net.minecraft.resources.ResourceLocation, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>>> TRANSITION_ANIMATIONS_FROM;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.Map<net.minecraft.resources.ResourceLocation, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>>> TRANSITION_ANIMATIONS_TO;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.lang.Boolean> NO_PHYSICS;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.physics.ik.InverseKinematicsSimulator$InverseKinematicsDefinition>> IK_DEFINITION;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.physics.ik.InverseKinematicsSimulator$BakedInverseKinematicsDefinition>> BAKED_IK_DEFINITION;
+
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.LivingMotion> RESET_LIVING_MOTION;
+
+  public yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty(java.lang.String, com.mojang.serialization.Codec<T>);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: aload_2
+       3: invokespecial #69                 // Method yesman/epicfight/api/animation/property/AnimationProperty."<init>":(Ljava/lang/String;Lcom/mojang/serialization/Codec;)V
+       6: return
+
+  public yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty();
+    Code:
+       0: aload_0
+       1: aconst_null
+       2: aconst_null
+       3: invokespecial #78                 // Method "<init>":(Ljava/lang/String;Lcom/mojang/serialization/Codec;)V
+       6: return
+
+  static {};
+    Code:
+       0: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+       3: dup
+       4: invokespecial #81                 // Method "<init>":()V
+       7: putstatic     #83                 // Field TICK_EVENTS:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      10: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+      13: dup
+      14: invokespecial #81                 // Method "<init>":()V
+      17: putstatic     #85                 // Field ON_BEGIN_EVENTS:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      20: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+      23: dup
+      24: invokespecial #81                 // Method "<init>":()V
+      27: putstatic     #87                 // Field ON_END_EVENTS:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      30: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+      33: dup
+      34: invokespecial #81                 // Method "<init>":()V
+      37: putstatic     #89                 // Field ON_ITEM_CHANGE_EVENT:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      40: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+      43: dup
+      44: invokespecial #81                 // Method "<init>":()V
+      47: putstatic     #91                 // Field PLAY_SPEED_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      50: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+      53: dup
+      54: invokespecial #81                 // Method "<init>":()V
+      57: putstatic     #93                 // Field ELAPSED_TIME_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      60: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+      63: dup
+      64: invokespecial #81                 // Method "<init>":()V
+      67: putstatic     #95                 // Field POSE_MODIFIER:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      70: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+      73: dup
+      74: invokespecial #81                 // Method "<init>":()V
+      77: putstatic     #97                 // Field FIXED_HEAD_ROTATION:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      80: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+      83: dup
+      84: invokespecial #81                 // Method "<init>":()V
+      87: putstatic     #99                 // Field TRANSITION_ANIMATIONS_FROM:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+      90: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+      93: dup
+      94: invokespecial #81                 // Method "<init>":()V
+      97: putstatic     #101                // Field TRANSITION_ANIMATIONS_TO:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+     100: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+     103: dup
+     104: ldc           #103                // String no_physics
+     106: getstatic     #109                // Field com/mojang/serialization/Codec.BOOL:Lcom/mojang/serialization/codecs/PrimitiveCodec;
+     109: invokespecial #78                 // Method "<init>":(Ljava/lang/String;Lcom/mojang/serialization/Codec;)V
+     112: putstatic     #111                // Field NO_PHYSICS:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+     115: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+     118: dup
+     119: invokespecial #81                 // Method "<init>":()V
+     122: putstatic     #113                // Field IK_DEFINITION:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+     125: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+     128: dup
+     129: invokespecial #81                 // Method "<init>":()V
+     132: putstatic     #115                // Field BAKED_IK_DEFINITION:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+     135: new           #2                  // class yesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty
+     138: dup
+     139: invokespecial #81                 // Method "<init>":()V
+     142: putstatic     #117                // Field RESET_LIVING_MOTION:Lyesman/epicfight/api/animation/property/AnimationProperty$StaticAnimationProperty;
+     145: return
+}

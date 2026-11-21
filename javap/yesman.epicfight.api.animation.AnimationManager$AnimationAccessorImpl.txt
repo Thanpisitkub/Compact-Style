@@ -1,0 +1,18 @@
+Compiled from "AnimationManager.java"
+public final class yesman.epicfight.api.animation.AnimationManager$AnimationAccessorImpl<A extends yesman.epicfight.api.animation.types.StaticAnimation> extends java.lang.Record implements yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<A> {
+  private final net.minecraft.resources.ResourceLocation registryName;
+  private final int id;
+  private final boolean inRegistry;
+  private final java.util.function.Function<yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<A>, A> onLoad;
+  public yesman.epicfight.api.animation.AnimationManager$AnimationAccessorImpl(net.minecraft.resources.ResourceLocation, int, boolean, java.util.function.Function<yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<A>, A>);
+  private static <A extends yesman.epicfight.api.animation.types.StaticAnimation> yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<A> create(net.minecraft.resources.ResourceLocation, int, boolean, java.util.function.Function<yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<A>, A>);
+  public A get();
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+  public net.minecraft.resources.ResourceLocation registryName();
+  public int id();
+  public boolean inRegistry();
+  public java.util.function.Function<yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<A>, A> onLoad();
+  public java.lang.Object get();
+}

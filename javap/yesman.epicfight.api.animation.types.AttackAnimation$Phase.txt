@@ -1,0 +1,28 @@
+Compiled from "AttackAnimation.java"
+public class yesman.epicfight.api.animation.types.AttackAnimation$Phase {
+  private final java.util.Map<yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<?>, java.lang.Object> properties;
+  public final float start;
+  public final float antic;
+  public final float preDelay;
+  public final float contact;
+  public final float recovery;
+  public final float end;
+  public final net.minecraft.world.InteractionHand hand;
+  public yesman.epicfight.api.animation.types.AttackAnimation$JointColliderPair[] colliders;
+  public final boolean noStateBind;
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase(float, float, float, float, float, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.collider.Collider);
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase(float, float, float, float, float, net.minecraft.world.InteractionHand, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.collider.Collider);
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase(float, float, float, float, float, float, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.collider.Collider);
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase(float, float, float, float, float, float, net.minecraft.world.InteractionHand, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.collider.Collider);
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase(net.minecraft.world.InteractionHand, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.collider.Collider);
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase(float, float, float, float, float, float, boolean, net.minecraft.world.InteractionHand, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.collider.Collider);
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase(float, float, float, float, float, float, net.minecraft.world.InteractionHand, yesman.epicfight.api.animation.types.AttackAnimation$JointColliderPair...);
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase(float, float, float, float, float, float, boolean, net.minecraft.world.InteractionHand, yesman.epicfight.api.animation.types.AttackAnimation$JointColliderPair...);
+  public <V> yesman.epicfight.api.animation.types.AttackAnimation$Phase addProperty(yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<V>, V);
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase removeProperty(yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<?>);
+  public void addProperties(java.util.Set<java.util.Map$Entry<yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<?>, java.lang.Object>>);
+  public <V> java.util.Optional<V> getProperty(yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<V>);
+  public java.util.List<net.minecraft.world.entity.Entity> getCollidingEntities(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.animation.types.AttackAnimation, float, float, float);
+  public yesman.epicfight.api.animation.types.AttackAnimation$JointColliderPair[] getColliders();
+  public net.minecraft.world.InteractionHand getHand();
+}

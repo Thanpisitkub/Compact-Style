@@ -1,0 +1,5 @@
+Compiled from "AttackAnimation.java"
+public class yesman.epicfight.api.animation.types.AttackAnimation$JointColliderPair extends com.mojang.datafixers.util.Pair<yesman.epicfight.api.animation.Joint, yesman.epicfight.api.collider.Collider> {
+  public yesman.epicfight.api.animation.types.AttackAnimation$JointColliderPair(yesman.epicfight.api.animation.Joint, yesman.epicfight.api.collider.Collider);
+  public static yesman.epicfight.api.animation.types.AttackAnimation$JointColliderPair of(yesman.epicfight.api.animation.Joint, yesman.epicfight.api.collider.Collider);
+}

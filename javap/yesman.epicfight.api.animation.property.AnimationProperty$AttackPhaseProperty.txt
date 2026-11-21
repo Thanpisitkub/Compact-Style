@@ -1,0 +1,18 @@
+Compiled from "AnimationProperty.java"
+public class yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<T> {
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<yesman.epicfight.api.utils.math.ValueModifier> MAX_STRIKES_MODIFIER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<yesman.epicfight.api.utils.math.ValueModifier> DAMAGE_MODIFIER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<yesman.epicfight.api.utils.math.ValueModifier> ARMOR_NEGATION_MODIFIER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<yesman.epicfight.api.utils.math.ValueModifier> IMPACT_MODIFIER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<java.util.Set<yesman.epicfight.world.damagesource.ExtraDamageInstance>> EXTRA_DAMAGE;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<yesman.epicfight.world.damagesource.StunType> STUN_TYPE;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<net.minecraft.sounds.SoundEvent> SWING_SOUND;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<net.minecraft.sounds.SoundEvent> HIT_SOUND;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<net.minecraftforge.registries.RegistryObject<yesman.epicfight.particle.HitParticleType>> PARTICLE;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<yesman.epicfight.api.utils.HitEntityList$Priority> HIT_PRIORITY;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<java.util.Set<net.minecraft.tags.TagKey<net.minecraft.world.damagesource.DamageType>>> SOURCE_TAG;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<java.util.function.Function<yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, net.minecraft.world.phys.Vec3>> SOURCE_LOCATION_PROVIDER;
+  public yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty(java.lang.String, com.mojang.serialization.Codec<? extends T>);
+  public yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty();
+  static {};
+}

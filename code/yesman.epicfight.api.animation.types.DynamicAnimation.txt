@@ -1,0 +1,250 @@
+Compiled from "DynamicAnimation.java"
+public abstract class yesman.epicfight.api.animation.types.DynamicAnimation {
+  protected final boolean isRepeat;
+
+  protected final float transitionTime;
+
+  protected yesman.epicfight.api.animation.AnimationClip animationClip;
+
+  public yesman.epicfight.api.animation.types.DynamicAnimation();
+    Code:
+       0: aload_0
+       1: ldc           #24                 // float 0.15f
+       3: iconst_0
+       4: invokespecial #27                 // Method "<init>":(FZ)V
+       7: return
+
+  public yesman.epicfight.api.animation.types.DynamicAnimation(float, boolean);
+    Code:
+       0: aload_0
+       1: invokespecial #31                 // Method java/lang/Object."<init>":()V
+       4: aload_0
+       5: iload_2
+       6: putfield      #33                 // Field isRepeat:Z
+       9: aload_0
+      10: fload_1
+      11: putfield      #35                 // Field transitionTime:F
+      14: return
+
+  public final yesman.epicfight.api.animation.Pose getRawPose(float);
+    Code:
+       0: aload_0
+       1: invokevirtual #41                 // Method getAnimationClip:()Lyesman/epicfight/api/animation/AnimationClip;
+       4: fload_1
+       5: invokevirtual #46                 // Method yesman/epicfight/api/animation/AnimationClip.getPoseInTime:(F)Lyesman/epicfight/api/animation/Pose;
+       8: areturn
+
+  public yesman.epicfight.api.animation.Pose getPoseByTime(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float, float);
+    Code:
+       0: aload_0
+       1: fload_2
+       2: invokevirtual #52                 // Method getRawPose:(F)Lyesman/epicfight/api/animation/Pose;
+       5: astore        4
+       7: aload_0
+       8: aload_0
+       9: aload         4
+      11: aload_1
+      12: fload_2
+      13: fload_3
+      14: invokevirtual #56                 // Method modifyPose:(Lyesman/epicfight/api/animation/types/DynamicAnimation;Lyesman/epicfight/api/animation/Pose;Lyesman/epicfight/world/capabilities/entitypatch/LivingEntityPatch;FF)V
+      17: aload         4
+      19: areturn
+
+  public void modifyPose(yesman.epicfight.api.animation.types.DynamicAnimation, yesman.epicfight.api.animation.Pose, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float, float);
+    Code:
+       0: return
+
+  public void putOnPlayer(yesman.epicfight.api.animation.AnimationPlayer, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+    Code:
+       0: aload_1
+       1: aload_0
+       2: invokevirtual #71                 // Method getAccessor:()Lyesman/epicfight/api/animation/AnimationManager$AnimationAccessor;
+       5: invokevirtual #77                 // Method yesman/epicfight/api/animation/AnimationPlayer.setPlayAnimation:(Lyesman/epicfight/api/asset/AssetAccessor;)V
+       8: aload_1
+       9: aload_2
+      10: invokevirtual #81                 // Method yesman/epicfight/api/animation/AnimationPlayer.tick:(Lyesman/epicfight/world/capabilities/entitypatch/LivingEntityPatch;)V
+      13: aload_1
+      14: aload_0
+      15: invokevirtual #71                 // Method getAccessor:()Lyesman/epicfight/api/animation/AnimationManager$AnimationAccessor;
+      18: aload_2
+      19: invokevirtual #85                 // Method yesman/epicfight/api/animation/AnimationPlayer.begin:(Lyesman/epicfight/api/asset/AssetAccessor;Lyesman/epicfight/world/capabilities/entitypatch/LivingEntityPatch;)V
+      22: return
+
+  public void begin(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+    Code:
+       0: return
+
+  public void tick(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+    Code:
+       0: return
+
+  public void end(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>, boolean);
+    Code:
+       0: return
+
+  public void linkTick(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>);
+    Code:
+       0: return
+
+  public boolean hasTransformFor(java.lang.String);
+    Code:
+       0: aload_0
+       1: invokevirtual #106                // Method getTransfroms:()Ljava/util/Map;
+       4: aload_1
+       5: invokeinterface #112,  2          // InterfaceMethod java/util/Map.containsKey:(Ljava/lang/Object;)Z
+      10: ireturn
+
+  public java.util.Optional<yesman.epicfight.api.client.animation.property.JointMaskEntry> getJointMaskEntry(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, boolean);
+    Code:
+       0: invokestatic  #127                // Method java/util/Optional.empty:()Ljava/util/Optional;
+       3: areturn
+
+  public yesman.epicfight.api.animation.types.EntityState getState(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float);
+    Code:
+       0: getstatic     #135                // Field yesman/epicfight/api/animation/types/EntityState.DEFAULT_STATE:Lyesman/epicfight/api/animation/types/EntityState;
+       3: areturn
+
+  public yesman.epicfight.api.utils.datastruct.TypeFlexibleHashMap<yesman.epicfight.api.animation.types.EntityState$StateFactor<?>> getStatesMap(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float);
+    Code:
+       0: new           #140                // class yesman/epicfight/api/utils/datastruct/TypeFlexibleHashMap
+       3: dup
+       4: iconst_0
+       5: invokespecial #143                // Method yesman/epicfight/api/utils/datastruct/TypeFlexibleHashMap."<init>":(Z)V
+       8: areturn
+
+  public <T> T getState(yesman.epicfight.api.animation.types.EntityState$StateFactor<T>, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float);
+    Code:
+       0: aload_1
+       1: invokevirtual #149                // Method yesman/epicfight/api/animation/types/EntityState$StateFactor.defaultValue:()Ljava/lang/Object;
+       4: areturn
+
+  public yesman.epicfight.api.animation.AnimationClip getAnimationClip();
+    Code:
+       0: aload_0
+       1: getfield      #154                // Field animationClip:Lyesman/epicfight/api/animation/AnimationClip;
+       4: areturn
+
+  public java.util.Map<java.lang.String, yesman.epicfight.api.animation.TransformSheet> getTransfroms();
+    Code:
+       0: aload_0
+       1: invokevirtual #41                 // Method getAnimationClip:()Lyesman/epicfight/api/animation/AnimationClip;
+       4: invokevirtual #158                // Method yesman/epicfight/api/animation/AnimationClip.getJointTransforms:()Ljava/util/Map;
+       7: areturn
+
+  public float getPlaySpeed(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.animation.types.DynamicAnimation);
+    Code:
+       0: fconst_1
+       1: freturn
+
+  public yesman.epicfight.api.animation.TransformSheet getCoord();
+    Code:
+       0: aload_0
+       1: invokevirtual #106                // Method getTransfroms:()Ljava/util/Map;
+       4: ldc           #165                // String Root
+       6: invokeinterface #112,  2          // InterfaceMethod java/util/Map.containsKey:(Ljava/lang/Object;)Z
+      11: ifeq          31
+      14: aload_0
+      15: invokevirtual #106                // Method getTransfroms:()Ljava/util/Map;
+      18: ldc           #165                // String Root
+      20: invokeinterface #169,  2          // InterfaceMethod java/util/Map.get:(Ljava/lang/Object;)Ljava/lang/Object;
+      25: checkcast     #171                // class yesman/epicfight/api/animation/TransformSheet
+      28: goto          34
+      31: getstatic     #175                // Field yesman/epicfight/api/animation/TransformSheet.EMPTY_SHEET:Lyesman/epicfight/api/animation/TransformSheet;
+      34: areturn
+
+  public void setTotalTime(float);
+    Code:
+       0: aload_0
+       1: invokevirtual #41                 // Method getAnimationClip:()Lyesman/epicfight/api/animation/AnimationClip;
+       4: fload_1
+       5: invokevirtual #180                // Method yesman/epicfight/api/animation/AnimationClip.setClipTime:(F)V
+       8: return
+
+  public float getTotalTime();
+    Code:
+       0: aload_0
+       1: invokevirtual #41                 // Method getAnimationClip:()Lyesman/epicfight/api/animation/AnimationClip;
+       4: invokevirtual #186                // Method yesman/epicfight/api/animation/AnimationClip.getClipTime:()F
+       7: freturn
+
+  public float getTransitionTime();
+    Code:
+       0: aload_0
+       1: getfield      #35                 // Field transitionTime:F
+       4: freturn
+
+  public boolean isRepeat();
+    Code:
+       0: aload_0
+       1: getfield      #33                 // Field isRepeat:Z
+       4: ireturn
+
+  public boolean canBePlayedReverse();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public net.minecraft.resources.ResourceLocation getRegistryName();
+    Code:
+       0: ldc           #193                // String
+       2: invokestatic  #199                // Method yesman/epicfight/main/EpicFightMod.identifier:(Ljava/lang/String;)Lnet/minecraft/resources/ResourceLocation;
+       5: areturn
+
+  public int getId();
+    Code:
+       0: iconst_m1
+       1: ireturn
+
+  public <V> java.util.Optional<V> getProperty(yesman.epicfight.api.animation.property.AnimationProperty<V>);
+    Code:
+       0: invokestatic  #127                // Method java/util/Optional.empty:()Ljava/util/Optional;
+       3: areturn
+
+  public boolean isBasicAttackAnimation();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public boolean isMainFrameAnimation();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public boolean isReboundAnimation();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public boolean isMetaAnimation();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public boolean isClientAnimation();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public boolean isStaticAnimation();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public abstract <A extends yesman.epicfight.api.animation.types.DynamicAnimation> yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation> getAccessor();
+
+  public abstract yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation> getRealAnimation();
+
+  public boolean isLinkAnimation();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public boolean doesHeadRotFollowEntityHead();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public void renderDebugging(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.MultiBufferSource, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float, float);
+    Code:
+       0: return
+}

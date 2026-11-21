@@ -1,0 +1,13 @@
+Compiled from "AnimationProperty.java"
+public abstract class yesman.epicfight.api.animation.property.AnimationProperty<T> {
+  private static final java.util.Map<java.lang.String, yesman.epicfight.api.animation.property.AnimationProperty<?>> SERIALIZABLE_ANIMATION_PROPERTY_KEYS;
+  private final com.mojang.serialization.Codec<T> codecs;
+  private final java.lang.String name;
+  public static <T> yesman.epicfight.api.animation.property.AnimationProperty<T> getSerializableProperty(java.lang.String);
+  public yesman.epicfight.api.animation.property.AnimationProperty(java.lang.String, com.mojang.serialization.Codec<T>);
+  public yesman.epicfight.api.animation.property.AnimationProperty(java.lang.String);
+  public T parseFrom(com.google.gson.JsonElement);
+  public com.mojang.serialization.Codec<T> getCodecs();
+  private void lambda$parseFrom$0(java.lang.String);
+  static {};
+}

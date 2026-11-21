@@ -1,0 +1,8 @@
+Compiled from "EntityState.java"
+public class yesman.epicfight.api.animation.types.EntityState$StateFactor<T> implements yesman.epicfight.api.utils.datastruct.TypeFlexibleHashMap$TypeKey<T> {
+  private final java.lang.String name;
+  private final T defaultValue;
+  public yesman.epicfight.api.animation.types.EntityState$StateFactor(java.lang.String, T);
+  public java.lang.String toString();
+  public T defaultValue();
+}

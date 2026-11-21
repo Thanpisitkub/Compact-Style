@@ -1,0 +1,27 @@
+Compiled from "AnimationProperty.java"
+public class yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<T> extends yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<T> {
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Boolean> STOP_MOVEMENT;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Boolean> REMOVE_DELTA_MOVEMENT;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Boolean> MOVE_VERTICAL;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.utils.TimePairList> NO_GRAVITY_TIME;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.animation.TransformSheet> COORD;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Boolean> MOVE_ON_LINK;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.utils.TimePairList> MOVE_TIME;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.animation.property.MoveCoordFunctions$MoveCoordSetter> COORD_SET_BEGIN;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.animation.property.MoveCoordFunctions$MoveCoordSetter> COORD_SET_TICK;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.animation.property.MoveCoordFunctions$MoveCoordGetter> COORD_GET;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Boolean> AFFECT_SPEED;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Boolean> CANCELABLE_MOVE;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Boolean> IS_DEATH_ANIMATION;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.utils.TimePairList> COORD_UPDATE_TIME;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Boolean> RESET_PLAYER_COMBO_COUNTER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.animation.property.AnimationProperty$DestLocationProvider> DEST_LOCATION_PROVIDER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.animation.property.AnimationProperty$YRotProvider> ENTITY_YROT_PROVIDER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<yesman.epicfight.api.animation.property.AnimationProperty$YRotProvider> DEST_COORD_YROT_PROVIDER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Integer> COORD_START_KEYFRAME_INDEX;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Integer> COORD_DEST_KEYFRAME_INDEX;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<java.lang.Boolean> SYNC_CAMERA;
+  public yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty(java.lang.String, com.mojang.serialization.Codec<T>);
+  public yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty();
+  static {};
+}

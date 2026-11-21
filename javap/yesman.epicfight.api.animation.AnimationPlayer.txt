@@ -1,0 +1,29 @@
+Compiled from "AnimationPlayer.java"
+public class yesman.epicfight.api.animation.AnimationPlayer {
+  protected float elapsedTime;
+  protected float prevElapsedTime;
+  protected boolean isEnd;
+  protected boolean doNotResetTime;
+  protected boolean reversed;
+  protected yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation> play;
+  public yesman.epicfight.api.animation.AnimationPlayer();
+  public void tick(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+  public void reset();
+  public void setPlayAnimation(yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>);
+  public yesman.epicfight.api.animation.Pose getCurrentPose(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float);
+  public float getElapsedTime();
+  public float getPrevElapsedTime();
+  public void setElapsedTimeCurrent(float);
+  public void setElapsedTime(float);
+  public void setElapsedTime(float, float);
+  public void begin(yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+  public yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation> getAnimation();
+  public yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation> getRealAnimation();
+  public void markDoNotResetTime();
+  public boolean isEnd();
+  public void terminate(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+  public boolean isReversed();
+  public void setReversed(boolean);
+  public boolean isEmpty();
+  public java.lang.String toString();
+}

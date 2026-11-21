@@ -1,0 +1,8 @@
+Compiled from "AnimationManager.java"
+public class yesman.epicfight.api.animation.AnimationManager$AnimationRegistryEvent extends net.minecraftforge.eventbus.api.Event implements net.minecraftforge.fml.event.IModBusEvent {
+  private java.util.List<yesman.epicfight.api.animation.AnimationManager$AnimationBuilder> builders;
+  private java.util.Set<java.lang.String> namespaces;
+  public yesman.epicfight.api.animation.AnimationManager$AnimationRegistryEvent();
+  public void newBuilder(java.lang.String, java.util.function.Consumer<yesman.epicfight.api.animation.AnimationManager$AnimationBuilder>);
+  public java.util.List<yesman.epicfight.api.animation.AnimationManager$AnimationBuilder> getBuilders();
+}

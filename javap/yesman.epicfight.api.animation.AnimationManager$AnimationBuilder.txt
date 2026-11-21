@@ -1,0 +1,12 @@
+Compiled from "AnimationManager.java"
+public final class yesman.epicfight.api.animation.AnimationManager$AnimationBuilder extends java.lang.Record {
+  private final java.lang.String namespace;
+  private final java.util.function.Consumer<yesman.epicfight.api.animation.AnimationManager$AnimationBuilder> task;
+  public yesman.epicfight.api.animation.AnimationManager$AnimationBuilder(java.lang.String, java.util.function.Consumer<yesman.epicfight.api.animation.AnimationManager$AnimationBuilder>);
+  public <T extends yesman.epicfight.api.animation.types.StaticAnimation> yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<T> nextAccessor(java.lang.String, java.util.function.Function<yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<T>, T>);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public java.lang.String namespace();
+  public java.util.function.Consumer<yesman.epicfight.api.animation.AnimationManager$AnimationBuilder> task();
+}

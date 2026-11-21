@@ -1,0 +1,44 @@
+Compiled from "EntityState.java"
+public class yesman.epicfight.api.animation.types.EntityState {
+  public static final yesman.epicfight.api.animation.types.EntityState DEFAULT_STATE;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> TURNING_LOCKED;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> MOVEMENT_LOCKED;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> ATTACKING;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> CAN_BASIC_ATTACK;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> CAN_SKILL_EXECUTION;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> CAN_USE_ITEM;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> CAN_SWITCH_HAND_ITEM;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> INACTION;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> KNOCKDOWN;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> LOCKON_ROTATE;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Boolean> UPDATE_LIVING_MOTION;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Integer> HURT_LEVEL;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.lang.Integer> PHASE_LEVEL;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.util.function.Function<net.minecraft.world.damagesource.DamageSource, yesman.epicfight.api.utils.AttackResult$ResultType>> ATTACK_RESULT;
+  public static final yesman.epicfight.api.animation.types.EntityState$StateFactor<java.util.function.Consumer<net.minecraftforge.event.entity.ProjectileImpactEvent>> PROJECTILE_IMPACT_RESULT;
+  private final yesman.epicfight.api.utils.datastruct.TypeFlexibleHashMap<yesman.epicfight.api.animation.types.EntityState$StateFactor<?>> stateMap;
+  public yesman.epicfight.api.animation.types.EntityState(yesman.epicfight.api.utils.datastruct.TypeFlexibleHashMap<yesman.epicfight.api.animation.types.EntityState$StateFactor<?>>);
+  public <T> void setState(yesman.epicfight.api.animation.types.EntityState$StateFactor<T>, T);
+  public <T> T getState(yesman.epicfight.api.animation.types.EntityState$StateFactor<T>);
+  public yesman.epicfight.api.utils.datastruct.TypeFlexibleHashMap<yesman.epicfight.api.animation.types.EntityState$StateFactor<?>> getStateMap();
+  public boolean turningLocked();
+  public boolean movementLocked();
+  public boolean attacking();
+  public yesman.epicfight.api.utils.AttackResult$ResultType attackResult(net.minecraft.world.damagesource.DamageSource);
+  public void setProjectileImpactResult(net.minecraftforge.event.entity.ProjectileImpactEvent);
+  public boolean canBasicAttack();
+  public boolean canUseSkill();
+  public boolean canUseItem();
+  public boolean canSwitchHoldingItem();
+  public boolean inaction();
+  public boolean updateLivingMotion();
+  public boolean hurt();
+  public int hurtLevel();
+  public boolean knockDown();
+  public boolean lockonRotate();
+  public int getLevel();
+  public java.lang.String toString();
+  private static void lambda$static$1(net.minecraftforge.event.entity.ProjectileImpactEvent);
+  private static yesman.epicfight.api.utils.AttackResult$ResultType lambda$static$0(net.minecraft.world.damagesource.DamageSource);
+  static {};
+}

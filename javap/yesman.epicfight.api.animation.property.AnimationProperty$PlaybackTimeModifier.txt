@@ -1,0 +1,4 @@
+Compiled from "AnimationProperty.java"
+public interface yesman.epicfight.api.animation.property.AnimationProperty$PlaybackTimeModifier {
+  public abstract com.mojang.datafixers.util.Pair<java.lang.Float, java.lang.Float> modify(yesman.epicfight.api.animation.types.DynamicAnimation, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float, float, float);
+}

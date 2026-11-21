@@ -1,0 +1,12 @@
+yesman/epicfight/api/forgeevent/
+yesman/epicfight/api/forgeevent/BattleModeSustainableEvent.class
+yesman/epicfight/api/forgeevent/ChangePlayerModeEvent.class
+yesman/epicfight/api/forgeevent/EntityPatchRegistryEvent.class
+yesman/epicfight/api/forgeevent/EntityStunEvent.class
+yesman/epicfight/api/forgeevent/InitAnimatorEvent.class
+yesman/epicfight/api/forgeevent/InnateSkillChangeEvent.class
+yesman/epicfight/api/forgeevent/SkillBuildEvent$ModRegistryWorker$SkillCreateEvent.class
+yesman/epicfight/api/forgeevent/SkillBuildEvent$ModRegistryWorker.class
+yesman/epicfight/api/forgeevent/SkillBuildEvent.class
+yesman/epicfight/api/forgeevent/SkillLootTableRegistryEvent.class
+yesman/epicfight/api/forgeevent/WeaponCapabilityPresetRegistryEvent.class

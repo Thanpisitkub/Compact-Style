@@ -1,0 +1,7 @@
+assets/epicfight/models/item/dagger.json
+assets/epicfight/models/item/diamond_dagger.json
+assets/epicfight/models/item/golden_dagger.json
+assets/epicfight/models/item/iron_dagger.json
+assets/epicfight/models/item/netherite_dagger.json
+assets/epicfight/models/item/stone_dagger.json
+assets/epicfight/models/item/wooden_dagger.json

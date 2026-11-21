@@ -1,0 +1,11 @@
+Compiled from "AnimationProperty.java"
+public class yesman.epicfight.api.animation.property.AnimationProperty$AttackAnimationProperty<T> extends yesman.epicfight.api.animation.property.AnimationProperty$ActionAnimationProperty<T> {
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackAnimationProperty<java.lang.Boolean> FIXED_MOVE_DISTANCE;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackAnimationProperty<java.lang.Float> ATTACK_SPEED_FACTOR;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackAnimationProperty<java.lang.Float> BASIS_ATTACK_SPEED;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackAnimationProperty<java.lang.Integer> EXTRA_COLLIDERS;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$AttackAnimationProperty<java.lang.Float> REACH;
+  public yesman.epicfight.api.animation.property.AnimationProperty$AttackAnimationProperty(java.lang.String, com.mojang.serialization.Codec<T>);
+  public yesman.epicfight.api.animation.property.AnimationProperty$AttackAnimationProperty();
+  static {};
+}

@@ -1,0 +1,10 @@
+assets/epicfight/textures/item/diamond_dagger.png
+assets/epicfight/textures/item/golden_dagger.png
+assets/epicfight/textures/item/iron_dagger.png
+assets/epicfight/textures/item/netherite_dagger.png
+assets/epicfight/textures/item/stone_dagger.png
+assets/epicfight/textures/item/wooden_dagger.png
+packs/epicfight_legacy/assets/epicfight/textures/item/diamond_dagger.png
+packs/epicfight_legacy/assets/epicfight/textures/item/golden_dagger.png
+packs/epicfight_legacy/assets/epicfight/textures/item/netherite_dagger.png
+packs/epicfight_legacy/assets/epicfight/textures/item/stone_dagger.png

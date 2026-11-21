@@ -1,0 +1,10 @@
+yesman/epicfight/api/animation/AnimationPlayer.class
+yesman/epicfight/api/animation/types/AttackAnimation.class
+yesman/epicfight/api/animation/types/ConcurrentLinkAnimation.class
+yesman/epicfight/api/animation/types/StaticAnimation.class
+yesman/epicfight/api/animation/types/DynamicAnimation.class
+yesman/epicfight/api/animation/types/ActionAnimation.class
+yesman/epicfight/api/animation/types/MovementAnimation.class
+yesman/epicfight/api/animation/types/LinkAnimation.class
+yesman/epicfight/api/animation/types/grappling/GrapplingTryAnimation.class
+yesman/epicfight/api/client/animation/AnimationSubFileReader$PovAnimationType$1.class

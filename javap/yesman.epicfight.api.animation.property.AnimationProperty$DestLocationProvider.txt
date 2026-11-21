@@ -1,0 +1,4 @@
+Compiled from "AnimationProperty.java"
+public interface yesman.epicfight.api.animation.property.AnimationProperty$DestLocationProvider {
+  public abstract net.minecraft.world.phys.Vec3 get(yesman.epicfight.api.animation.types.DynamicAnimation, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+}

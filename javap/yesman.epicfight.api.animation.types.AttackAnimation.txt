@@ -1,0 +1,47 @@
+Compiled from "AttackAnimation.java"
+public class yesman.epicfight.api.animation.types.AttackAnimation extends yesman.epicfight.api.animation.types.ActionAnimation {
+  public static final yesman.epicfight.api.animation.AnimationVariables$SharedAnimationVariableKey<java.util.List<net.minecraft.world.entity.Entity>> ATTACK_TRIED_ENTITIES;
+  public static final yesman.epicfight.api.animation.AnimationVariables$SharedAnimationVariableKey<java.util.List<net.minecraft.world.entity.LivingEntity>> ACTUALLY_HIT_ENTITIES;
+  public final yesman.epicfight.api.animation.types.AttackAnimation$Phase[] phases;
+  public yesman.epicfight.api.animation.types.AttackAnimation(float, float, float, float, float, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.AttackAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>);
+  public yesman.epicfight.api.animation.types.AttackAnimation(float, float, float, float, float, net.minecraft.world.InteractionHand, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.AttackAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>);
+  public yesman.epicfight.api.animation.types.AttackAnimation(float, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.AttackAnimation>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>, yesman.epicfight.api.animation.types.AttackAnimation$Phase...);
+  public yesman.epicfight.api.animation.types.AttackAnimation(float, float, float, float, float, net.minecraft.world.InteractionHand, yesman.epicfight.api.collider.Collider, yesman.epicfight.api.animation.Joint, java.lang.String, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>);
+  public yesman.epicfight.api.animation.types.AttackAnimation(float, java.lang.String, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.model.Armature>, yesman.epicfight.api.animation.types.AttackAnimation$Phase...);
+  protected void bindPhaseState(yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  public void begin(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+  public void linkTick(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>);
+  public void tick(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>);
+  public void end(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>, boolean);
+  protected void attackTick(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.asset.AssetAccessor<? extends yesman.epicfight.api.animation.types.DynamicAnimation>);
+  protected void hurtCollidingEntities(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float, float, yesman.epicfight.api.animation.types.EntityState, yesman.epicfight.api.animation.types.EntityState, yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  public net.minecraft.world.entity.LivingEntity getTrueEntity(net.minecraft.world.entity.Entity);
+  protected int getMaxStrikes(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  protected net.minecraft.sounds.SoundEvent getSwingSound(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  protected net.minecraft.sounds.SoundEvent getHitSound(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  public yesman.epicfight.world.damagesource.EpicFightDamageSource getEpicFightDamageSource(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, net.minecraft.world.entity.Entity, yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  public yesman.epicfight.world.damagesource.EpicFightDamageSource getEpicFightDamageSource(net.minecraft.world.damagesource.DamageSource, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, net.minecraft.world.entity.Entity, yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  protected void spawnHitParticle(net.minecraft.server.level.ServerLevel, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, net.minecraft.world.entity.Entity, yesman.epicfight.api.animation.types.AttackAnimation$Phase);
+  public float getPlaySpeed(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, yesman.epicfight.api.animation.types.DynamicAnimation);
+  public <V, A extends yesman.epicfight.api.animation.types.AttackAnimation> A addProperty(yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<V>, V);
+  public <V, A extends yesman.epicfight.api.animation.types.AttackAnimation> A addProperty(yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<V>, V, int);
+  public <A extends yesman.epicfight.api.animation.types.AttackAnimation> A removeProperty(yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<?>);
+  public <A extends yesman.epicfight.api.animation.types.AttackAnimation> A removeProperty(yesman.epicfight.api.animation.property.AnimationProperty$AttackPhaseProperty<?>, int);
+  public yesman.epicfight.api.animation.types.AttackAnimation$Phase getPhaseByTime(float);
+  public int getPhaseOrderByTime(float);
+  public java.lang.Object getModifiedLinkState(yesman.epicfight.api.animation.types.EntityState$StateFactor<?>, java.lang.Object, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float);
+  public void renderDebugging(com.mojang.blaze3d.vertex.PoseStack, net.minecraft.client.renderer.MultiBufferSource, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch<?>, float, float);
+  private static java.lang.Float lambda$getPlaySpeed$11(yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch, yesman.epicfight.api.animation.types.AttackAnimation$Phase, java.lang.Float);
+  private static void lambda$getEpicFightDamageSource$10(yesman.epicfight.world.damagesource.EpicFightDamageSource, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch);
+  private static void lambda$getEpicFightDamageSource$9(yesman.epicfight.world.damagesource.EpicFightDamageSource, yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch, java.util.function.Function);
+  private static void lambda$getEpicFightDamageSource$8(yesman.epicfight.world.damagesource.EpicFightDamageSource, java.util.Set);
+  private static void lambda$getEpicFightDamageSource$7(yesman.epicfight.world.damagesource.EpicFightDamageSource, java.util.Set);
+  private static void lambda$getEpicFightDamageSource$6(yesman.epicfight.world.damagesource.EpicFightDamageSource, yesman.epicfight.world.damagesource.StunType);
+  private static void lambda$getEpicFightDamageSource$5(yesman.epicfight.world.damagesource.EpicFightDamageSource, yesman.epicfight.api.utils.math.ValueModifier);
+  private static void lambda$getEpicFightDamageSource$4(yesman.epicfight.world.damagesource.EpicFightDamageSource, yesman.epicfight.api.utils.math.ValueModifier);
+  private static void lambda$getEpicFightDamageSource$3(yesman.epicfight.world.damagesource.EpicFightDamageSource, yesman.epicfight.api.utils.math.ValueModifier);
+  private static java.lang.Integer lambda$getMaxStrikes$2(yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch, yesman.epicfight.api.animation.types.AttackAnimation$Phase, yesman.epicfight.api.utils.math.ValueModifier);
+  private static java.util.List lambda$static$1(yesman.epicfight.api.animation.Animator);
+  private static java.util.List lambda$static$0(yesman.epicfight.api.animation.Animator);
+  static {};
+}

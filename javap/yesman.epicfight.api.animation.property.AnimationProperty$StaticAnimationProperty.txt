@@ -1,0 +1,20 @@
+Compiled from "AnimationProperty.java"
+public class yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<T> extends yesman.epicfight.api.animation.property.AnimationProperty<T> {
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.animation.property.AnimationEvent<?, ?>>> TICK_EVENTS;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.animation.property.AnimationEvent$SimpleEvent<?>>> ON_BEGIN_EVENTS;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.animation.property.AnimationEvent$SimpleEvent<?>>> ON_END_EVENTS;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.property.AnimationEvent$SimpleEvent<yesman.epicfight.api.animation.property.AnimationEvent$E2<yesman.epicfight.world.capabilities.item.CapabilityItem, yesman.epicfight.world.capabilities.item.CapabilityItem>>> ON_ITEM_CHANGE_EVENT;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.property.AnimationProperty$PlaybackSpeedModifier> PLAY_SPEED_MODIFIER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.property.AnimationProperty$PlaybackTimeModifier> ELAPSED_TIME_MODIFIER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.property.AnimationProperty$PoseModifier> POSE_MODIFIER;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.lang.Boolean> FIXED_HEAD_ROTATION;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.Map<net.minecraft.resources.ResourceLocation, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>>> TRANSITION_ANIMATIONS_FROM;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.Map<net.minecraft.resources.ResourceLocation, yesman.epicfight.api.animation.AnimationManager$AnimationAccessor<? extends yesman.epicfight.api.animation.types.StaticAnimation>>> TRANSITION_ANIMATIONS_TO;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.lang.Boolean> NO_PHYSICS;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.physics.ik.InverseKinematicsSimulator$InverseKinematicsDefinition>> IK_DEFINITION;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<java.util.List<yesman.epicfight.api.physics.ik.InverseKinematicsSimulator$BakedInverseKinematicsDefinition>> BAKED_IK_DEFINITION;
+  public static final yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty<yesman.epicfight.api.animation.LivingMotion> RESET_LIVING_MOTION;
+  public yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty(java.lang.String, com.mojang.serialization.Codec<T>);
+  public yesman.epicfight.api.animation.property.AnimationProperty$StaticAnimationProperty();
+  static {};
+}
