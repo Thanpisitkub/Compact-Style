@@ -26,6 +26,16 @@ jobs:
         with:
           gradle-version: '8.8'
 
+      - name: Download Epic Fight jar (compile only, not stored in repo)
+        run: |
+          set -euo pipefail
+          mkdir -p libs
+          url="https://api.modrinth.com/v2/project/epic-fight/version?loaders=%5B%22forge%22%5D&game_versions=%5B%221.20.1%22%5D"
+          file_url=$(curl -fsSL "$url" | jq -r '[.[] | select(.version_number | contains("20.14.17"))][0].files | (map(select(.primary)) + .)[0].url')
+          if [ -z "$file_url" ] || [ "$file_url" = "null" ]; then echo "Epic Fight 20.14.17 not found" >&2; exit 1; fi
+          curl -fsSL -o libs/epicfight-20.14.17.jar "$file_url"
+          ls -l libs
+
       - name: Build
         shell: bash
         run: |

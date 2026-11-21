@@ -13,8 +13,15 @@ minecraft {
     mappings channel: 'official', version: '1.20.1'
 }
 
+repositories {
+    // Epic Fight jar is downloaded into libs/ by the workflow
+    flatDir { dir 'libs' }
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.3.0'
+
+    compileOnly fg.deobf('local:epicfight:20.14.17')
 }
 
 tasks.named('jar').configure {
