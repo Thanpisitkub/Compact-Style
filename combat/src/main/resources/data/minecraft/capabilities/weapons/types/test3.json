@@ -1,0 +1,52 @@
+{
+  "collider": {
+    "number": 1,
+    "size": [
+      0.4,
+      0.4,
+      0.4
+    ],
+    "center": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "hit_particle": "effs:kokusen_particle_1",
+  "hit_sound": "epicfight:entity.hit.blunt",
+  "livingmotion_modifier": {
+    "one_hand": {
+      "idle": "wom:biped/living/enderblaster_twohand_idle",
+      "run": "wom:biped/living/agony_run",
+      "walk": "wom:biped/living/napoleon_walk"
+    }
+  },
+  "swing_sound": "epicfight:entity.weapon.whoosh",
+  "combos": {
+    "one_hand": [
+      "wom:biped/combat/enderblaster_twohand_auto_2",
+      "wom:biped/combat/enderblaster_twohand_auto_1",
+      "wom:biped/combat/enderblaster_twohand_auto_3",
+      "epicsanji:biped/skill/sanji_diable_auto_2",
+      "epicsanji:biped/combat/sanji_auto_3",
+      "epicsanji:biped/combat/sanji_auto_1",
+      "epicsanji:biped/skill/sanji_diable_antimaner",
+      "wom:biped/combat/enderblaster_onehand_jumpkick"
+    ]
+  },
+  "styles": {
+    "default": "one_hand",
+    "cases": [
+      {
+        "style": "one_hand",
+        "conditions": [
+          {
+            "predicate": "epicfight:offhand_item_category",
+            "category": "fist"
+          }
+        ]
+      }
+    ]
+  },
+  "category": "fist"
+}

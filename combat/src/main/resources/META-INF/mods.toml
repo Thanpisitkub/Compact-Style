@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="combat"
+version="1.0.0"
+displayName="Combat"
+description='''
+Combat: adds 2 invisible-in-hand fist items and the knife for the Epic Fight datapack to the creative inventory.
+'''
+
+[[dependencies.combat]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.combat]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
+
+# Load after Epic Fight so the netherite_dagger data in this mod overrides Epic Fight's own.
+[[dependencies.combat]]
+    modId="epicfight"
+    mandatory=false
+    versionRange="[0,)"
+    ordering="AFTER"
+    side="BOTH"

@@ -1,0 +1,23 @@
+{
+  "collider": {
+    "number": 3,
+    "size": [
+      0.4,
+      0.4,
+      0.4
+    ],
+    "center": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "attributes": {
+    "one_hand": {
+      "impact": 2.0,
+      "damage_bonus": 5.0,
+      "speed_bonus": 2.0
+    }
+  },
+  "type": "minecraft:test2"
+}
