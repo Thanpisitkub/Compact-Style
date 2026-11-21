@@ -1,0 +1,70 @@
+name: Combat inspect (Epic Fight / WOM API dump)
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches: [ combat-inspect ]
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Download Epic Fight and WOM jars
+        run: |
+          set -euo pipefail
+          mkdir -p libs
+          get() {
+            url="https://api.modrinth.com/v2/project/$1/version?loaders=%5B%22forge%22%5D&game_versions=%5B%221.20.1%22%5D"
+            file_url=$(curl -fsSL "$url" | jq -r --arg v "$2" '[.[] | select(.version_number | contains($v))][0].files | (map(select(.primary)) + .)[0].url')
+            curl -fsSL -o "libs/$3" "$file_url"
+          }
+          get epic-fight 20.14.17 epicfight.jar
+          get oWx9p4ug 2.0.171 wom.jar
+          ls -l libs
+
+      - name: Dump API info
+        run: |
+          mkdir -p out
+          EF=libs/epicfight.jar
+          WOM=libs/wom.jar
+          unzip -Z1 $EF > out/ef_all_entries.txt
+          unzip -Z1 $WOM > out/wom_all_entries.txt
+          # dagger item model + related
+          unzip -Z1 $EF | grep -E "models/item/.*dagger" > out/ef_dagger_model_files.txt || true
+          for f in $(cat out/ef_dagger_model_files.txt); do echo "=== $f"; unzip -p $EF "$f"; echo; done > out/ef_dagger_models.txt
+          unzip -Z1 $EF | grep -E "textures/item/.*dagger" > out/ef_dagger_textures.txt || true
+          # class dumps
+          mkdir -p out/javap
+          for c in $(unzip -Z1 $EF | grep -E "yesman/epicfight/api/animation/(AnimationManager|AnimationPlayer|Animator)[^/]*\.class|yesman/epicfight/api/animation/property/AnimationProperty[^/]*\.class|yesman/epicfight/api/animation/types/(StaticAnimation|DynamicAnimation|AttackAnimation|BasicAttackAnimation|EntityState)[^/]*\.class|api/forgeevent/[^/]*Animation[^/]*\.class|world/capabilities/entitypatch/(LivingEntityPatch|player/PlayerPatch)\.class" | sed 's/\.class$//'); do
+            javap -p -cp $EF "$(echo $c | tr / .)" > "out/javap/$(echo $c | tr / .).txt" 2>&1 || true
+          done
+          # forge events in ef
+          unzip -Z1 $EF | grep -E "api/forgeevent/" > out/ef_forgeevents.txt || true
+          # WOM
+          unzip -Z1 $WOM | grep -iE "animation|ender" > out/wom_anim_classes.txt || true
+          for c in $(unzip -Z1 $WOM | grep -E "WOMAnimations\.class|gameasset/.*Animations?[^/]*\.class" | sed 's/\.class$//' | head -20); do
+            javap -p -cp $WOM:$EF "$(echo $c | tr / .)" > "out/javap/$(echo $c | tr / .).txt" 2>&1 || true
+          done
+          # all strings that mention enderblaster (registry names)
+          mkdir -p w && cd w && unzip -q ../$WOM && grep -rhoaE "biped/combat/enderblaster[a-z_0-9]*|enderblaster[a-z_0-9]*" . | sort -u > ../out/wom_enderblaster_names.txt || true
+          cd ..
+          ls -R out | head -100
+
+      - name: Publish results
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout --orphan combat-inspect-out
+          git rm -rf . -q || true
+          mv /home/runner/work/*/*/out/* . 2>/dev/null || cp -r "$GITHUB_WORKSPACE/out/"* . 2>/dev/null || true
+          git add -A
+          git commit -q -m "inspect output" || true
+          git push -f origin combat-inspect-out
