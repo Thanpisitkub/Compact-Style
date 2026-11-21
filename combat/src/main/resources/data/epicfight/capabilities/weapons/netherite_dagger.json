@@ -17,7 +17,7 @@
       "impact": 2.0,
       "max_strikes": 3,
       "armor_negation": 50.0,
-      "damage_bonus": 4.5,
+      "damage_bonus": 5.5,
       "speed_bonus": 2.0
     }
   },

@@ -16,8 +16,8 @@
     "one_hand": {
       "impact": 2.0,
       "damage_bonus": 5.0,
-      "speed_bonus": 2.0
+      "speed_bonus": 1.9
     }
   },
-  "type": "minecraft:test2"
+  "type": "minecraft:test3"
 }
